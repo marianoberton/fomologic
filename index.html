@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FOMO | Business Engineering & AI</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              canvas: '#FAFAFA',
+              ink: '#272727',
+              charcoal: '#272727',
+              mineral: '#1C1C1C',
+              'surface-mineral': '#1C1C1C',
+              structure: '#E5E5E5',
+              surface: '#F2F2F2',
+              'surface-dark': '#272727',
+              accent: {
+                orange: '#EE9B00',
+                lime: '#CED600',
+              }
+            },
+            fontFamily: {
+              sans: ['var(--font-sans)'],
+              display: ['var(--font-display)'],
+              body: ['var(--font-sans)'],
+            },
+            borderRadius: {
+              '4xl': '2.5rem',
+              '5xl': '3rem',
+            },
+            spacing: {
+              '128': '32rem',
+            },
+            keyframes: {
+              'fade-in-up': {
+                '0%': { opacity: '0', transform: 'translateY(40px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              'float': {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              'float-slow': {
+                 '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+                 '50%': { transform: 'translateY(-15px) rotate(2deg)' },
+              },
+              'marquee': {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              },
+              'spin-slow': {
+                '0%': { transform: 'rotate(0deg)' },
+                '100%': { transform: 'rotate(360deg)' },
+              },
+              'dash': {
+                'to': { 'stroke-dashoffset': '-200' },
+              },
+              'flow': {
+                '0%': { transform: 'translateY(-120%)', opacity: '0' },
+                '10%': { opacity: '1' },
+                '90%': { opacity: '1' },
+                '100%': { transform: 'translateY(350%)', opacity: '0' },
+              },
+              'flow-h': {
+                '0%': { left: '-20%', opacity: '0' },
+                '10%': { opacity: '1' },
+                '90%': { opacity: '1' },
+                '100%': { left: '120%', opacity: '0' },
+              },
+              'signal': {
+                '0%': { top: '0%', opacity: '0' },
+                '10%': { opacity: '1' },
+                '90%': { opacity: '1' },
+                '100%': { top: '100%', opacity: '0' },
+              }
+            },
+            animation: {
+              'fade-in-up': 'fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'float': 'float 6s ease-in-out infinite',
+              'float-slow': 'float-slow 12s ease-in-out infinite',
+              'marquee': 'marquee 25s linear infinite',
+              'spin-slow': 'spin-slow 12s linear infinite',
+              'dash': 'dash 20s linear infinite',
+              'flow': 'flow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+              'flow-h': 'flow-h 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+              'signal': 'signal 2s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      :root {
+        --font-display: 'Manrope', sans-serif;
+        --font-sans: 'Karla', sans-serif;
+      }
+
+      h1, h2, h3, h4, h5, h6, .font-display {
+        letter-spacing: -0.025em;
+      }
+
+      p, .font-body, .font-sans {
+        letter-spacing: 0;
+      }
+
+
+      /* Smooth scrolling */
+      /* html {
+        scroll-behavior: smooth;
+      } */
+      
+      body {
+        overflow-x: hidden;
+      }
+      
+      /* Hide scrollbar for clean look */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #FAFAFA;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #E5E5E5;
+        border-radius: 100px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #EE9B00;
+      }
+
+      .text-balance {
+        text-wrap: balance;
+      }
+      
+      /* Custom selection color */
+      ::selection {
+        background-color: #CED600;
+        color: #272727;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom",
+    "@remix-run/router": "https://esm.sh/@remix-run/router@1.15.3",
+    "lucide-react": "https://esm.sh/lucide-react@0.263.1",
+    "three": "https://esm.sh/three@0.160.0",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.12?external=react,react-dom,three",
+    "@react-three/drei": "https://esm.sh/@react-three/drei@9.96.1?external=react,react-dom,three,@react-three/fiber",
+    "uuid": "https://esm.sh/uuid@9.0.1",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-canvas text-ink antialiased selection:bg-accent-lime selection:text-ink font-sans">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
