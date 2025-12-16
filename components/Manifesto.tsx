@@ -1,145 +1,174 @@
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 
-import React, { useEffect, useRef, useState } from 'react';
+gsap.registerPlugin(ScrollTrigger);
 
-// Sub-component for a single slide to handle its own visibility
-const ManifestoSlide: React.FC<{ children: React.ReactNode; delay?: number }> = ({ children, delay = 0 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+// --- DATA ---
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.4 } // Trigger when 40% visible
-    );
+const STEPS = [
+  {
+    id: 1,
+    fade: "Lo que te trajo hasta este nivel de facturación",
+    highlight: "es exactamente lo que te impide pasar al siguiente.",
+    theme: "light"
+  },
+  {
+    id: 2,
+    fade: "El mercado dejó de premiar el esfuerzo manual",
+    highlight: "y empezó a castigar la lentitud con irrelevancia.",
+    theme: "light"
+  },
+  {
+    id: 3,
+    fade: "Pagar sueldos ejecutivos para llenar celdas de Excel",
+    highlight: "no es gestión. Es vandalismo financiero.",
+    theme: "impact-1" // Brand Highlight
+  },
+  {
+    id: 4,
+    fade: "Mientras tu equipo se ahoga en burocracia operativa",
+    highlight: "tu competencia ya automatizó las decisiones que vos seguís discutiendo.",
+    theme: "light"
+  },
+  {
+    id: 5,
+    fade: "La era de la intuición se terminó.",
+    highlight: "Avanzar para no desaparecer.",
+    theme: "final" // Massive impact
+  }
+];
 
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div 
-      ref={ref} 
-      className={`min-h-screen w-full flex flex-col items-center justify-center snap-center relative px-6 md:px-12 transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
-    >
-      {children}
-    </div>
-  );
-};
+// --- COMPONENT ---
 
 const Manifesto: React.FC = () => {
-  return (
-    <section id="manifesto" className="relative z-20">
+  const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const slidesRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  useGSAP(() => {
+    if (!triggerRef.current || !containerRef.current) return;
+
+    const slides = slidesRef.current;
+    const totalSlides = slides.length;
+    
+    // Pin the container for a long scroll distance
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: triggerRef.current,
+        start: "top top",
+        end: `+=${totalSlides * 100}%`, // Scroll 100% of viewport height per slide
+        scrub: 1, // Smooth scrubbing
+        pin: true,
+        anticipatePin: 1,
+      }
+    });
+
+    slides.forEach((slide, i) => {
+      // Skip the first slide animation (it's already visible)
+      // Actually, we want a sequence:
+      // Slide 1 starts visible.
+      // Scroll -> Slide 1 fades out, Slide 2 fades in.
       
-      {/* --- SLIDE 1: CONTEXT --- */}
-      <ManifestoSlide>
-          <div className="flex flex-col items-center text-center max-w-5xl">
-            {/* Standard Eyebrow */}
-            <div className="flex items-center gap-3 mb-8">
-               <div className="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></div>
-               <span className="font-body text-xs uppercase tracking-widest text-gray-400">Contexto Global</span>
+      if (i === 0) return; // First slide is static initially
+
+      // Previous slide exit
+      tl.to(slides[i - 1], {
+        y: -100,
+        opacity: 0,
+        filter: "blur(10px)",
+        duration: 1,
+        ease: "power2.inOut"
+      }, `step-${i}`);
+
+      // Current slide enter
+      tl.fromTo(slide, 
+        { 
+          y: 100, 
+          opacity: 0, 
+          filter: "blur(10px)",
+          visibility: 'hidden'
+        },
+        { 
+          y: 0, 
+          opacity: 1, 
+          filter: "blur(0px)",
+          visibility: 'visible',
+          duration: 1,
+          ease: "power2.inOut" 
+        }, 
+        `step-${i}` // Sync with previous exit
+      );
+      
+      // Hold the slide for a bit before the next one starts (optional, but 'scrub' handles it)
+      tl.to({}, { duration: 0.5 }); 
+    });
+
+  }, { scope: containerRef });
+
+  return (
+    <section ref={triggerRef} className="relative w-full h-screen bg-canvas overflow-hidden">
+      
+      {/* Background Noise/Texture could go here */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat z-0"></div>
+
+      <div ref={containerRef} className="relative w-full h-full flex items-center justify-center max-w-[1600px] mx-auto px-6 md:px-12">
+        
+        {STEPS.map((step, index) => {
+          const isImpact = step.theme === 'impact-1';
+          const isFinal = step.theme === 'final';
+          
+          return (
+            <div 
+              key={step.id}
+              ref={(el) => (slidesRef.current[index] = el)}
+              className={`absolute w-full flex flex-col items-center justify-center text-center
+                ${index === 0 ? 'opacity-100 visible' : 'opacity-0 invisible'}
+              `}
+            >
+               {/* Content */}
+               <div className="max-w-6xl mx-auto flex flex-col gap-6 md:gap-10">
+                 
+                 {/* Fade Text - Lead in */}
+                 <p className={`font-display font-medium leading-[1.1] tracking-tight text-neutral-400 transition-colors duration-500
+                   ${isFinal ? 'text-3xl md:text-5xl' : 'text-3xl md:text-5xl lg:text-6xl'}
+                 `}>
+                   {step.fade}
+                 </p>
+
+                 {/* Highlight Text - Punchline */}
+                 <h2 className={`font-display font-extrabold leading-[0.9] tracking-[-0.04em] text-balance text-[#272727] transition-all duration-500
+                   ${isImpact ? 'text-5xl md:text-7xl lg:text-8xl' : 'text-4xl md:text-6xl lg:text-8xl'}
+                   ${isFinal ? 'text-6xl md:text-8xl lg:text-[10rem] mt-4 pb-20' : ''}
+                 `}>
+                    {step.highlight.includes("vandalismo financiero") ? (
+                       <>
+                         no es gestión. Es <br className="md:hidden" />
+                         <span className="relative inline-block mt-2 md:mt-0 px-4 py-1 -mx-4 -rotate-1">
+                           <span className="absolute inset-0 bg-accent-lime z-0 skew-x-[-12deg]"></span>
+                           <span className="relative z-10 text-[#272727]">vandalismo financiero.</span>
+                         </span>
+                       </>
+                    ) : (
+                      step.highlight
+                    )}
+                 </h2>
+
+               </div>
             </div>
-            
-            {/* Standard H2 Style */}
-            <h2 className="font-display font-semibold text-[8vw] md:text-[6vw] leading-[0.9] text-ink tracking-tighter text-balance">
-              El mundo cambió <br/>
-              <span className="text-gray-300 font-light">para siempre.</span>
-            </h2>
-            <p className="font-body text-xl md:text-3xl text-gray-400 mt-10 font-light max-w-3xl mx-auto leading-relaxed">
-               La revolución tecnológica no espera a nadie. Adaptarse ya no es una opción, es supervivencia.
-            </p>
-          </div>
-      </ManifestoSlide>
+          );
+        })}
 
-      {/* --- SLIDE 2: TRUTH --- */}
-      <ManifestoSlide>
-          <div className="flex flex-col items-center text-center max-w-5xl">
-             <div className="flex items-center gap-3 mb-8">
-               <div className="w-2 h-2 bg-accent-orange rounded-full animate-pulse"></div>
-               <span className="font-body text-xs uppercase tracking-widest text-gray-400">The Friction</span>
-            </div>
+      </div>
 
-             <h2 className="font-display font-semibold text-[8vw] md:text-[6vw] leading-[0.9] text-gray-300 tracking-tighter text-balance">
-              El talento humano es <br/>
-              <span className="text-ink">irreemplazable.</span>
-            </h2>
-            <p className="font-body text-xl md:text-3xl text-gray-400 mt-10 font-light max-w-3xl mx-auto leading-relaxed">
-               Pero gestionar una empresa moderna con procesos manuales del siglo pasado, sí lo es.
-            </p>
-          </div>
-      </ManifestoSlide>
-
-      {/* --- SLIDE 3: EQUATION --- */}
-      <ManifestoSlide>
-           <div className="w-full max-w-[1600px] mx-auto">
-             <div className="mb-16 flex justify-center">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-ink rounded-full"></div>
-                  <span className="font-body text-xs uppercase tracking-widest text-gray-400">The Fomo Equation</span>
-                </div>
-             </div>
-
-             {/* Grid Layout for Equation */}
-             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
-                
-                {/* CARD 1: 60% */}
-                <div className="bg-white border border-gray-200 p-8 md:p-12 rounded-[2.5rem] flex flex-col items-center justify-between min-h-[400px] md:min-h-[500px] hover:border-ink transition-colors duration-500 group shadow-sm">
-                   <div className="w-full">
-                      <div className="font-body text-xs text-gray-400 uppercase tracking-widest mb-4">Base Operativa</div>
-                      <div className="w-full h-[1px] bg-gray-100"></div>
-                   </div>
-                   
-                   {/* Raleway Black (font-black) for impact */}
-                   <div className="text-[8rem] md:text-[12rem] font-display font-black text-ink leading-none tracking-tighter group-hover:scale-105 transition-transform duration-500">
-                      60<span className="text-4xl md:text-6xl text-gray-300 align-top font-light">%</span>
-                   </div>
-                   
-                   <div className="text-center">
-                      <h3 className="font-display text-2xl md:text-3xl text-ink mb-2 font-bold">Automatización</h3>
-                      <p className="font-body text-sm md:text-base text-gray-400 font-light">Eliminación de fricción repetitiva.</p>
-                   </div>
-                </div>
-
-                {/* CARD 2: 30% */}
-                <div className="bg-[#F5F5F5] border border-transparent p-8 md:p-12 rounded-[2.5rem] flex flex-col items-center justify-between min-h-[400px] md:min-h-[500px] hover:bg-gray-200 transition-colors duration-500 group">
-                   <div className="w-full">
-                      <div className="font-body text-xs text-gray-400 uppercase tracking-widest mb-4">Inteligencia</div>
-                      <div className="w-full h-[1px] bg-gray-300"></div>
-                   </div>
-                   
-                   <div className="text-[8rem] md:text-[12rem] font-display font-black text-gray-400 leading-none tracking-tighter group-hover:text-ink transition-colors duration-500">
-                      30<span className="text-4xl md:text-6xl text-gray-300 align-top font-light">%</span>
-                   </div>
-                   
-                   <div className="text-center">
-                      <h3 className="font-display text-2xl md:text-3xl text-ink mb-2 font-bold">AI Agents</h3>
-                      <p className="font-body text-sm md:text-base text-gray-500 font-light">Toma de decisiones asistida.</p>
-                   </div>
-                </div>
-
-                {/* CARD 3: 10% (ACCENT) */}
-                <div className="bg-accent-lime p-8 md:p-12 rounded-[2.5rem] flex flex-col items-center justify-between min-h-[400px] md:min-h-[500px] shadow-2xl shadow-accent-lime/20 group hover:scale-[1.02] transition-transform duration-500">
-                   <div className="w-full">
-                      <div className="font-body text-xs text-ink/60 uppercase tracking-widest mb-4">Control</div>
-                      <div className="w-full h-[1px] bg-ink/10"></div>
-                   </div>
-                   
-                   <div className="text-[8rem] md:text-[12rem] font-display font-black text-ink leading-none tracking-tighter">
-                      10<span className="text-4xl md:text-6xl text-ink/40 align-top font-light">%</span>
-                   </div>
-                   
-                   <div className="text-center">
-                      <h3 className="font-display text-2xl md:text-3xl text-ink mb-2 font-bold">Estrategia Humana</h3>
-                      <p className="font-body text-sm md:text-base text-ink/70 font-light">Creatividad y dirección.</p>
-                   </div>
-                </div>
-
-             </div>
-           </div>
-      </ManifestoSlide>
+      {/* Progress Indicator (Optional) */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+         <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400">Scroll to Reveal</span>
+         <div className="w-[1px] h-12 bg-neutral-200 overflow-hidden">
+            <div className="w-full h-full bg-accent-lime animate-scroll-down"></div>
+         </div>
+      </div>
 
     </section>
   );

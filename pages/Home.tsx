@@ -2,6 +2,7 @@ import React from 'react';
 import Hero from '../components/Hero';
 import Marquee from '../components/Marquee';
 import Manifesto from '../components/Manifesto';
+import Methodology from '../components/Methodology';
 import System from '../components/System';
 import Team from '../components/Team';
 import Showcase from '../components/Showcase';
@@ -13,6 +14,7 @@ const Home: React.FC = () => {
     <>
       <Hero />
       <Manifesto />
+      <Methodology />
       <Marquee />
       <System />
       <Showcase />

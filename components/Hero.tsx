@@ -42,24 +42,23 @@ const Hero: React.FC = () => {
       {/* --- LAYER 1: CONTENT (Editorial Typography) --- */}
       <div className="relative z-20 w-full h-full flex flex-col justify-center max-w-[1600px] mx-auto pointer-events-none px-6 md:px-12">
         
-        <div className="w-full md:w-[70%] lg:w-[60%]">
+        <div className="w-full md:w-[65%] lg:w-[55%]">
           
       
           {/* Headline - Consistent Weights */}
-          <h1 className="font-display font-bold text-[12vw] md:text-[9rem] lg:text-[11rem] leading-[0.8] tracking-tighter text-[#272727] mb-10 animate-fade-in-up opacity-0 text-balance drop-shadow-sm origin-left transform" style={{ animationDelay: '0.2s' }}>
-            Evolución <br/>
-            con IA.
+          <h1 className="font-display font-bold text-[8vw] md:text-[5rem] lg:text-[6rem] leading-[0.9] tracking-tighter text-[#272727] mb-8 animate-fade-in-up opacity-0 text-balance drop-shadow-sm origin-left transform" style={{ animationDelay: '0.2s' }}>
+            Competir en igualdad de condiciones es un error.
           </h1>
 
           {/* Copy & CTA */}
           <div className="flex flex-col gap-8 animate-fade-in-up opacity-0 pl-2 pointer-events-auto" style={{ animationDelay: '0.4s' }}>
-             <p className="font-body text-xl md:text-2xl text-neutral-600 font-light leading-relaxed max-w-xl text-balance backdrop-blur-[2px]">
-               Tu partner tecnológico para la transformación con IA.
+             <p className="font-body text-lg md:text-xl text-neutral-600 font-light leading-relaxed max-w-2xl text-pretty backdrop-blur-[2px]">
+               La IA rompió el equilibrio del mercado; ignorarlo es fingir demencia. Es hora de dejar de jugar a la empresa tradicional. Implementamos sistemas para que escales tu facturación, no tus problemas.
              </p>
              
              <div className="flex items-center gap-6">
-                <button className="group relative bg-accent-lime text-ink pl-8 pr-2 py-2 rounded-full flex items-center gap-6 hover:bg-ink hover:text-white transition-all duration-500 overflow-hidden shadow-[0_0_30px_rgba(206,214,0,0.4)] hover:shadow-none hover:scale-105">
-                  <span className="relative z-10 font-display text-base font-semibold tracking-wide pl-2 lowercase">hablemos</span>
+                <button className="group relative bg-accent-lime text-ink pl-8 pr-2 py-3 rounded-full flex items-center gap-6 hover:bg-ink hover:text-white transition-all duration-500 overflow-hidden shadow-[0_0_30px_rgba(206,214,0,0.4)] hover:shadow-none hover:scale-105">
+                  <span className="relative z-10 font-display text-base font-bold tracking-wide pl-2">Actualizar mi modelo</span>
                   <div className="relative z-10 w-12 h-12 bg-white/30 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-ink transition-colors">
                      <ArrowRight size={18} />
                   </div>
