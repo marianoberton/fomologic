@@ -103,10 +103,21 @@ const Cubelet: React.FC<CubeletProps> = ({ finalPosition, delay }) => {
 const TitaniumScene: React.FC = () => {
   const groupRef = useRef<THREE.Group>(null);
 
-  // Slow rotation of the entire finished cube
+  // Interactive rotation (Auto-spin + Mouse Parallax)
   useFrame((state, delta) => {
     if (groupRef.current) {
+      // 1. Continuous slow spin on Y
       groupRef.current.rotation.y += delta * 0.05;
+
+      // 2. Mouse Interaction (Parallax Tilt)
+      // Smoothly lerp current X rotation towards target (base angle + mouse offset)
+      // state.mouse.y is -1 to 1. Invert for natural feel (mouse up -> look up -> tilt back?)
+      // Actually, usually mouse up (positive Y) -> tilt up (negative rotation X) or vice versa.
+      const targetX = (Math.PI / 8) + (-state.mouse.y * 0.2); 
+      const targetZ = -(state.mouse.x * 0.2);
+      
+      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetX, 0.1);
+      groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, targetZ, 0.1);
     }
   });
 

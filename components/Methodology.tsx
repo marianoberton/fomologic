@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { IsoBaseSlab, IsoHelixTwist, IsoCloudStack, IsoInfinityLoop, IsoHourglass } from './MethodologyIcons';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,7 +22,7 @@ const PHASES = [
       "Base de Conocimiento"
     ],
     meta: "Single Source of Truth",
-    icon: "/svg/illustrations/01-Iso_Base_Slab.svg"
+    icon: IsoBaseSlab
   },
   {
     id: "02",
@@ -33,7 +36,7 @@ const PHASES = [
       "Arquitectura de Solución"
     ],
     meta: "Plan de batalla claro",
-    icon: "/svg/illustrations/07-Iso_Helix_Twist.svg"
+    icon: IsoHelixTwist
   },
   {
     id: "03",
@@ -47,7 +50,7 @@ const PHASES = [
       "Eliminación de tareas repetitivas"
     ],
     meta: "ROI inmediato",
-    icon: "/svg/illustrations/05-Iso_Cloud_Stack.svg"
+    icon: IsoCloudStack
   },
   {
     id: "04",
@@ -61,7 +64,7 @@ const PHASES = [
       "Dashboards en Tiempo Real"
     ],
     meta: "Infraestructura x10",
-    icon: "/svg/illustrations/10-Iso_Infinity_Loop.svg"
+    icon: IsoInfinityLoop
   },
   {
     id: "05",
@@ -75,7 +78,7 @@ const PHASES = [
       "Gerencia de Innovación"
     ],
     meta: "Antifragilidad permanente",
-    icon: "/svg/illustrations/13-Iso_Hourglass.svg"
+    icon: IsoHourglass
   }
 ];
 
@@ -83,7 +86,7 @@ const PHASES = [
 
 const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActive: boolean }> = ({ phase, index, isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const iconRef = useRef<HTMLImageElement>(null);
+  const iconRef = useRef<HTMLDivElement>(null); // Changed to Div for component wrapper
   const cloneRef = useRef<HTMLImageElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const iconContainerRef = useRef<HTMLDivElement>(null);
@@ -194,115 +197,76 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
   return (
     <div 
         ref={containerRef}
-        className={`methodology-card group w-full min-h-[80vh] flex flex-col justify-center border-t border-neutral-800 relative transition-all duration-700 ${isActive ? 'bg-[#1a1a1a]' : 'bg-[#111]'}`}
+        className={`methodology-card group w-full min-h-[80vh] flex flex-col justify-center relative transition-all duration-700 bg-[#272727]`}
     >
-      {/* Active Indicator Line */}
-      <div className={`absolute top-0 left-0 h-[1px] bg-accent-lime transition-all duration-1000 ${isActive ? 'w-full shadow-[0_0_20px_rgba(206,214,0,0.5)]' : 'w-0'}`}></div>
+      {/* Active Indicator Line - Swiss Minimal */}
+      <div className={`absolute top-0 left-0 h-[2px] bg-[#CED600] transition-all duration-1000 ${isActive ? 'w-full' : 'w-0'}`}></div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 h-full">
+      <div className="grid grid-cols-1 md:grid-cols-12 h-full items-center">
         
         {/* Left: Technical Specs / Icon */}
         <div 
             ref={iconContainerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="md:col-span-5 relative border-r border-neutral-800 p-8 md:p-16 flex flex-col justify-between overflow-hidden cursor-crosshair perspective-1000"
+            className="md:col-span-5 relative border-r border-neutral-700 p-8 md:p-16 flex flex-col justify-center h-full overflow-hidden cursor-crosshair perspective-1000"
         >
              
-             {/* Tech Grid Background (Animated when active) */}
-             <div className={`absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-30'}`}></div>
+             {/* No tech grid, just pure whitespace */}
              
-             {/* Radial Glow Highlight */}
-             <div 
-                ref={glowRef}
-                className={`absolute inset-0 bg-radial-gradient from-accent-lime/10 to-transparent opacity-0 transition-opacity duration-700 pointer-events-none ${isActive ? 'opacity-100' : ''}`}
-                style={{ background: 'radial-gradient(circle at center, rgba(206,214,0,0.15) 0%, transparent 70%)' }}
-             ></div>
-
-             <div className="relative z-10 pointer-events-none">
-                <span className="font-mono text-xs text-neutral-500 tracking-widest block mb-2">PHASE_ID</span>
-                <span className={`font-mono text-4xl md:text-5xl font-bold tracking-tighter transition-colors duration-500 ${isActive ? 'text-accent-lime' : 'text-neutral-700'}`}>
+             <div className="relative z-10 pointer-events-none mix-blend-difference mb-8">
+                <span className={`font-mono text-4xl md:text-5xl font-bold tracking-tighter transition-colors duration-500 ${isActive ? 'text-[#CED600]' : 'text-neutral-500'}`}>
                     {phase.id}
                 </span>
              </div>
 
-             <div className="relative z-20 flex-grow flex items-center justify-center py-12">
-                {/* Holographic Clone (Ghosting Effect) */}
-                <img 
-                    ref={cloneRef}
-                    src={phase.icon} 
-                    alt=""
-                    className={`absolute w-48 h-48 md:w-64 md:h-64 object-contain opacity-0 transition-opacity duration-300 pointer-events-none ${isActive ? 'animate-pulse-slow opacity-30' : ''}`}
-                    style={{ 
-                        filter: 'invert(1) blur(8px) brightness(1.5)',
-                        transform: 'translateZ(-50px) scale(1.1)',
-                        mixBlendMode: 'screen'
-                    }}
-                />
-
-                {/* Main Icon */}
-                <img 
-                    ref={iconRef}
-                    src={phase.icon} 
-                    alt={phase.title}
-                    className={`w-48 h-48 md:w-64 md:h-64 object-contain transition-all duration-700 will-change-transform ${isActive ? 'opacity-100 grayscale-0' : 'opacity-20 grayscale blur-sm'}`}
-                    style={{ 
-                        filter: isActive 
-                            ? 'invert(1) drop-shadow(0 0 30px rgba(206, 214, 0, 0.2))' 
-                            : 'invert(1) opacity(0.3)' 
-                    }}
-                />
-             </div>
-
-             <div className="relative z-10 font-mono text-[10px] text-neutral-600 uppercase tracking-widest flex justify-between pointer-events-none">
-                <span>Fig. {phase.id}.0</span>
-                <span>{phase.meta}</span>
+             <div className="relative z-20 flex-grow flex items-center justify-center">
+                {/* Main Icon - Sharp, Clean, No Ghosting */}
+                <div ref={iconRef} className="will-change-transform">
+                    <phase.icon 
+                        className={`w-48 h-48 md:w-64 md:h-64 transition-all duration-700 ${isActive ? 'opacity-100' : 'opacity-40 grayscale'}`}
+                        style={{ 
+                            filter: isActive 
+                                ? 'drop-shadow(0 10px 30px rgba(206, 214, 0, 0.2))' 
+                                : 'none' 
+                        }}
+                    />
+                </div>
              </div>
         </div>
 
         {/* Right: Narrative Content */}
-        <div className="md:col-span-7 p-8 md:p-16 flex flex-col justify-center relative">
+        <div className="md:col-span-7 p-8 md:p-16 flex flex-col justify-center relative h-full">
             
-            <div className="mb-12">
-                <div className="flex items-center gap-4 mb-6">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase transition-colors duration-500 border ${isActive ? 'border-accent-lime text-accent-lime bg-accent-lime/10 shadow-[0_0_10px_rgba(206,214,0,0.2)]' : 'border-neutral-700 text-neutral-600'}`}>
+            <div className="mb-8">
+                <div className="flex items-center gap-4 mb-8">
+                    <span className={`px-4 py-1.5 text-xs font-bold tracking-widest uppercase transition-colors duration-500 border rounded-full ${isActive ? 'border-[#CED600] text-[#272727] bg-[#CED600]' : 'border-neutral-700 text-neutral-500'}`}>
                         {phase.subtitle}
                     </span>
                 </div>
                 
-                <h3 className={`font-display font-bold text-5xl md:text-7xl leading-[0.9] tracking-tighter mb-8 transition-colors duration-500 ${isActive ? 'text-white' : 'text-neutral-600'}`}>
+                <h3 className={`font-display font-bold text-6xl md:text-8xl leading-[0.9] tracking-tighter mb-8 transition-colors duration-500 ${isActive ? 'text-white' : 'text-neutral-600'}`}>
                     {phase.title}
                 </h3>
 
-                <p className={`font-body text-lg md:text-xl leading-relaxed max-w-xl transition-colors duration-500 ${isActive ? 'text-neutral-300' : 'text-neutral-700'}`}>
+                <p className={`font-body text-xl md:text-2xl leading-relaxed max-w-xl transition-colors duration-500 ${isActive ? 'text-neutral-300' : 'text-neutral-600'}`}>
                     {phase.concept}
                 </p>
             </div>
 
-            <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-neutral-800 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-20'}`}>
-                <div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-red-400 block mb-4 flex items-center gap-2">
-                        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                        Pain Point
+            {/* Bottom Layout - Minimal CTA */}
+            <div className={`mt-auto transition-all duration-700 delay-100 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <Link 
+                    to="/services" 
+                    className="group relative inline-flex items-center justify-between gap-6 px-8 py-4 bg-transparent border border-neutral-700 rounded-full overflow-hidden transition-all duration-300 hover:border-[#CED600] hover:bg-[#CED600]/5 w-fit"
+                >
+                    <span className="font-display font-bold text-sm tracking-widest uppercase text-white group-hover:text-[#CED600] transition-colors duration-300">
+                        Explore Solution
                     </span>
-                    <p className="font-mono text-sm text-neutral-500 italic">
-                        "{phase.problem}"
-                    </p>
-                </div>
-
-                <div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-accent-lime block mb-4">
-                        Protocol
-                    </span>
-                    <ul className="space-y-2">
-                        {phase.actions.map((action, i) => (
-                            <li key={i} className="flex items-start gap-2 text-sm text-neutral-400 font-mono">
-                                <span className="text-accent-lime">/</span>
-                                {action}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#CED600] group-hover:text-[#272727] transition-all duration-300">
+                         <ArrowRight size={14} className="group-hover:-rotate-45 transition-transform duration-300" />
+                    </div>
+                </Link>
             </div>
 
         </div>
@@ -333,50 +297,47 @@ const Methodology: React.FC = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-[#111] text-white py-24 md:py-32 border-t border-neutral-800">
+    <section ref={containerRef} className="relative w-full bg-[#272727] text-white py-24 md:py-32 border-t border-neutral-700">
         
         <div className="container mx-auto px-0 md:px-8 max-w-[98%]">
             <div className="flex flex-col lg:flex-row">
                 
-                {/* Left Column: Sticky Context (Minimal) */}
-                <div className="lg:w-[300px] hidden lg:block relative border-r border-neutral-800">
-                    <div className="sticky top-32 px-8">
-                        <h2 className="font-display font-bold text-4xl text-white mb-2 tracking-tighter">
-                            Methodology.
+                {/* Left Column: Sticky Context (Swiss Minimal) */}
+                <div className="lg:w-[480px] hidden lg:block relative border-r border-neutral-700">
+                    <div className="sticky top-0 h-screen flex flex-col justify-center px-8 py-12">
+                        <h2 className="font-display font-bold text-6xl text-white mb-16 tracking-tighter">
+                            Methodology<span className="text-[#CED600]">.</span>
                         </h2>
-                        <p className="font-mono text-xs text-neutral-500 mb-12 uppercase tracking-widest">
-                            System Architecture v2.0
-                        </p>
 
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col gap-3">
                             {PHASES.map((phase, index) => (
                                 <div 
                                     key={phase.id} 
-                                    className={`flex items-center gap-3 py-2 cursor-pointer transition-all duration-300 ${activePhase === index ? 'opacity-100 translate-x-2' : 'opacity-30 hover:opacity-50'}`}
+                                    className={`flex items-center gap-4 py-2 cursor-pointer transition-all duration-300 ${activePhase === index ? 'opacity-100 translate-x-4' : 'opacity-30 hover:opacity-50'}`}
                                     onClick={() => {
                                         const cards = document.querySelectorAll('.methodology-card');
                                         if(cards[index]) cards[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
                                     }}
                                 >
-                                    <span className={`font-mono text-xs ${activePhase === index ? 'text-accent-lime' : 'text-neutral-500'}`}>
+                                    <span className={`font-mono text-sm ${activePhase === index ? 'text-[#CED600]' : 'text-neutral-500'}`}>
                                         0{index + 1}
                                     </span>
-                                    <span className="font-display text-sm text-white truncate">
+                                    <span className="font-display text-xl text-white truncate">
                                         {phase.title}
                                     </span>
                                 </div>
                             ))}
                         </div>
                         
-                        <div className="mt-24 pt-8 border-t border-neutral-800">
-                             <div className="w-12 h-12 rounded-full border border-neutral-800 flex items-center justify-center">
-                                <div className="w-1.5 h-1.5 bg-accent-lime animate-pulse rounded-full shadow-[0_0_15px_rgba(206,214,0,0.5)]"></div>
+                        <div className="mt-24 pt-8 border-t border-neutral-700">
+                             <div className="w-12 h-12 flex items-center justify-center">
+                                <div className={`w-2 h-2 bg-[#CED600] rounded-full transition-transform duration-500 ${activePhase !== null ? 'scale-100' : 'scale-0'}`}></div>
                              </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Right Column: Industrial Grid */}
+                {/* Right Column: Clean Grid */}
                 <div className="flex-1 flex flex-col">
                     {PHASES.map((phase, index) => (
                         <MethodologyCard 

@@ -1,69 +1,195 @@
-import React from 'react';
-import { Mail, Linkedin } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimationFrame } from 'framer-motion';
+import { Mail, Linkedin, ArrowUpRight } from 'lucide-react';
+import { IsoCloud, IsoTetris, IsoInfinity } from './IsoIcons';
+
+// Magnetic Button Component (Internal for Physics)
+const MagneticButton = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+  const ref = useRef<HTMLButtonElement>(null);
+  
+  // Physics engine for magnetic pull
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Smooth spring physics
+  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { clientX, clientY } = e;
+    const { left, top, width, height } = ref.current?.getBoundingClientRect() || { left: 0, top: 0, width: 0, height: 0 };
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    
+    const distanceX = clientX - centerX;
+    const distanceY = clientY - centerY;
+
+    x.set(distanceX * 0.35); // Magnetic pull strength
+    y.set(distanceY * 0.35);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.button
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: springX, y: springY }}
+      className={className}
+    >
+      {children}
+    </motion.button>
+  );
+};
 
 const Closing: React.FC = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end end"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [-100, 0]);
+  
   return (
-    <section id="closing" className="py-20 md:py-32 bg-canvas px-6 md:px-12 snap-start">
-      <div className="max-w-[1600px] mx-auto bg-[#272727] text-white rounded-[4rem] p-12 md:p-32 shadow-2xl shadow-gray-200 relative overflow-hidden">
+    <section 
+      ref={containerRef} 
+      id="closing" 
+      className="relative min-h-screen bg-[#272727] text-[#FAFAFA] overflow-hidden flex flex-col justify-between pt-32 pb-12 px-6 md:px-12 lg:px-24 rounded-t-[2.5rem]"
+    >
+      {/* Background Noise/Texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat mix-blend-overlay"></div>
+      
+      {/* Floating Geometric Elements (Parallax) */}
+      <div className="absolute bottom-40 left-[5%] w-24 md:w-48 opacity-10 pointer-events-none">
+         <IsoTetris className="w-full h-full text-white animate-pulse" />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 w-full max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
+        {/* Left: Headline & Context */}
+        <div className="lg:col-span-8 flex flex-col justify-center">
           
-          {/* CTA Side */}
-          <div className="order-2 lg:order-1">
-             {/* Consistent Eyebrow */}
-             <div className="flex items-center gap-3 mb-8">
-                <div className="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></div>
-                <span className="font-body text-xs uppercase tracking-widest text-accent-lime">Ready to Scale</span>
-             </div>
+          {/* Eyebrow */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4 mb-8 md:mb-12"
+          >
+            <div className="h-px w-12 bg-[#CED600]"></div>
+            <span className="font-display font-bold text-[#CED600] tracking-widest uppercase text-sm">Ready to Scale</span>
+          </motion.div>
 
-             {/* Raleway Light/Semibold Mix */}
-             <h2 className="font-display font-semibold text-6xl md:text-8xl mb-12 leading-[1] tracking-tighter text-balance">
-               Tu operación <br/>
-               <span className="text-neutral-300 font-light">lista para</span> escalar.
-             </h2>
-             
-             <button className="group w-full md:w-auto bg-accent-lime text-ink px-12 py-8 rounded-full text-2xl font-display font-semibold transition-all duration-500 hover:bg-white hover:scale-105 hover:shadow-[0_0_40px_rgba(206,214,0,0.4)] flex items-center justify-between md:justify-start gap-8">
-               <span className="lowercase">hablemos</span>
-               
-             </button>
+          {/* Massive Headline */}
+          <h2 className="font-display font-black text-[12vw] lg:text-[10vw] leading-[0.8] tracking-tighter uppercase mb-12 mix-blend-exclusion">
+            <div className="overflow-hidden">
+              <motion.span 
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="block text-transparent stroke-text-white"
+                style={{ WebkitTextStroke: '1px rgba(255,255,255,0.3)' }}
+              >
+                Tu Operación
+              </motion.span>
+            </div>
+            <div className="overflow-hidden">
+              <motion.span 
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="block text-[#FAFAFA]"
+              >
+                Lista Para
+              </motion.span>
+            </div>
+            <div className="overflow-hidden">
+              <motion.div 
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-4 md:gap-8"
+              >
+                <span className="text-[#CED600]">Escalar</span>
+                <div className="hidden md:block w-32 h-4 bg-[#CED600] mt-4 md:mt-8"></div>
+              </motion.div>
+            </div>
+          </h2>
 
-             <div className="mt-16 flex gap-4 items-center opacity-60 hover:opacity-100 transition-opacity">
-                <a href="#" className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-ink transition-all duration-300"><Mail size={20}/></a>
-                <a href="#" className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-[#0077b5] hover:border-[#0077b5] hover:text-white transition-all duration-300"><Linkedin size={20}/></a>
+        </div>
+
+        {/* Right: Interaction & Founders */}
+        <div className="lg:col-span-4 flex flex-col justify-between items-start lg:items-end gap-16">
+          
+          {/* Magnetic CTA */}
+          <div className="w-full flex justify-end">
+            <MagneticButton className="group relative px-10 py-6 md:px-12 md:py-8 bg-[#CED600] rounded-full flex items-center justify-between gap-6 md:gap-8 cursor-pointer overflow-hidden transition-all hover:pr-8 md:hover:pr-10">
+              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></div>
+              <span className="relative z-10 font-display font-black text-[#272727] text-3xl md:text-5xl uppercase tracking-tighter">hablemos</span>
+              <ArrowUpRight size={40} className="relative z-10 text-[#272727] group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300 md:w-12 md:h-12" />
+            </MagneticButton>
+          </div>
+
+          {/* Floating Cloud (Moved) */}
+          <div className="w-full flex justify-end -my-8 md:-my-12 pointer-events-none">
+             <div className="w-32 md:w-56 opacity-20 mix-blend-screen transform translate-x-12">
+                <IsoCloud className="w-full h-full text-[#CED600] animate-spin-slow" />
              </div>
           </div>
 
-          {/* Founders Side (Clean & Organic) */}
-          <div className="order-1 lg:order-2 flex flex-col items-center lg:items-end">
-            <div className="relative w-72 h-72 md:w-96 md:h-96">
-              {/* Founder 1 */}
-              <div className="absolute top-0 right-0 z-10 w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-ink grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105 hover:z-30">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" alt="Alex Mercer" className="w-full h-full object-cover" />
-              </div>
-              
-              {/* Founder 2 */}
-              <div className="absolute bottom-0 left-0 z-20 w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-ink grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105 hover:z-30">
-                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop" alt="Sarah Vance" className="w-full h-full object-cover" />
-              </div>
+          {/* Founders Stack */}
+          <div className="flex flex-col items-end gap-6">
+            <div className="flex -space-x-4">
+              {[
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop"
+              ].map((src, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 + (i * 0.1) }}
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-[#272727] overflow-hidden grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110 hover:z-10 relative"
+                >
+                  <img src={src} alt="Founder" className="w-full h-full object-cover" />
+                </motion.div>
+              ))}
             </div>
-
-            <div className="mt-10 text-right pr-4">
-              <p className="font-body text-[10px] text-neutral-300 tracking-widest lowercase mb-2">architects</p>
-              <p className="font-display font-medium text-xl text-white">Mercer & Vance</p>
+            <div className="text-right">
+              <p className="font-body text-xs text-neutral-400 tracking-widest uppercase mb-1">Architects</p>
+              <p className="font-display font-bold text-xl text-white">Mariano & Guillermina</p>
             </div>
           </div>
 
         </div>
+      </div>
 
-        {/* Footer Bottom */}
-        <div className="mt-32 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[10px] font-body text-white/60 tracking-widest lowercase">
-          <div>© 2025 fomo. all rights reserved.</div>
-          <div className="flex gap-8 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors">privacy</a>
-            <a href="#" className="hover:text-white transition-colors">terms</a>
+      {/* Footer / Legal */}
+      <div className="relative z-10 w-full max-w-[1800px] mx-auto mt-24 md:mt-32 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[10px] md:text-xs font-body text-white/40 tracking-widest uppercase">
+        <div className="flex gap-8">
+          <span>© 2025 FOMO Systems</span>
+          <span className="hidden md:inline">•</span>
+          <span className="hidden md:inline">Buenos Aires, AR</span>
+        </div>
+        <div className="flex gap-8 mt-4 md:mt-0">
+          <a href="#" className="hover:text-[#CED600] transition-colors">Privacy Protocol</a>
+          <a href="#" className="hover:text-[#CED600] transition-colors">Terms of Service</a>
+          <div className="flex gap-4 ml-8">
+             <a href="#" className="hover:text-[#CED600] transition-colors"><Mail size={14}/></a>
+             <a href="#" className="hover:text-[#CED600] transition-colors"><Linkedin size={14}/></a>
           </div>
         </div>
-
       </div>
     </section>
   );

@@ -3,7 +3,8 @@ import Hero from '../components/Hero';
 import Marquee from '../components/Marquee';
 import Manifesto from '../components/Manifesto';
 import Methodology from '../components/Methodology';
-import System from '../components/System';
+import Services from '../components/Services';
+
 import Team from '../components/Team';
 import Showcase from '../components/Showcase';
 import BrandMarquee from '../components/BrandMarquee';
@@ -15,8 +16,8 @@ const Home: React.FC = () => {
       <Hero />
       <Manifesto />
       <Methodology />
+      <Services />
       <Marquee />
-      <System />
       <Showcase />
       <Team />
       <BrandMarquee />
