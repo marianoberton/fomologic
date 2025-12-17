@@ -12,12 +12,12 @@ import Velvet from './pages/cases/Velvet';
 import DesignSystem from './pages/DesignSystem';
 import Assets from './pages/Assets';
 import Logos from './pages/Logos';
-import { ReactLenis } from '@studio-freight/react-lenis';
+import SmoothScroll from './components/SmoothScroll';
 
 
 const App: React.FC = () => {
   return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 1.2 }}>
+    <SmoothScroll>
     <div className="w-full min-h-screen bg-canvas font-body mx-auto box-border relative">
       
       {/* Organic Background Blobs (Subtle) */}
@@ -43,7 +43,7 @@ const App: React.FC = () => {
         </main>
       </div>
     </div>
-    </ReactLenis>
+    </SmoothScroll>
   );
 };
 

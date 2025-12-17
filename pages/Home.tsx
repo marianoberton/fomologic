@@ -8,6 +8,7 @@ import Services from '../components/Services';
 import Team from '../components/Team';
 import Showcase from '../components/Showcase';
 import BrandMarquee from '../components/BrandMarquee';
+import Insights from '../components/Insights';
 import Closing from '../components/Closing';
 
 const Home: React.FC = () => {
@@ -21,6 +22,7 @@ const Home: React.FC = () => {
       <Showcase />
       <Team />
       <BrandMarquee />
+      <Insights />
       <Closing />
     </>
   );

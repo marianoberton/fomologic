@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLenis } from '@studio-freight/react-lenis';
 import BrandLogo from './BrandLogo';
 
 const Navbar: React.FC = () => {
@@ -10,6 +11,7 @@ const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const lenis = useLenis();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +41,15 @@ const Navbar: React.FC = () => {
         const targetId = href.substring(1);
         const scrollToTarget = () => {
              const element = document.getElementById(targetId);
-             if (element) element.scrollIntoView({ behavior: 'smooth' });
+             if (lenis && element) {
+                 lenis.scrollTo(element, {
+                     offset: 0,
+                     duration: 1.5,
+                     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                 });
+             } else if (element) {
+                 element.scrollIntoView({ behavior: 'smooth' });
+             }
         };
 
         if (location.pathname !== '/') {
@@ -50,7 +60,11 @@ const Navbar: React.FC = () => {
         }
     } else {
         navigate(href);
-        window.scrollTo(0, 0);
+        if (lenis) {
+            lenis.scrollTo(0, { duration: 0, immediate: true });
+        } else {
+            window.scrollTo(0, 0);
+        }
     }
   };
 
@@ -96,7 +110,11 @@ const Navbar: React.FC = () => {
         >
           
           {/* Logo Section */}
-          <Link to="/" className="flex items-center gap-3 group" onClick={() => window.scrollTo(0,0)}>
+          <Link 
+            to="/" 
+            className="flex items-center gap-3 group" 
+            onClick={() => lenis ? lenis.scrollTo(0, { immediate: true }) : window.scrollTo(0,0)}
+          >
             {/* 
                 Logo Container 
                 - Top: Dark (#272727)

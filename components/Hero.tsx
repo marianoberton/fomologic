@@ -57,35 +57,53 @@ const Hero: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-        // 1. Title Reveal (Line Masking Protocol)
+        // 0. The Universe (Background) is already there (static noise) but we can ensure it's visible.
+        
+        // 1. Title Reveal (Line Masking Protocol) - Theatrical Entrance
+        // Start hidden below
         const lines = titleRef.current?.querySelectorAll('.line-inner');
-        if (lines) {
-            gsap.fromTo(lines, 
-                { yPercent: 100, rotate: 2 },
-                { 
+        if (lines && lines.length > 0) {
+            // Split lines: Main message vs "The punchline"
+            const mainLines = Array.from(lines).slice(0, 3);
+            const punchLine = lines[3];
+
+            gsap.set(lines, { yPercent: 120, rotate: 3 }); // Initial state: Hidden deep below
+            
+            // Part A: "Competir en igualdad de condiciones *"
+            gsap.to(mainLines, { 
+                yPercent: 0, 
+                rotate: 0,
+                duration: 1.5,
+                stagger: 0.2,
+                ease: "power3.out",
+                delay: 0.5
+            });
+
+            // Part B: "es un error." (Dramatic pause)
+            if (punchLine) {
+                gsap.to(punchLine, { 
                     yPercent: 0, 
                     rotate: 0,
-                    duration: 1.2, 
-                    stagger: 0.1, 
-                    ease: "power4.out",
-                    delay: 0.5
-                }
-            );
+                    duration: 1.5,
+                    ease: "power3.out",
+                    delay: 2.0 // Significantly later (0.5 start + ~0.6 stagger + pause)
+                });
+            }
         }
 
-        // 2. Subtext Fade
+        // 2. Subtext Fade - Follows the title
         if (subRef.current) {
             gsap.fromTo(subRef.current,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 1, delay: 1.2, ease: "power2.out" }
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, duration: 1.2, delay: 2.0, ease: "power2.out" }
             );
         }
 
-        // 3. Scroll Indicator
+        // 3. Scroll Indicator - Last element
         if (scrollRef.current) {
             gsap.fromTo(scrollRef.current,
                 { opacity: 0 },
-                { opacity: 1, duration: 1, delay: 2, ease: "power2.out" }
+                { opacity: 1, duration: 1, delay: 3.5, ease: "power2.out" }
             );
         }
 
@@ -109,28 +127,20 @@ const Hero: React.FC = () => {
       {/* --- LAYER 2: CONTENT GRID --- */}
       <div className="relative z-10 w-full h-full container mx-auto px-6 md:px-12 flex flex-col justify-center pointer-events-none">
         
-        {/* Status Pill */}
-        <div className="absolute top-32 left-6 md:left-12 flex items-center gap-3 opacity-0 animate-fade-in pointer-events-auto" style={{ animationDelay: '2s', animationFillMode: 'forwards' }}>
-            <div className="w-2 h-2 bg-[#CED600] rounded-full animate-pulse"></div>
-            <span className="font-mono text-xs font-medium tracking-widest text-neutral-400 uppercase">
-                System Operational
-            </span>
-        </div>
-
         <div className="max-w-4xl pointer-events-auto">
           
           {/* Headline - Split for Animation */}
-          <h1 ref={titleRef} className="font-display font-bold text-[10vw] md:text-[6rem] lg:text-[7.5rem] leading-[0.85] tracking-[-0.04em] text-[#272727] mb-12">
+          <h1 ref={titleRef} className="font-display font-bold text-[10vw] md:text-[6rem] lg:text-[7.5rem] leading-[0.85] tracking-[-0.04em] text-[#272727] mb-12 will-change-transform">
             <div className="overflow-hidden">
                 <div className="line-inner">Competir en</div>
             </div>
             <div className="overflow-hidden">
                 <div className="line-inner">igualdad de</div>
             </div>
-            <div className="overflow-hidden">
+            <div className="overflow-hidden pt-8 -mt-8">
                 <div className="line-inner flex items-baseline gap-4">
                     <span>condiciones</span>
-                    <span className="text-[#CED600] text-[0.5em] align-top tracking-normal translate-y-[-1em] hidden md:inline-block">*</span>
+                    <span className="text-[#CED600] text-[0.5em] align-top tracking-normal translate-y-[-0.2em] hidden md:inline-block">*</span>
                 </div>
             </div>
             <div className="overflow-hidden">

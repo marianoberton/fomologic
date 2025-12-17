@@ -60,7 +60,7 @@ const Closing: React.FC = () => {
     <section 
       ref={containerRef} 
       id="closing" 
-      className="relative min-h-screen bg-[#272727] text-[#FAFAFA] overflow-hidden flex flex-col justify-between pt-32 pb-12 px-6 md:px-12 lg:px-24 rounded-t-[2.5rem]"
+      className="relative min-h-screen bg-[#272727] text-[#FAFAFA] overflow-hidden flex flex-col justify-between pt-32 pb-12 px-6 md:px-12 lg:px-24"
     >
       {/* Background Noise/Texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat mix-blend-overlay"></div>
