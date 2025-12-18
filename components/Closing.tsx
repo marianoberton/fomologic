@@ -1,51 +1,8 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimationFrame } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Mail, Linkedin, ArrowUpRight } from 'lucide-react';
 import { IsoCloud, IsoTetris, IsoInfinity } from './IsoIcons';
-
-// Magnetic Button Component (Internal for Physics)
-const MagneticButton = ({ children, className }: { children: React.ReactNode; className?: string }) => {
-  const ref = useRef<HTMLButtonElement>(null);
-  
-  // Physics engine for magnetic pull
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  // Smooth spring physics
-  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
-  const springX = useSpring(x, springConfig);
-  const springY = useSpring(y, springConfig);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { clientX, clientY } = e;
-    const { left, top, width, height } = ref.current?.getBoundingClientRect() || { left: 0, top: 0, width: 0, height: 0 };
-    const centerX = left + width / 2;
-    const centerY = top + height / 2;
-    
-    const distanceX = clientX - centerX;
-    const distanceY = clientY - centerY;
-
-    x.set(distanceX * 0.35); // Magnetic pull strength
-    y.set(distanceY * 0.35);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.button
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: springX, y: springY }}
-      className={className}
-    >
-      {children}
-    </motion.button>
-  );
-};
+import MagneticButton from './MagneticButton';
 
 const Closing: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -60,7 +17,7 @@ const Closing: React.FC = () => {
     <section 
       ref={containerRef} 
       id="closing" 
-      className="relative min-h-screen bg-[#272727] text-[#FAFAFA] overflow-hidden flex flex-col justify-between pt-32 pb-12 px-6 md:px-12 lg:px-24"
+      className="relative min-h-screen bg-transparent text-[#FAFAFA] overflow-hidden flex flex-col justify-between pt-32 pb-12 px-6 md:px-12 lg:px-24"
     >
       {/* Background Noise/Texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat mix-blend-overlay"></div>

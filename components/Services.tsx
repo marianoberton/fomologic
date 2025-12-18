@@ -93,7 +93,7 @@ const Services: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-white text-neutral-900 overflow-hidden relative z-10">
+    <section ref={sectionRef} className="bg-transparent text-neutral-900 overflow-hidden relative z-10">
         
         {/* Intro Header (Static) */}
         <div className="container mx-auto px-6 md:px-12 py-24 border-b border-neutral-200">
@@ -113,7 +113,7 @@ const Services: React.FC = () => {
         </div>
 
         {/* Horizontal Scroll Container */}
-        <div ref={triggerRef} className="h-screen flex items-center overflow-hidden bg-neutral-50 relative z-20">
+        <div ref={triggerRef} className="h-screen flex items-center overflow-hidden bg-transparent relative z-20">
             <div ref={cardsRef} className="flex h-full pl-[5vw] md:pl-[10vw]">
                 {PACKAGES.map((pkg, index) => (
                     <div 

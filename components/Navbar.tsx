@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLenis } from '@studio-freight/react-lenis';
 import BrandLogo from './BrandLogo';
+import MagneticButton from './MagneticButton';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -151,16 +152,18 @@ const Navbar: React.FC = () => {
 
           {/* Action & Mobile */}
           <div className="flex items-center gap-4">
-            <a 
-                href="#closing" 
-                onClick={(e) => handleNavClick(e, '#closing')} 
+            <MagneticButton
+                href="#closing"
+                onClick={(e) => handleNavClick(e, '#closing')}
+                strength={0.4} // Moderate pull
+                range={100}   // 100px radius
                 className={`
                     hidden md:flex items-center justify-center font-display font-bold text-sm px-6 py-2.5 rounded-full transition-all duration-300
                     bg-[#CED600] text-[#272727] hover:bg-[#FAFAFA] hover:text-[#272727] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]
                 `}
             >
               hablemos
-            </a>
+            </MagneticButton>
 
             <button 
               className={`md:hidden p-3 rounded-full backdrop-blur-sm border transition-colors ${isScrolled ? 'text-white bg-white/10 border-white/10' : 'text-[#272727] bg-white/50 border-white/20'}`}

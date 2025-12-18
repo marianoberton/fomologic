@@ -142,9 +142,9 @@ const BrandMarquee: React.FC = () => {
   const skewVelocity = useTransform(smoothVelocity, [-1000, 1000], [-5, 5]);
 
   return (
-    <section className="w-full py-12 md:py-24 bg-canvas border-y-4 border-ink overflow-hidden relative z-20 flex flex-col gap-8 md:gap-0">
+    <section className="w-full py-0 bg-canvas overflow-hidden relative z-20 flex flex-col gap-0 border-none">
       
-      <motion.div style={{ skewX: skewVelocity }} className="flex flex-col gap-4 md:gap-0">
+      <motion.div style={{ skewX: skewVelocity }} className="flex flex-col gap-0">
         
         {/* ROW 1: Engineering & AI (Left) - DARK MODE - Base Speed: -2 */}
         <MarqueeRow 

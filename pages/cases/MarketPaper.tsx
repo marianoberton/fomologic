@@ -1,9 +1,12 @@
 
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Quote, X, Layers, Zap, Check } from 'lucide-react';
+import MagneticButton from '../../components/MagneticButton';
 
 const MarketPaper: React.FC = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -378,9 +381,12 @@ const MarketPaper: React.FC = () => {
                   <Link to="/casos" className="bg-white text-ink px-8 py-4 rounded-full font-bold hover:bg-accent-lime transition-colors">
                      Volver al Archivo
                   </Link>
-                  <Link to="/#closing" className="border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-ink transition-colors">
+                  <MagneticButton 
+                    onClick={() => navigate('/#closing')} 
+                    className="border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-ink transition-colors"
+                  >
                      Hablemos
-                  </Link>
+                  </MagneticButton>
               </div>
            </div>
        </section>

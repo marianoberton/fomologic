@@ -3,51 +3,9 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TitaniumCube from './TitaniumCube';
+import MagneticButton from './MagneticButton';
 
 gsap.registerPlugin(ScrollTrigger);
-
-// --- UTILS: MAGNETIC BUTTON ---
-const MagneticButton: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => {
-    const buttonRef = useRef<HTMLButtonElement>(null);
-    
-    useEffect(() => {
-        const button = buttonRef.current;
-        if (!button) return;
-
-        const xTo = gsap.quickTo(button, "x", { duration: 1, ease: "elastic.out(1, 0.3)" });
-        const yTo = gsap.quickTo(button, "y", { duration: 1, ease: "elastic.out(1, 0.3)" });
-
-        const handleMouseMove = (e: MouseEvent) => {
-            const { clientX, clientY } = e;
-            const { left, top, width, height } = button.getBoundingClientRect();
-            const x = clientX - (left + width / 2);
-            const y = clientY - (top + height / 2);
-            
-            // Magnetic pull strength
-            xTo(x * 0.3); 
-            yTo(y * 0.3);
-        };
-
-        const handleMouseLeave = () => {
-            xTo(0);
-            yTo(0);
-        };
-
-        button.addEventListener("mousemove", handleMouseMove);
-        button.addEventListener("mouseleave", handleMouseLeave);
-
-        return () => {
-            button.removeEventListener("mousemove", handleMouseMove);
-            button.removeEventListener("mouseleave", handleMouseLeave);
-        };
-    }, []);
-
-    return (
-        <button ref={buttonRef} className={className}>
-            {children}
-        </button>
-    );
-};
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -113,11 +71,24 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen min-h-[800px] bg-[#FAFAFA] overflow-hidden">
+    <section ref={containerRef} className="relative w-full h-screen min-h-[800px] overflow-hidden">
       
       {/* --- LAYER 0: NOISE TEXTURE --- */}
       <div className="absolute inset-0 z-[1] opacity-[0.03] pointer-events-none mix-blend-multiply" 
            style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
+
+      {/* --- VIDEO TEST LAYER --- */}
+      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
+        <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="w-full h-full object-cover [mask-image:linear-gradient(to_bottom,black_50%,transparent_100%)]"
+        >
+            <source src="/videos/Abstract_Foggy_Landscape_Video.mp4" type="video/mp4" />
+        </video>
+      </div>
 
       {/* --- LAYER 1: THE UNIVERSE (3D Canvas) --- */}
       <div className="absolute top-0 left-0 w-full h-full z-[0]">

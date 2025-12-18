@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight, Calendar, Clock } from 'lucide-react';
+import LiquidBorder from './LiquidBorder';
 
 const INSIGHTS = [
   {
@@ -41,21 +42,11 @@ const Insights: React.FC = () => {
     offset: ["start end", "end start"]
   });
 
-  // Background color scroll tracking - "Light Control"
-  const { scrollYProgress: scrollBg } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   
-  // Interpolate background from White (Day) to Dark (Night/Sunset)
-  const backgroundColor = useTransform(scrollBg, [0.85, 1], ["#FAFAFA", "#272727"]);
-
   return (
-    <motion.section 
+    <section 
       ref={containerRef} 
-      style={{ backgroundColor }}
       className="py-32 pb-64 text-[#272727] relative overflow-hidden"
     >
         {/* Background Texture */}
@@ -98,8 +89,11 @@ const Insights: React.FC = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className={`group relative rounded-3xl overflow-hidden bg-[#272727]/5 border border-[#272727]/5 hover:border-[#272727]/20 transition-colors duration-500 ${item.size === 'large' ? 'md:col-span-2 aspect-[16/9] md:aspect-auto' : 'md:col-span-1 aspect-square'}`}
+                        className={`group relative rounded-3xl overflow-hidden bg-[#272727]/5 transition-colors duration-500 ${item.size === 'large' ? 'md:col-span-2 aspect-[16/9] md:aspect-auto' : 'md:col-span-1 aspect-square'}`}
                     >
+                        {/* Liquid Border */}
+                        <LiquidBorder className="text-[#272727]/10 group-hover:text-[#CED600] transition-colors duration-500 z-50" />
+
                         {/* Image Background */}
                         <div className="absolute inset-0 overflow-hidden">
                             <motion.img 
@@ -143,7 +137,7 @@ const Insights: React.FC = () => {
                 ))}
             </div>
         </div>
-    </motion.section>
+    </section>
   );
 };
 

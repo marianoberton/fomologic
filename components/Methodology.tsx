@@ -1,6 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { IsoBaseSlab, IsoHelixTwist, IsoCloudStack, IsoInfinityLoop, IsoHourglass } from './MethodologyIcons';
@@ -86,7 +84,7 @@ const PHASES = [
 
 const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActive: boolean }> = ({ phase, index, isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const iconRef = useRef<HTMLDivElement>(null); // Changed to Div for component wrapper
+  const iconRef = useRef<HTMLDivElement>(null); 
   const cloneRef = useRef<HTMLImageElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const iconContainerRef = useRef<HTMLDivElement>(null);
@@ -155,20 +153,6 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
   };
 
   useEffect(() => {
-    // Parallax effect on scroll
-    if (iconRef.current) {
-        gsap.to(iconRef.current, {
-            yPercent: 30, // Increased parallax
-            ease: "none",
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1
-            }
-        });
-    }
-
     // Active State "Breathing" / Levitation
     if (isActive && iconRef.current) {
         gsap.to(iconRef.current, {
@@ -197,11 +181,8 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
   return (
     <div 
         ref={containerRef}
-        className={`methodology-card group w-full min-h-[80vh] flex flex-col justify-center relative transition-all duration-700 bg-[#272727]`}
+        className={`methodology-card group w-full h-full flex flex-col justify-center relative transition-all duration-700 bg-transparent`}
     >
-      {/* Active Indicator Line - Swiss Minimal */}
-      <div className={`absolute top-0 left-0 h-[2px] bg-[#CED600] transition-all duration-1000 ${isActive ? 'w-full' : 'w-0'}`}></div>
-
       <div className="grid grid-cols-1 md:grid-cols-12 h-full items-center">
         
         {/* Left: Technical Specs / Icon */}
@@ -211,64 +192,51 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
             onMouseLeave={handleMouseLeave}
             className="md:col-span-5 relative border-r border-neutral-700 p-8 md:p-16 flex flex-col justify-center h-full overflow-hidden cursor-crosshair perspective-1000"
         >
-             
-             {/* No tech grid, just pure whitespace */}
-             
-             <div className="relative z-10 pointer-events-none mix-blend-difference mb-8">
-                <span className={`font-mono text-4xl md:text-5xl font-bold tracking-tighter transition-colors duration-500 ${isActive ? 'text-[#CED600]' : 'text-neutral-500'}`}>
-                    {phase.id}
-                </span>
+             {/* Dynamic Icon */}
+             <div ref={iconRef} className="relative z-20 w-32 h-32 md:w-48 md:h-48 mx-auto">
+                <phase.icon className="w-full h-full text-[#CED600] drop-shadow-[0_0_15px_rgba(206,214,0,0.3)]" />
              </div>
 
-             <div className="relative z-20 flex-grow flex items-center justify-center">
-                {/* Main Icon - Sharp, Clean, No Ghosting */}
-                <div ref={iconRef} className="will-change-transform">
-                    <phase.icon 
-                        className={`w-48 h-48 md:w-64 md:h-64 transition-all duration-700 ${isActive ? 'opacity-100' : 'opacity-40 grayscale'}`}
-                        style={{ 
-                            filter: isActive 
-                                ? 'drop-shadow(0 10px 30px rgba(206, 214, 0, 0.2))' 
-                                : 'none' 
-                        }}
-                    />
-                </div>
+             {/* Background Tech Details */}
+             <div className="absolute top-4 left-4 font-mono text-xs text-neutral-500">
+                SYS.ID: {phase.id}
+             </div>
+             <div className="absolute bottom-4 right-4 font-mono text-xs text-neutral-500 text-right">
+                {phase.meta}
              </div>
         </div>
 
-        {/* Right: Narrative Content */}
-        <div className="md:col-span-7 p-8 md:p-16 flex flex-col justify-center relative h-full">
+        {/* Right: Content */}
+        <div className="md:col-span-7 p-8 md:p-24 flex flex-col justify-center relative">
+            <h3 className="font-display font-bold text-4xl md:text-5xl text-white mb-2 leading-tight">
+                {phase.title}
+            </h3>
+            <p className="font-mono text-[#CED600] mb-8 text-lg">
+                // {phase.subtitle}
+            </p>
             
-            <div className="mb-8">
-                <div className="flex items-center gap-4 mb-8">
-                    <span className={`px-4 py-1.5 text-xs font-bold tracking-widest uppercase transition-colors duration-500 border rounded-full ${isActive ? 'border-[#CED600] text-[#272727] bg-[#CED600]' : 'border-neutral-700 text-neutral-500'}`}>
-                        {phase.subtitle}
-                    </span>
-                </div>
-                
-                <h3 className={`font-display font-bold text-6xl md:text-8xl leading-[0.9] tracking-tighter mb-8 transition-colors duration-500 ${isActive ? 'text-white' : 'text-neutral-600'}`}>
-                    {phase.title}
-                </h3>
+            <p className="font-body text-neutral-300 text-xl leading-relaxed mb-8 max-w-xl">
+                {phase.concept}
+            </p>
 
-                <p className={`font-body text-xl md:text-2xl leading-relaxed max-w-xl transition-colors duration-500 ${isActive ? 'text-neutral-300' : 'text-neutral-600'}`}>
-                    {phase.concept}
-                </p>
+            <div className="bg-neutral-800/30 border border-neutral-700 p-6 mb-8 backdrop-blur-sm">
+                <p className="font-body text-neutral-400 italic text-sm mb-2">Problem Statement:</p>
+                <p className="font-body text-white">"{phase.problem}"</p>
             </div>
 
-            {/* Bottom Layout - Minimal CTA */}
-            <div className={`mt-auto transition-all duration-700 delay-100 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <Link 
-                    to="/services" 
-                    className="group relative inline-flex items-center justify-between gap-6 px-8 py-4 bg-transparent border border-neutral-700 rounded-full overflow-hidden transition-all duration-300 hover:border-[#CED600] hover:bg-[#CED600]/5 w-fit"
-                >
-                    <span className="font-display font-bold text-sm tracking-widest uppercase text-white group-hover:text-[#CED600] transition-colors duration-300">
-                        Explore Solution
-                    </span>
-                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#CED600] group-hover:text-[#272727] transition-all duration-300">
-                         <ArrowRight size={14} className="group-hover:-rotate-45 transition-transform duration-300" />
-                    </div>
-                </Link>
-            </div>
+            <ul className="space-y-3 mb-10">
+                {phase.actions.map((action, i) => (
+                    <li key={i} className="flex items-center text-neutral-300 font-mono text-sm">
+                        <span className="w-1.5 h-1.5 bg-[#CED600] mr-3"></span>
+                        {action}
+                    </li>
+                ))}
+            </ul>
 
+            <div className="flex items-center gap-4">
+                <div className="h-[1px] bg-neutral-700 flex-1"></div>
+                <div className="font-mono text-xs text-neutral-500">PHASE_COMPLETE</div>
+            </div>
         </div>
 
       </div>
@@ -282,75 +250,95 @@ const Methodology: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray('.methodology-card');
-      cards.forEach((card: any, i) => {
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top 60%", // Trigger earlier
-          end: "bottom 60%",
-          onEnter: () => setActivePhase(i),
-          onEnterBack: () => setActivePhase(i),
-        });
+      // Scope selector to container to avoid conflicts
+      const slides = gsap.utils.toArray('.methodology-slide', containerRef.current);
+      
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=" + (slides.length * 150) + "%", // Increased scroll distance for smoother experience
+          pin: true,
+          scrub: 0.5, // Reduced scrub lag for more responsiveness
+          anticipatePin: 1,
+        }
       });
+
+      slides.forEach((slide: any, i) => {
+        if (i === 0) return; // First slide is already visible
+
+        // Animate previous slide out
+        tl.to(slides[i - 1], {
+            yPercent: -20,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power2.inOut"
+        }, i - 0.5); // Start at X.5
+
+        // Animate current slide in
+        tl.fromTo(slide, 
+            { yPercent: 20, opacity: 0 },
+            { 
+                yPercent: 0, 
+                opacity: 1, 
+                duration: 0.5, 
+                ease: "power2.inOut",
+                onStart: () => setActivePhase(i),
+                onReverseComplete: () => setActivePhase(i - 1)
+            },
+            i - 0.5 // Sync with exit
+        );
+      });
+      
     }, containerRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-[#272727] text-white py-24 md:py-32 border-t border-neutral-700">
-        
-        <div className="container mx-auto px-0 md:px-8 max-w-[98%]">
-            <div className="flex flex-col lg:flex-row">
-                
-                {/* Left Column: Sticky Context (Swiss Minimal) */}
-                <div className="lg:w-[480px] hidden lg:block relative border-r border-neutral-700">
-                    <div className="sticky top-0 h-screen flex flex-col justify-center px-8 py-12">
-                        <h2 className="font-display font-bold text-6xl text-white mb-16 tracking-tighter">
-                            Methodology<span className="text-[#CED600]">.</span>
-                        </h2>
-
-                        <div className="flex flex-col gap-3">
-                            {PHASES.map((phase, index) => (
-                                <div 
-                                    key={phase.id} 
-                                    className={`flex items-center gap-4 py-2 cursor-pointer transition-all duration-300 ${activePhase === index ? 'opacity-100 translate-x-4' : 'opacity-30 hover:opacity-50'}`}
-                                    onClick={() => {
-                                        const cards = document.querySelectorAll('.methodology-card');
-                                        if(cards[index]) cards[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                    }}
-                                >
-                                    <span className={`font-mono text-sm ${activePhase === index ? 'text-[#CED600]' : 'text-neutral-500'}`}>
-                                        0{index + 1}
-                                    </span>
-                                    <span className="font-display text-xl text-white truncate">
-                                        {phase.title}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                        
-                        <div className="mt-24 pt-8 border-t border-neutral-700">
-                             <div className="w-12 h-12 flex items-center justify-center">
-                                <div className={`w-2 h-2 bg-[#CED600] rounded-full transition-transform duration-500 ${activePhase !== null ? 'scale-100' : 'scale-0'}`}></div>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Right Column: Clean Grid */}
-                <div className="flex-1 flex flex-col">
-                    {PHASES.map((phase, index) => (
-                        <MethodologyCard 
-                            key={phase.id} 
-                            phase={phase} 
-                            index={index} 
-                            isActive={activePhase === index} 
-                        />
-                    ))}
-                </div>
-
+    <section ref={containerRef} className="relative w-full h-screen bg-transparent text-white border-t border-neutral-700 overflow-hidden">
+      <div className="container mx-auto px-0 md:px-8 max-w-[98%] h-full">
+        <div className="flex flex-col lg:flex-row h-full">
+          {/* Left Column: Sticky Context (Always visible due to Pinning) */}
+          <div className="lg:w-[480px] hidden lg:block relative border-r border-neutral-700 h-full">
+            <div className="h-full flex flex-col justify-center px-8 py-12">
+              <h2 className="font-display font-bold text-6xl text-white mb-16 tracking-tighter">
+                Methodology<span className="text-[#CED600]">.</span>
+              </h2>
+              <div className="flex flex-col gap-3">
+                {PHASES.map((phase, index) => (
+                  <div 
+                    key={phase.id} 
+                    className={`flex items-center gap-4 py-2 transition-all duration-300 ${activePhase === index ? 'opacity-100 translate-x-4' : 'opacity-30'}`}
+                  >
+                    <span className={`font-mono text-sm ${activePhase === index ? 'text-[#CED600]' : 'text-neutral-500'}`}>
+                      0{index + 1}
+                    </span>
+                    <span className="font-display text-xl text-white truncate">
+                      {phase.title}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
+          </div>
+
+          {/* Right Column: Stacked Slides */}
+          <div className="flex-1 relative h-full overflow-hidden">
+            {PHASES.map((phase, index) => (
+              <div 
+                key={phase.id} 
+                className={`methodology-slide absolute inset-0 w-full h-full flex items-center justify-center ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+              >
+                <MethodologyCard 
+                  phase={phase} 
+                  index={index} 
+                  isActive={activePhase === index} 
+                />
+              </div>
+            ))}
+          </div>
         </div>
+      </div>
     </section>
   );
 };

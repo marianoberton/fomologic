@@ -34,55 +34,101 @@ const Showcase: React.FC = () => {
   const [activeCase, setActiveCase] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
+  const cursorInnerRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Move cursor logic
-    const moveCursor = (e: MouseEvent) => {
-      // Image follows with delay
-      gsap.to(cursorRef.current, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.5,
-        ease: "power3.out"
-      });
+  // Physics State
+  const mouse = useRef({ x: 0, y: 0 });
+  const pos = useRef({ x: 0, y: 0 });
+  const vel = useRef({ x: 0, y: 0 });
 
-      // Dot follows instantly (precision)
+  useEffect(() => {
+    // Track mouse position
+    const updateMouse = (e: MouseEvent) => {
+      mouse.current = { x: e.clientX, y: e.clientY };
+      
+      // Dot follows instantly
       gsap.to(cursorDotRef.current, {
         x: e.clientX,
         y: e.clientY,
         duration: 0.1,
-        ease: "none"
+        ease: "none",
+        overwrite: true
       });
     };
 
-    window.addEventListener('mousemove', moveCursor);
-    return () => window.removeEventListener('mousemove', moveCursor);
+    window.addEventListener('mousemove', updateMouse);
+
+    // Physics Loop (60fps)
+    const loop = () => {
+        if (!cursorRef.current) return;
+
+        // Calculate lag/velocity (Lerp)
+        // Adjust the 0.1 factor to change "heaviness" (lower = heavier/slower)
+        const dt = 0.1; 
+        
+        const dx = mouse.current.x - pos.current.x;
+        const dy = mouse.current.y - pos.current.y;
+        
+        pos.current.x += dx * dt;
+        pos.current.y += dy * dt;
+        
+        vel.current.x = dx * dt;
+        vel.current.y = dy * dt;
+
+        // Calculate Deformations
+        // Rotation based on X velocity (Paper drag effect)
+        const rotation = gsap.utils.clamp(-15, 15, vel.current.x * -0.5);
+        
+        // Stretch based on total speed (Velocity magnitude)
+        const speed = Math.sqrt(vel.current.x * vel.current.x + vel.current.y * vel.current.y);
+        const scaleX = gsap.utils.clamp(1, 1.15, 1 + speed * 0.002); // Subtle stretch
+        const scaleY = gsap.utils.clamp(0.9, 1, 1 - speed * 0.002); // Subtle squash
+
+        // Apply Transforms
+        gsap.set(cursorRef.current, {
+            x: pos.current.x,
+            y: pos.current.y,
+            rotation: rotation,
+            scaleX: scaleX,
+            scaleY: scaleY,
+            overwrite: "auto" // Ensure no conflict
+        });
+    };
+
+    gsap.ticker.add(loop);
+
+    return () => {
+        window.removeEventListener('mousemove', updateMouse);
+        gsap.ticker.remove(loop);
+    };
   }, []);
 
   useEffect(() => {
-    // Reveal/Hide cursor image based on active state
+    // Reveal/Hide logic (Targeting Inner Ref for Scale/Opacity)
     if (activeCase !== null) {
-      gsap.to(cursorRef.current, {
+      gsap.to(cursorInnerRef.current, {
         scale: 1,
         opacity: 1,
         duration: 0.4,
-        ease: "back.out(1.7)"
+        ease: "back.out(1.4)"
       });
       gsap.to(cursorDotRef.current, {
-        scale: 0, // Hide dot when image is active (optional, or keep it)
-        opacity: 0
+        scale: 0, 
+        opacity: 0,
+        duration: 0.2
       });
     } else {
-      gsap.to(cursorRef.current, {
-        scale: 0,
+      gsap.to(cursorInnerRef.current, {
+        scale: 0.5, // Start smaller
         opacity: 0,
         duration: 0.3,
         ease: "power2.in"
       });
       gsap.to(cursorDotRef.current, {
         scale: 1,
-        opacity: 1
+        opacity: 1,
+        duration: 0.2
       });
     }
   }, [activeCase]);
@@ -98,13 +144,17 @@ const Showcase: React.FC = () => {
         className="fixed top-0 left-0 w-3 h-3 bg-accent-lime rounded-full pointer-events-none z-[60] -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block"
       ></div>
 
-      {/* Floating Image Cursor */}
+      {/* Floating Image Cursor (The Mover) */}
       <div 
         ref={cursorRef}
-        className="fixed top-0 left-0 w-[400px] h-[300px] pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2 hidden md:block"
-        style={{ opacity: 0, transform: 'scale(0)' }}
+        className="fixed top-0 left-0 w-[400px] h-[300px] pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2 hidden md:block will-change-transform"
       >
-        <div className="w-full h-full relative overflow-hidden rounded-lg shadow-2xl">
+        {/* Inner Container (The Scaler/Revealer) */}
+        <div 
+            ref={cursorInnerRef}
+            className="w-full h-full relative overflow-hidden rounded-lg shadow-2xl origin-center"
+            style={{ opacity: 0, transform: 'scale(0)' }}
+        >
            {activeCase !== null && (
              <img 
                src={CASES[activeCase].image} 
@@ -162,12 +212,12 @@ const Showcase: React.FC = () => {
               onMouseLeave={() => setActiveCase(null)}
             >
               {/* Hover Background Fill */}
-              <div className="absolute inset-0 bg-neutral-50 scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500 ease-out -z-10"></div>
+              <div className="absolute inset-0 bg-[#272727] scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500 ease-out -z-10"></div>
 
               <div className="flex flex-col md:flex-row items-stretch min-h-[180px]">
                 
                 {/* ID Column */}
-                <div className="w-full md:w-[15%] p-8 border-r border-transparent group-hover:border-neutral-200 transition-colors duration-500 flex items-start">
+                <div className="w-full md:w-[15%] p-8 border-r border-transparent group-hover:border-neutral-700 transition-colors duration-500 flex items-start">
                    <span className="font-mono text-sm text-neutral-400 group-hover:text-accent-lime transition-colors duration-300">
                      /{project.id}
                    </span>
@@ -175,16 +225,16 @@ const Showcase: React.FC = () => {
 
                 {/* Main Content Column */}
                 <div className="w-full md:w-[65%] p-8 flex flex-col justify-center">
-                    <h3 className="font-display font-bold text-5xl md:text-7xl tracking-tighter text-neutral-900 mb-2 group-hover:translate-x-2 transition-transform duration-500">
+                    <h3 className="font-display font-bold text-5xl md:text-7xl tracking-tighter text-neutral-900 group-hover:text-white mb-2 group-hover:translate-x-2 transition-transform duration-500">
                         {project.client}
                     </h3>
-                    <span className="font-body text-lg text-neutral-500 group-hover:text-neutral-900 transition-colors">
+                    <span className="font-body text-lg text-neutral-500 group-hover:text-neutral-400 transition-colors">
                         {project.category}
                     </span>
                 </div>
 
                 {/* Action Column */}
-                <div className="w-full md:w-[20%] p-8 border-l border-transparent group-hover:border-neutral-200 transition-colors duration-500 flex items-center justify-end md:justify-center overflow-hidden">
+                <div className="w-full md:w-[20%] p-8 border-l border-transparent group-hover:border-neutral-700 transition-colors duration-500 flex items-center justify-end md:justify-center overflow-hidden">
                     <div className="relative w-16 h-16 rounded-full border border-neutral-200 flex items-center justify-center group-hover:bg-accent-lime group-hover:border-accent-lime transition-all duration-500">
                         <ArrowUpRight size={24} className="text-neutral-900 group-hover:scale-125 transition-transform duration-500" />
                     </div>

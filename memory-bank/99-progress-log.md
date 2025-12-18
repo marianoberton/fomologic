@@ -29,3 +29,15 @@
 [2025-12-10] Home: Refactor de Hero Section. Adopción de escala tipográfica "Display" (7xl/9xl) alineada con Nosotros, y layout 60/40 (Texto/Visual) para mayor impacto arquitectónico.
 [2025-12-10] Home: Update de Hero Typography. Incremento a escala masiva (12vw/11rem) con tracking ajustado (-0.04em) y color Graphite (#272727) para "Evolución con IA.". Subtítulo ajustado a la nueva jerarquía.
 [2025-12-10] UI/Motion (Showcase): Fix de timing en animación de hover. Eliminación de delay en imagen para sincronizar aparición con el asset 3D (Slab) y evitar "parpadeo" visual.
+[2025-12-17] Methodology: Implementación de 'Narrativa Fija'. Pinning de sección con GSAP, navegación por slides verticales y animaciones magnéticas en iconos.
+[2025-12-17] Home: Refinamiento de transiciones de fondo. Implementación de capa oscura global con fade-out controlado al entrar en Servicios (Inversa).
+[2025-12-17] UI/Cleanup: BrandMarquee. Eliminación de bordes gruesos y padding excesivo para limpiar la estética visual.
+[2025-12-17] Methodology: Refinamiento de Scroll & Physics. Ajuste de triggers para evitar saltos (distancia aumentada 150%), reducción de lag en scrub (0.5), y scoping de selectores GSAP para estabilidad. Fix de transición de fondo en Home (fade-in temprano).
+[2025-12-17] Services/Home: Fix de transición de fondo inversa (Oscuro -> Claro). Se eliminó el fondo sólido de `Services.tsx` (ahora transparente) y se implementó lógica robusta `gsap.fromTo` en `Home.tsx` para asegurar el fade-out correcto al scrollear en ambas direcciones.
+[2025-12-17] Showcase: Implementación de 'Revelación On-Demand'. Lista minimalista de nombres con cursor físico (Lerp + Velocity Deformations). Imágenes de proyectos flotan y se deforman (stretch/rotate) según la velocidad del mouse.
+[2025-12-17] Magnetic UI: Implementación global de `MagneticButton`. Reemplazo de botones "Hablemos" en Hero, Closing y Navbar por botones con física de atracción magnética (Spring).
+[2025-12-17] Home/Hero: Fix de carga inicial de fondo oscuro. Ajuste de `gsap.fromTo` a `gsap.to` en `Home.tsx` para respetar el estado inicial light.
+[2025-12-17] Home: Refactor de transiciones de fondo Methodology-Services. Separación de referencias de fondo (`methodologyBgRef`, `closingBgRef`) y uso de `gsap.timeline` para lifecycle completo (Fade In -> Hold -> Fade Out) sincronizado con el scroll.
+[2025-12-17] Insights: Implementación de 'Liquid Borders'. Creación de componente `LiquidBorder.tsx` con deformación de path SVG basada en física (GSAP Ticker) para simular viscosidad magnética al pasar el mouse.
+[2025-12-17] Marquee: Upgrade de 'Tech Stack Marquee'. Reescritura total usando `framer-motion` para física de velocidad (scroll velocity skew), looping perfecto, y estética "Technical Data Sheet" con separadores y logotipos monocromáticos interactivos.
+[2025-12-17] Social Proof: Creación de 'The Ecosystem'. Reemplazo de `BrandMarquee` con una grilla estática minimalista (3 col). Implementación de física magnética en logos y contadores "terminal" que simulan procesamiento de datos al hacer hover.

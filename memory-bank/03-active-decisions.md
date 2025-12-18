@@ -65,3 +65,34 @@ Alternativas consideradas: Configuración directa en Tailwind vs Variables CSS.
 Decisión: Usar variables CSS (`--font-manrope`, `--font-karla`) inyectadas en `:root` y referenciadas en `tailwind.config`.
 Rationale: Mejora la mantenibilidad y permite cambiar las fuentes en un solo lugar (CSS) sin tocar la configuración de Tailwind repetidamente.
 Consecuencias: Se actualizaron los `fontFamily` en Tailwind para usar `var(...)`. Se eliminaron referencias a Space Grotesk, Inter y otras fuentes de prueba. Se ajustó el tracking global (H1-H3 tight, p normal/wide).
+
+## [2025-12-17] Narrativa Fija (Methodology Pinning)
+Contexto: La sección de Metodología era scrolleable rápidamente, perdiendo impacto y atención en las fases críticas.
+Alternativas consideradas: Scroll normal vs Scroll Snapping vs Pinning (GSAP).
+Decisión: Implementar **Pinning con GSAP ScrollTrigger**.
+Rationale: "Obliga" al usuario a detenerse. La estructura se mantiene fija mientras el contenido cambia (slides), guiando la lectura paso a paso.
+Consecuencias: Implementación de lógica de slides apilados (absolute positioning) en `Methodology.tsx` y timelines de GSAP sincronizados con el scroll.
+
+## [2025-12-17] Arquitectura de Transición de Fondo Global
+Contexto: Requerimiento de cambios suaves de fondo (Claro -> Oscuro -> Claro) entre secciones de la Home sin cortes abruptos.
+Alternativas consideradas: Cambiar `bg-color` del body vs Divs por sección vs Capa fija global.
+Decisión: Usar una **Capa Fija Global (`fixed inset-0`)** controlada por GSAP.
+Rationale: Permite transiciones perfectas (opacity 0->1) independientes del DOM flow. Evita problemas de z-index entre secciones adyacentes.
+81→Consecuencias: `Home.tsx` controla la opacidad de esta capa basándose en triggers de scroll de secciones específicas (Methodology, Closing). Las secciones intermedias deben ser `bg-transparent`.
+82→
+83→## [2025-12-17] Liquid Borders (Insights Grid)
+Contexto: Las tarjetas de "Insights" eran estáticas y aburridas. Se buscaba una interacción orgánica y fluida.
+Alternativas consideradas: CSS Border Radius Animation vs SVG Filters (Gooey) vs Canvas vs SVG Path Deformation.
+Decisión: Implementar **Deformación de Path SVG (Magnetic)** con física personalizada.
+Rationale: Mejor performance que SVG Filters (que pueden ser costosos en móviles) y más controlable que CSS. Permite una deformación "magnética" hacia el cursor que simula viscosidad/liquidez sin distorsionar el contenido.
+Consecuencias: Nuevo componente `LiquidBorder.tsx`. Las tarjetas de Insights usan este componente en lugar de bordes CSS estándar.
+
+## [2025-12-17] The Silent Grid (Social Proof)
+Contexto: La marquesina de clientes (BrandMarquee) se percibía como "Retail Barato" por su velocidad y movimiento constante. Se buscaba transmitir "Lujo Estático" y confianza.
+Alternativas consideradas: Marquee más lento vs Lista estática vs Grid interactivo.
+Decisión: Reemplazar `BrandMarquee` con `Ecosystem` (Grid 3 columnas, minimalista).
+Rationale: "The Ecosystem" eleva la percepción de la marca. El movimiento solo ocurre bajo demanda (interacción del usuario), comunicando control y sofisticación.
+Consecuencias:
+- Eliminación de `BrandMarquee` en Home.
+- Implementación de `Ecosystem.tsx` con física magnética en logos y contadores estilo terminal ("Data Processing") al hacer hover.
+- Logos desaturados por defecto, revelación completa solo al interactuar.
