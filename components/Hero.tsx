@@ -77,19 +77,6 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 z-[1] opacity-[0.03] pointer-events-none mix-blend-multiply" 
            style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
 
-      {/* --- VIDEO TEST LAYER --- */}
-      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
-        <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className="w-full h-full object-cover [mask-image:linear-gradient(to_bottom,black_50%,transparent_100%)]"
-        >
-            <source src="/videos/Abstract_Foggy_Landscape_Video.mp4" type="video/mp4" />
-        </video>
-      </div>
-
       {/* --- LAYER 1: THE UNIVERSE (3D Canvas) --- */}
       <div className="absolute top-0 left-0 w-full h-full z-[0]">
          <TitaniumCube />

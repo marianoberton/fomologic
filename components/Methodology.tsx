@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { IsoBaseSlab, IsoHelixTwist, IsoCloudStack, IsoInfinityLoop, IsoHourglass } from './MethodologyIcons';
+import TechnicalOverlay from './TechnicalOverlay';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -192,6 +193,9 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
             onMouseLeave={handleMouseLeave}
             className="md:col-span-5 relative border-r border-neutral-700 p-8 md:p-16 flex flex-col justify-center h-full overflow-hidden cursor-crosshair perspective-1000"
         >
+             {/* Technical Overlay */}
+             <TechnicalOverlay />
+
              {/* Dynamic Icon */}
              <div ref={iconRef} className="relative z-20 w-32 h-32 md:w-48 md:h-48 mx-auto">
                 <phase.icon className="w-full h-full text-[#CED600] drop-shadow-[0_0_15px_rgba(206,214,0,0.3)]" />
