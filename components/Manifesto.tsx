@@ -10,33 +10,33 @@ gsap.registerPlugin(ScrollTrigger);
 const STEPS = [
   {
     id: 1,
-    fade: "Lo que te trajo hasta este nivel de facturación",
-    highlight: "es exactamente lo que te impide pasar al siguiente.",
+    fade: "La mayoría de los costos no están en los números.",
+    highlight: "Están escondidos en procesos mal diseñados.",
     theme: "light"
   },
   {
     id: 2,
-    fade: "El mercado dejó de premiar el esfuerzo manual",
-    highlight: "y empezó a castigar la lentitud con irrelevancia.",
+    fade: "Horas, reprocesos, errores y decisiones tardías",
+    highlight: "no figuran como gasto. Pero se pagan todos los meses.",
     theme: "light"
   },
   {
     id: 3,
-    fade: "Pagar sueldos ejecutivos para llenar celdas de Excel",
-    highlight: "no es gestión. Es vandalismo financiero.",
-    theme: "impact-1" // Brand Highlight
+    fade: "Las empresas grandes no bajan costos ajustando personas.",
+    highlight: "Rediseñan procesos y delegan la ejecución a sistemas.",
+    theme: "impact-1"
   },
   {
     id: 4,
-    fade: "Mientras tu equipo se ahoga en burocracia operativa",
-    highlight: "tu competencia ya automatizó las decisiones que vos seguís discutiendo.",
+    fade: "Mientras seguís resolviendo con trabajo manual",
+    highlight: "otros ya usan agentes de IA para ejecutar y controlar la operación.",
     theme: "light"
   },
   {
     id: 5,
-    fade: "La era de la intuición se terminó.",
-    highlight: "Avanzar para no desaparecer.",
-    theme: "final" // Massive impact
+    fade: "Usar IA es fácil.",
+    highlight: "Hacer que trabaje para tu empresa no.",
+    theme: "final"
   }
 ];
 
@@ -142,17 +142,7 @@ const Manifesto: React.FC = () => {
                    ${isImpact ? 'text-5xl md:text-7xl lg:text-8xl' : 'text-4xl md:text-6xl lg:text-8xl'}
                    ${isFinal ? 'text-6xl md:text-8xl lg:text-[10rem] mt-4 pb-20' : ''}
                  `}>
-                    {step.highlight.includes("vandalismo financiero") ? (
-                       <>
-                         no es gestión. Es <br className="md:hidden" />
-                         <span className="relative inline-block mt-2 md:mt-0 px-4 py-1 -mx-4 -rotate-1">
-                           <span className="absolute inset-0 bg-accent-lime z-0 skew-x-[-12deg]"></span>
-                           <span className="relative z-10 text-[#272727]">vandalismo financiero.</span>
-                         </span>
-                       </>
-                    ) : (
-                      step.highlight
-                    )}
+                    {step.highlight}
                  </h2>
 
                </div>

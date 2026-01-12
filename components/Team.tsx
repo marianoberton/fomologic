@@ -9,17 +9,17 @@ gsap.registerPlugin(ScrollTrigger);
 const FOUNDERS = [
   {
     name: "Mariano Berton",
-    role: "Solutions Architect",
+    role: "IA Aplicada a Operaciones",
     img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
-    bio: "Ex-CTO. Especialista en arquitecturas escalables y orquestación de sistemas complejos.",
+    bio: "Diseña e implementa sistemas de IA integrados a procesos críticos de la operación.",
     linkedin: "#",
     mask: "/svg/illustrations/01-Iso_Base_Slab.svg" // Changed to Slab as requested
   },
   {
     name: "Guillermina Berton",
-    role: "Product Strategy",
+    role: "Estrategia Operativa & Transformación",
     img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop",
-    bio: "Mente maestra detrás de la adopción tecnológica. Traduce código en rentabilidad.",
+    bio: "Rediseña procesos y lidera la transformación para que la tecnología impacte en costos y control.",
     linkedin: "#",
     mask: "/svg/illustrations/13-Iso_Hourglass.svg" // Changed to Hourglass (Guardian) as requested
   }
@@ -131,14 +131,14 @@ const Team: React.FC = () => {
            <div className="max-w-3xl">
               <div className="flex items-center gap-3 mb-6 team-header-anim">
                  <div className="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></div>
-                 <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Core Intelligence</span>
+                 <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Núcleo Operativo</span>
               </div>
               <h2 className="font-display font-bold text-7xl md:text-8xl tracking-tighter leading-[0.9] team-header-anim">
-                 HUMAN<br/><span className="text-neutral-300">ARCHITECTURE.</span>
+                 INTELIGENCIA<br/><span className="text-neutral-300">HUMANA.</span>
               </h2>
            </div>
            <p className="font-body text-neutral-500 text-lg max-w-md text-right leading-relaxed mb-2 team-header-anim">
-              Liderazgo estratégico potenciado por una red global de especialistas.
+              Diseñamos procesos. Los ejecutamos con agentes de IA.
            </p>
         </div>
 
@@ -225,10 +225,10 @@ const Team: React.FC = () => {
                {/* Text Block - Integrated Left */}
                <div className="w-full md:w-1/3 flex flex-col justify-center relative z-20 md:pr-12">
                     <h3 className="font-display font-bold text-5xl md:text-6xl tracking-tighter mb-6 leading-[0.9]">
-                        HIVE MIND<br/><span className="text-neutral-300">INTELLIGENCE.</span>
+                        UNIDAD TÁCTICA<br/><span className="text-neutral-300">DE EJECUCIÓN.</span>
                     </h3>
                     <p className="font-body text-neutral-500 leading-relaxed text-lg max-w-md">
-                        Decentralized power. We curate the top 1% of global engineering talent, deploying tactical units that scale with your ambition.
+                        No ampliamos equipos. Armamos células tácticas para rediseñar un proceso y automatizar su ejecución.
                     </p>
                </div>
 

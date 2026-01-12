@@ -5,31 +5,44 @@ import LiquidBorder from './LiquidBorder';
 
 const INSIGHTS = [
   {
-    id: 1,
-    title: "The Future of Automation: Beyond Simple Scripts",
-    category: "AI & Strategy",
-    date: "Dec 12, 2024",
+    id: 2,
+    title: "Globant’s “Tech Trends” breaks down the 5 Forces that Will Power Enterprise Transformation in 2026",
+    category: "Tendencias Tecnológicas",
+    date: "Dec 9, 2025",
     readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2000&auto=format&fit=crop", // Dark 3D Abstract
-    size: "large" // Spans 2 cols
+    image: "/images/globant.jpg",
+    size: "large",
+    url: "https://www.globant.com/news/tech-trends-2026"
   },
   {
-    id: 2,
-    title: "Why 'Low-Code' is the New 'Pro-Code'",
-    category: "Development",
-    date: "Nov 28, 2024",
-    readTime: "3 min read",
-    image: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2000&auto=format&fit=crop", // Isometric Geometric
-    size: "regular"
+    id: 4,
+    title: "El 79% de las empresas estadounidenses incorporaron IA en sus procesos",
+    category: "IA & Negocios",
+    date: "Jan 12, 2026",
+    readTime: "4 min read",
+    image: "/images/ai-technology-brain-background-digital-transformation-concept-1-696x464.jpg.webp",
+    size: "regular",
+    url: "https://mercado.com.ar/ruta-digital/el-79-de-las-empresas-estadounidenses-incorporaron-ia-en-sus-procesos/"
+  },
+  {
+    id: 1,
+    title: "YPF y Globant avanzan con un ambicioso proyecto para optimizar la cadena de suministro con inteligencia artificial",
+    category: "IA & Negocios",
+    date: "Oct 29, 2025",
+    readTime: "6 min read",
+    image: "/images/tpf.avif",
+    size: "large",
+    url: "https://www.infobae.com/economia/2025/10/29/ypf-y-globant-avanzan-con-un-ambicioso-proyecto-para-optimizar-la-cadena-de-suministro-con-inteligencia-artificial/"
   },
   {
     id: 3,
-    title: "Design Systems that Scale with Physics",
-    category: "Design",
-    date: "Nov 15, 2024",
-    readTime: "4 min read",
-    image: "https://images.unsplash.com/photo-1649025086883-9b4c0e6b5c3e?q=80&w=2000&auto=format&fit=crop", // Glassy Abstract
-    size: "regular"
+    title: "Un año de IA agéntica: Seis lecciones de quienes están haciendo el trabajo",
+    category: "IA Agéntica",
+    date: "Destacado",
+    readTime: "7 min read",
+    image: "/images/mcinsey.png",
+    size: "regular",
+    url: "https://www.mckinsey.com/featured-insights/destacados/un-ano-de-ia-agentica-seis-lecciones-de-quienes-estan-haciendo-el-trabajo/es"
   }
 ];
 
@@ -83,13 +96,16 @@ const Insights: React.FC = () => {
             {/* Bento Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {INSIGHTS.map((item, index) => (
-                    <motion.div
+                    <motion.a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         key={item.id}
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className={`group relative rounded-3xl overflow-hidden bg-[#272727]/5 transition-colors duration-500 ${item.size === 'large' ? 'md:col-span-2 aspect-[16/9] md:aspect-auto' : 'md:col-span-1 aspect-square'}`}
+                        className={`group relative rounded-3xl overflow-hidden bg-[#272727]/5 transition-colors duration-500 block ${item.size === 'large' ? 'md:col-span-2 aspect-[16/9] md:aspect-auto' : 'md:col-span-1 aspect-square'}`}
                     >
                         {/* Liquid Border */}
                         <LiquidBorder className="text-[#272727]/10 group-hover:text-[#CED600] transition-colors duration-500 z-50" />
@@ -99,7 +115,7 @@ const Insights: React.FC = () => {
                             <motion.img 
                                 src={item.image} 
                                 alt={item.title}
-                                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                             />
                             {/* Overlay - Reduced height/opacity to prevent "cutting" effect */}
                             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#272727] to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500"></div>
@@ -133,7 +149,7 @@ const Insights: React.FC = () => {
                                 </h3>
                             </div>
                         </div>
-                    </motion.div>
+                    </motion.a>
                 ))}
             </div>
         </div>

@@ -6,8 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLenis } from '@studio-freight/react-lenis';
 import BrandLogo from './BrandLogo';
 import MagneticButton from './MagneticButton';
+import { useContact } from '../context/ContactContext';
 
 const Navbar: React.FC = () => {
+  const { openContact } = useContact();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -73,6 +75,7 @@ const Navbar: React.FC = () => {
     { name: 'nosotros', href: '/nosotros' },
     { name: 'servicios', href: '/servicios' },
     { name: 'casos', href: '/casos' },
+    { name: 'express', href: '/express' },
   ];
 
   // Animation Variants
@@ -153,13 +156,13 @@ const Navbar: React.FC = () => {
           {/* Action & Mobile */}
           <div className="flex items-center gap-4">
             <MagneticButton
-                href="#closing"
-                onClick={(e) => handleNavClick(e, '#closing')}
+                onClick={openContact}
                 strength={0.4} // Moderate pull
                 range={100}   // 100px radius
                 className={`
                     hidden md:flex items-center justify-center font-display font-bold text-sm px-6 py-2.5 rounded-full transition-all duration-300
                     bg-[#CED600] text-[#272727] hover:bg-[#FAFAFA] hover:text-[#272727] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]
+                    cursor-pointer
                 `}
             >
               hablemos
@@ -216,9 +219,9 @@ const Navbar: React.FC = () => {
                 transition={{ delay: 0.6, duration: 0.5 }}
                 className="mt-16 relative z-10"
               >
-                  <a href="#closing" onClick={(e) => handleNavClick(e, '#closing')} className="bg-[#CED600] text-[#272727] font-display font-bold text-xl px-10 py-4 rounded-full lowercase cursor-pointer hover:bg-white hover:scale-105 transition-all duration-300">
+                  <button onClick={() => { setMobileMenuOpen(false); openContact(); }} className="bg-[#CED600] text-[#272727] font-display font-bold text-xl px-10 py-4 rounded-full lowercase cursor-pointer hover:bg-white hover:scale-105 transition-all duration-300">
                     hablemos
-                  </a>
+                  </button>
               </motion.div>
           </motion.div>
         )}

@@ -52,19 +52,19 @@ const QuoteSeparator: React.FC = () => {
         {/* Decorative Top Line */}
         <div ref={lineRef} className="w-full h-[1px] bg-[#272727] mb-12 origin-center transform" />
 
-        <h2 ref={textRef} className="font-display font-bold text-5xl md:text-7xl lg:text-8xl text-[#272727] leading-[0.9] tracking-tighter uppercase perspective-1000">
-          We don't sell hours. <br />
-          <span className="text-[#CED600]">We sell velocity.</span>
+        <h2 ref={textRef} className="font-display font-bold text-4xl md:text-6xl lg:text-7xl text-[#272727] leading-[1.1] tracking-tight perspective-1000 max-w-4xl mx-auto">
+          No vendemos horas. <br />
+          <span className="text-[#CED600]">Diseñamos sistemas que trabajan por vos.</span>
         </h2>
 
         {/* Technical Subtitle */}
         <div className="mt-12 flex justify-center items-center gap-4">
             <span className="font-mono text-xs text-[#272727]/40 uppercase tracking-widest">
-                [ ROI_ACCELERATION_PROTOCOL ]
+                [ SISTEMAS AUTÓNOMOS ]
             </span>
             <div className="w-12 h-[1px] bg-[#272727]/20" />
             <span className="font-mono text-xs text-[#272727]/40 uppercase tracking-widest">
-                EST. 2024
+                BUSINESS ENGINEERING
             </span>
         </div>
       </div>

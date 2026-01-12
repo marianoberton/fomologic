@@ -20,7 +20,7 @@ const PHASES = [
       "Optimización de CRM & ERP",
       "Base de Conocimiento"
     ],
-    meta: "Single Source of Truth",
+    meta: "Fuente Única de Verdad",
     icon: IsoBaseSlab
   },
   {
@@ -39,7 +39,7 @@ const PHASES = [
   },
   {
     id: "03",
-    title: "The MVP",
+    title: "El MVP",
     subtitle: "Validación Táctica",
     concept: "Resultados rápidos. Un \"golpe táctico\" en 3 semanas.",
     problem: "El miedo a proyectos largos y costosos que no terminan nunca.",
@@ -48,18 +48,18 @@ const PHASES = [
       "Automatizaciones Low-Code",
       "Eliminación de tareas repetitivas"
     ],
-    meta: "ROI inmediato",
+    meta: "Resultados Visibles",
     icon: IsoCloudStack
   },
   {
     id: "04",
-    title: "Scale Development",
+    title: "IA para escalar",
     subtitle: "Ingeniería de Escala",
     concept: "Construcción de activos robustos y propiedad intelectual.",
     problem: "Las herramientas \"atadas con alambre\" no soportan volumen real.",
     actions: [
       "Software a medida e integraciones",
-      "RAG Avanzado (Chat histórico)",
+      "Chat Inteligente con tus Datos",
       "Dashboards en Tiempo Real"
     ],
     meta: "Infraestructura x10",
@@ -67,7 +67,7 @@ const PHASES = [
   },
   {
     id: "05",
-    title: "Evolutionary Partner",
+    title: "Evolución Continua",
     subtitle: "Retainer",
     concept: "Tu seguro contra la obsolescencia tecnológica.",
     problem: "La IA avanza cada 3 meses; quedarse quieto es retroceder.",
@@ -76,7 +76,7 @@ const PHASES = [
       "Upgrade de Modelos",
       "Gerencia de Innovación"
     ],
-    meta: "Antifragilidad permanente",
+    meta: "Adaptación Constante",
     icon: IsoHourglass
   }
 ];
@@ -224,7 +224,7 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
             </p>
 
             <div className="bg-neutral-800/30 border border-neutral-700 p-6 mb-8 backdrop-blur-sm">
-                <p className="font-body text-neutral-400 italic text-sm mb-2">Problem Statement:</p>
+                <p className="font-body text-neutral-400 italic text-sm mb-2">El Problema:</p>
                 <p className="font-body text-white">"{phase.problem}"</p>
             </div>
 
@@ -239,7 +239,7 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
 
             <div className="flex items-center gap-4">
                 <div className="h-[1px] bg-neutral-700 flex-1"></div>
-                <div className="font-mono text-xs text-neutral-500">PHASE_COMPLETE</div>
+                <div className="font-mono text-xs text-neutral-500">FASE_COMPLETADA</div>
             </div>
         </div>
 
@@ -294,6 +294,9 @@ const Methodology: React.FC = () => {
         );
       });
       
+      // Hold the last slide for a moment to ensure it's fully readable before unpinning
+      tl.to({}, { duration: 0.5 });
+      
     }, containerRef);
     return () => ctx.revert();
   }, []);
@@ -306,7 +309,7 @@ const Methodology: React.FC = () => {
           <div className="lg:w-[480px] hidden lg:block relative border-r border-neutral-700 h-full">
             <div className="h-full flex flex-col justify-center px-8 py-12">
               <h2 className="font-display font-bold text-6xl text-white mb-16 tracking-tighter">
-                Methodology<span className="text-[#CED600]">.</span>
+                Metodología<span className="text-[#CED600]">.</span>
               </h2>
               <div className="flex flex-col gap-3">
                 {PHASES.map((phase, index) => (

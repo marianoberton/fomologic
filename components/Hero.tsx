@@ -4,10 +4,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TitaniumCube from './TitaniumCube';
 import MagneticButton from './MagneticButton';
+import { useContact } from '../context/ContactContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero: React.FC = () => {
+  const { openContact } = useContact();
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLDivElement>(null);
@@ -22,29 +24,28 @@ const Hero: React.FC = () => {
         const lines = titleRef.current?.querySelectorAll('.line-inner');
         if (lines && lines.length > 0) {
             // Split lines: Main message vs "The punchline"
-            const mainLines = Array.from(lines).slice(0, 3);
-            const punchLine = lines[3];
+            const mainLine = lines[0];
+            const punchLine = lines[1];
 
             gsap.set(lines, { yPercent: 120, rotate: 3 }); // Initial state: Hidden deep below
             
-            // Part A: "Competir en igualdad de condiciones *"
-            gsap.to(mainLines, { 
+            // Part A: "Usar IA es fácil."
+            gsap.to(mainLine, { 
                 yPercent: 0, 
                 rotate: 0,
                 duration: 1.5,
-                stagger: 0.2,
                 ease: "power3.out",
                 delay: 0.5
             });
 
-            // Part B: "es un error." (Dramatic pause)
+            // Part B: "Hacer que trabaje para tu empresa no." (Dramatic pause)
             if (punchLine) {
                 gsap.to(punchLine, { 
                     yPercent: 0, 
                     rotate: 0,
                     duration: 1.5,
                     ease: "power3.out",
-                    delay: 2.0 // Significantly later (0.5 start + ~0.6 stagger + pause)
+                    delay: 1.5 
                 });
             }
         }
@@ -85,40 +86,32 @@ const Hero: React.FC = () => {
       {/* --- LAYER 2: CONTENT GRID --- */}
       <div className="relative z-10 w-full h-full container mx-auto px-6 md:px-12 flex flex-col justify-center pointer-events-none">
         
-        <div className="max-w-4xl pointer-events-auto">
+        <div className="max-w-5xl pointer-events-auto">
           
           {/* Headline - Split for Animation */}
-          <h1 ref={titleRef} className="font-display font-bold text-[10vw] md:text-[6rem] lg:text-[7.5rem] leading-[0.85] tracking-[-0.04em] text-[#272727] mb-12 will-change-transform">
+          <h1 ref={titleRef} className="font-display font-bold text-[8vw] md:text-[5rem] lg:text-[6.5rem] leading-[1.1] tracking-[-0.04em] text-[#272727] mb-12 will-change-transform">
             <div className="overflow-hidden">
-                <div className="line-inner">Competir en</div>
-            </div>
-            <div className="overflow-hidden">
-                <div className="line-inner">igualdad de</div>
-            </div>
-            <div className="overflow-hidden pt-8 -mt-8">
-                <div className="line-inner flex items-baseline gap-4">
-                    <span>condiciones</span>
-                    <span className="text-[#CED600] text-[0.5em] align-top tracking-normal translate-y-[-0.2em] hidden md:inline-block">*</span>
-                </div>
+                <div className="line-inner">Usar IA es fácil.</div>
             </div>
             <div className="overflow-hidden">
                 <div className="line-inner text-neutral-400">
-                    es un error.
+                    Hacer que trabaje para tu empresa no.
                 </div>
             </div>
           </h1>
 
           {/* Copy & CTA */}
           <div ref={subRef} className="flex flex-col md:flex-row items-start md:items-center gap-12 pl-2">
-             <p className="font-body text-lg md:text-xl text-neutral-600 font-medium leading-relaxed max-w-xl text-pretty">
-               La IA rompió el equilibrio del mercado. Implementamos sistemas para que escales tu facturación, no tus problemas.
-             </p>
+             <div className="font-body text-lg md:text-xl text-neutral-600 font-medium leading-relaxed max-w-xl text-pretty space-y-1">
+               <p>Diseñamos procesos claros y los ejecutamos con agentes de IA.</p>
+               <p className="text-[#272727] font-bold">Menos fricción. Menos costo. Más control.</p>
+             </div>
              
-             <MagneticButton className="group relative bg-[#272727] text-white px-10 py-5 rounded-full flex items-center gap-4 transition-all duration-500 hover:bg-[#CED600] hover:text-[#272727] hover:scale-105 shadow-2xl shadow-neutral-900/20">
+             <MagneticButton onClick={openContact} className="group relative bg-[#CED600] text-[#272727] px-10 py-5 rounded-full flex items-center gap-4 transition-all duration-500 hover:brightness-110 hover:scale-105 shadow-[0_0_20px_rgba(206,214,0,0.4)] hover:shadow-[0_0_50px_rgba(206,214,0,0.8)] cursor-pointer">
                   <span className="relative z-10 font-display text-sm font-bold tracking-widest uppercase">
-                    Actualizar Modelo
+                    Hablemos
                   </span>
-                  <div className="relative z-10 w-8 h-8 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-[#272727]/10 transition-colors">
+                  <div className="relative z-10 w-8 h-8 bg-[#272727]/10 rounded-full flex items-center justify-center group-hover:bg-[#272727]/20 transition-colors">
                      <ArrowRight size={14} className="group-hover:-rotate-45 transition-transform duration-300" />
                   </div>
              </MagneticButton>

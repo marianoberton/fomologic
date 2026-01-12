@@ -154,7 +154,7 @@ const BrandMarquee: React.FC = () => {
             items={[
                 { type: 'text', content: 'ingeniería de negocios', outline: false },
                 { type: 'text', content: 'inteligencia artificial', outline: true },
-                { type: 'badge', content: '[ sys.v.2.0 ]' },
+                { type: 'badge', content: '[ fomo.method ]' },
                 { type: 'text', content: 'automatización', outline: false },
             ]}
         />
@@ -165,10 +165,9 @@ const BrandMarquee: React.FC = () => {
             theme="light"
             separator={<IsoCloud className="w-full h-full text-accent-lime" />}
             items={[
-                { type: 'text', content: 'hyper-growth systems', outline: true },
-                { type: 'text', content: 'digital sovereignty', outline: false, color: 'text-ink' },
-                { type: 'badge', content: 'code_as_capital' },
-                { type: 'text', content: 'zero latency', outline: true },
+                { type: 'text', content: 'reducción de costos', outline: true },
+                { type: 'text', content: 'más control', outline: false, color: 'text-ink' },
+                { type: 'badge', content: 'process_driven' },
             ]}
         />
 
@@ -178,10 +177,10 @@ const BrandMarquee: React.FC = () => {
             theme="dark"
             separator={<IsoInfinity className="w-full h-full text-accent-lime" />}
             items={[
-                { type: 'text', content: 'swiss_precision', outline: false },
-                { type: 'text', content: 'brutalism', outline: true },
-                { type: 'badge', content: 'future_proof' },
-                { type: 'text', content: 'fomo_sapiens', outline: false },
+                { type: 'text', content: 'sistemas que escalan', outline: false },
+                { type: 'text', content: 'menos improvisación', outline: true },
+                { type: 'text', content: 'el caos cuesta', outline: false },
+                { type: 'text', content: 'orden', outline: true },
             ]}
         />
 

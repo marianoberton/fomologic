@@ -10,13 +10,14 @@ interface MagneticButtonProps {
   range?: number; // Pixel radius to trigger the effect (default: 100)
 }
 
-const MagneticButton: React.FC<MagneticButtonProps> = ({ 
+const MagneticButton: React.FC<MagneticButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement> & React.AnchorHTMLAttributes<HTMLAnchorElement>> = ({ 
   children, 
   className = "", 
   onClick, 
   href,
   strength = 0.5,
-  range = 100
+  range = 100,
+  ...rest
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   
@@ -71,7 +72,7 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
 
   // Component Wrapper
   const Component = href ? motion.a : motion.button;
-  const props = href ? { href, onClick } : { onClick };
+  const props = href ? { href, onClick, ...rest } : { onClick, ...rest };
 
   return (
     <div ref={ref} className="relative inline-block" style={{ zIndex: 50 }}>

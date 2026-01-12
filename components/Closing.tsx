@@ -3,8 +3,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Mail, Linkedin, ArrowUpRight } from 'lucide-react';
 import { IsoCloud, IsoTetris, IsoInfinity } from './IsoIcons';
 import MagneticButton from './MagneticButton';
+import { useContact } from '../context/ContactContext';
 
 const Closing: React.FC = () => {
+  const { openContact } = useContact();
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -90,7 +92,7 @@ const Closing: React.FC = () => {
           
           {/* Magnetic CTA */}
           <div className="w-full flex justify-end">
-            <MagneticButton className="group relative px-10 py-6 md:px-12 md:py-8 bg-[#CED600] rounded-full flex items-center justify-between gap-6 md:gap-8 cursor-pointer overflow-hidden transition-all hover:pr-8 md:hover:pr-10">
+            <MagneticButton onClick={openContact} className="group relative px-10 py-6 md:px-12 md:py-8 bg-[#CED600] rounded-full flex items-center justify-between gap-6 md:gap-8 cursor-pointer overflow-hidden transition-all hover:pr-8 md:hover:pr-10">
               <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></div>
               <span className="relative z-10 font-display font-black text-[#272727] text-3xl md:text-5xl uppercase tracking-tighter">hablemos</span>
               <ArrowUpRight size={40} className="relative z-10 text-[#272727] group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300 md:w-12 md:h-12" />

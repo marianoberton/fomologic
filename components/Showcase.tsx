@@ -168,7 +168,7 @@ const Showcase: React.FC = () => {
            {/* Embedded Metadata */}
            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
                <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full border border-neutral-200">
-                  <span className="font-mono text-xs uppercase tracking-widest text-neutral-900">View Case</span>
+                  <span className="font-mono text-xs uppercase tracking-widest text-neutral-900">Ver Caso</span>
                </div>
                {activeCase !== null && (
                    <div className="flex gap-2">
@@ -190,15 +190,15 @@ const Showcase: React.FC = () => {
           <div>
              <div className="flex items-center gap-3 mb-6">
                 <div className="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></div>
-                <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Selected Works</span>
+                <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Casos seleccionados</span>
              </div>
              <h2 className="font-display font-bold text-7xl md:text-9xl tracking-tighter leading-[0.8]">
-               EVIDENCE<span className="text-neutral-300">.</span>
+               Casos<span className="text-neutral-300">.</span>
              </h2>
           </div>
           <div className="hidden md:block text-right">
-             <span className="font-mono text-xs text-neutral-400 block mb-2">ARCHIVE 2024-25</span>
-             <span className="font-mono text-xs text-neutral-900 block">3 SELECTED CASES</span>
+             <span className="font-mono text-xs text-neutral-400 block mb-2">ARCHIVO 2024-2026</span>
+             <span className="font-mono text-xs text-neutral-900 block">3 CASOS SELECCIONADOS</span>
           </div>
         </div>
 
@@ -248,7 +248,7 @@ const Showcase: React.FC = () => {
         {/* Footer Link */}
         <div className="mt-24 flex justify-center">
             <a href="#" className="group flex items-center gap-4 text-neutral-900 hover:text-accent-lime transition-colors duration-300">
-                <span className="font-display font-bold text-xl tracking-tight">VIEW FULL ARCHIVE</span>
+                <span className="font-display font-bold text-xl tracking-tight">VER TODOS LOS CASOS</span>
                 <div className="w-12 h-12 border border-neutral-200 rounded-full flex items-center justify-center group-hover:border-accent-lime transition-colors duration-300">
                     <ArrowUpRight size={20} className="group-hover:rotate-45 transition-transform duration-300" />
                 </div>

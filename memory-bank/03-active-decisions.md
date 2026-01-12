@@ -96,3 +96,56 @@ Consecuencias:
 - Eliminación de `BrandMarquee` en Home.
 - Implementación de `Ecosystem.tsx` con física magnética en logos y contadores estilo terminal ("Data Processing") al hacer hover.
 - Logos desaturados por defecto, revelación completa solo al interactuar.
+
+## [2026-01-09] Methodology "The Lab Scanner" (Technical Overlay)
+Contexto: El "blob" orgánico de la sección Metodología se sentía demasiado blando para una marca de ingeniería.
+Alternativas consideradas: Reemplazar el blob por un cubo 3D vs Eliminar el blob vs Superponer UI técnica.
+Decisión: Crear **TechnicalOverlay.tsx** para "enjaular" el blob con elementos de UI técnica (anillos, crosshairs, etiquetas parpadeantes).
+Rationale: Mantiene el elemento visual atractivo (blob) pero lo recontextualiza dentro de un marco de "control y medición", alineándose con el mensaje de "Ingeniería vs Magia".
+Consecuencias: Nuevo componente `TechnicalOverlay.tsx` integrado en `Methodology.tsx`. Uso de GSAP para rotación y parpadeo.
+
+## [2026-01-09] Hero Copy: Actualización de textos principales ("Usar IA es fácil...") y subclaim, ajustando la lógica de animación GSAP para 2 líneas en lugar de 4.
+Rationale: Priorizar performance y claridad del mensaje ("Usar IA es fácil"). Menos es más.
+Consecuencias: Eliminación de código de video en `Hero.tsx`.
+
+## [2026-01-12] Global Contact Modal
+Contexto: El formulario de contacto en el footer tenía baja conversión y forzaba al usuario a scrollear hasta el final. Se buscaba una experiencia "omnipresente" y premium.
+Alternativas consideradas: Formulario estático en footer vs Página de contacto dedicada vs Global Modal.
+Decisión: Implementar **Global Modal Overlay** accesible desde cualquier punto (Navbar, Hero, Closing).
+Rationale: Mejora la UX al eliminar fricción (no hay que scrollear). El backdrop-blur centra la atención del usuario exclusivamente en la conversión ("Focus Mode"). Limpia el footer de inputs visualmente pesados.
+Consecuencias:
+- Creación de `ContactContext` para manejo de estado global.
+- Montaje de `ContactModal` en `App.tsx` (nivel raíz).
+- Wiring de botones "Hablemos" en `Navbar`, `Hero` y `Closing` para abrir el modal.
+- Limpieza de `Closing.tsx` (Footer) para mostrar solo branding y legales.
+
+## [2026-01-12] Server-Side Contact Integration (Vercel Functions + Twenty CRM)
+Contexto: Necesidad de integrar el formulario con Twenty CRM de forma segura, sin exponer API Keys en el cliente y garantizando la entrega de datos.
+Alternativas consideradas: Llamada directa desde cliente (inseguro) vs API Proxy propio vs Server Actions (Next.js - no aplicable por ser Vite).
+Decisión: Implementar endpoint server-side `/api/contact` como **Vercel Serverless Function**.
+Rationale: Permite ejecutar lógica backend segura (validación, honeypot, llamadas a Twenty CRM con Bearer Token) dentro del despliegue de Vercel, manteniendo el frontend en Vite (SPA).
+Consecuencias:
+- Creación de carpeta `api/` y archivo `contact.ts`.
+- Configuración de variables de entorno `TWENTY_BASE_URL` y `TWENTY_API_KEY`.
+
+### Twenty CRM Integration Schema
+- **Mutation Input Types**: `PersonCreateInput`, `CompanyCreateInput`, `OpportunityCreateInput`.
+- **Rich Data Strategy**: Since `OpportunityCreateInput` lacks a description field, we create a **Note** (`NoteCreateInput`) containing the Challenge, Needs, Timing, and Budget.
+- **Linking**: The Note is linked to the Opportunity, Person, and Company via `NoteTargetCreateInput`.
+- **Field Limitations**: 
+  - `domainName` (Company) requires `LinksCreateInput` object (omitted for now).
+  - `stage` (Opportunity) requires valid Stage ID (omitted for now).
+- **Authentication**: Bearer Token via `TWENTY_API_KEY`.
+- **Endpoint**: `POST /api/contact` handles the logic securely.
+
+## [2026-01-12] Contact Form UX: Multi-Step & Content Refinement
+Contexto: El formulario de contacto único era demasiado largo, causando problemas de scroll en pantallas pequeñas y fricción cognitiva.
+Alternativas consideradas: Scroll infinito vs Formulario simplificado vs Multi-Step Wizard.
+Decisión: Refactorizar a **Formulario Multi-Paso (2 Steps)**.
+- Paso 1: Identidad y Contexto (Datos rápidos).
+- Paso 2: Desafío y Scope (Datos profundos).
+Rationale: Resuelve el problema de "teclado tapando campos" en móviles y reduce la carga cognitiva inicial ("Pie-in-the-door technique").
+Consecuencias:
+- Refactor de `ContactModal.tsx` con gestión de estado `step`.
+- Adición de indicador de progreso visual.
+- Actualización de copys ("CONTANOS MAS" en lugar de "INICIAR PROYECTO") para reducir presión.

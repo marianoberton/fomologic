@@ -47,38 +47,35 @@ const TechnicalOverlay: React.FC = () => {
                 cy="200" 
                 r="180" 
                 fill="none" 
-                stroke="#272727" 
+                stroke="#FFFFFF" 
                 strokeWidth="1" 
-                strokeOpacity="0.4"
+                strokeOpacity="0.2"
                 strokeDasharray="4 8"
             />
             
             {/* Crosshairs */}
             {/* Top Left */}
-            <path d="M20 50 V20 H50" fill="none" stroke="#272727" strokeWidth="1.5" strokeOpacity="0.6" />
+            <path d="M20 50 V20 H50" fill="none" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.3" />
             {/* Top Right */}
-            <path d="M380 50 V20 H350" fill="none" stroke="#272727" strokeWidth="1.5" strokeOpacity="0.6" />
+            <path d="M380 50 V20 H350" fill="none" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.3" />
             {/* Bottom Left */}
-            <path d="M20 350 V380 H50" fill="none" stroke="#272727" strokeWidth="1.5" strokeOpacity="0.6" />
+            <path d="M20 350 V380 H50" fill="none" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.3" />
             {/* Bottom Right */}
-            <path d="M380 350 V380 H350" fill="none" stroke="#272727" strokeWidth="1.5" strokeOpacity="0.6" />
+            <path d="M380 350 V380 H350" fill="none" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.3" />
 
             {/* Inner Ticks */}
-            <line x1="200" y1="10" x2="200" y2="25" stroke="#272727" strokeWidth="1" strokeOpacity="0.4" />
-            <line x1="200" y1="375" x2="200" y2="390" stroke="#272727" strokeWidth="1" strokeOpacity="0.4" />
-            <line x1="10" y1="200" x2="25" y2="200" stroke="#272727" strokeWidth="1" strokeOpacity="0.4" />
-            <line x1="375" y1="200" x2="390" y2="200" stroke="#272727" strokeWidth="1" strokeOpacity="0.4" />
+            <line x1="200" y1="10" x2="200" y2="25" stroke="#FFFFFF" strokeWidth="1" strokeOpacity="0.2" />
+            <line x1="200" y1="375" x2="200" y2="390" stroke="#FFFFFF" strokeWidth="1" strokeOpacity="0.2" />
+            <line x1="10" y1="200" x2="25" y2="200" stroke="#FFFFFF" strokeWidth="1" strokeOpacity="0.2" />
+            <line x1="375" y1="200" x2="390" y2="200" stroke="#FFFFFF" strokeWidth="1" strokeOpacity="0.2" />
         </svg>
 
         {/* Floating Labels */}
         <div ref={labelsRef} className="absolute inset-0 w-full h-full max-w-[500px] max-h-[500px]">
-            <div className="tech-label absolute top-[20%] right-[20%] font-mono text-[10px] text-[#272727]/60 tracking-widest">
-                VOL_METRIC: 84%
+            <div className="tech-label absolute bottom-[20%] left-[20%] font-mono text-[10px] text-neutral-500 tracking-widest">
+                OPTIMIZANDO...
             </div>
-            <div className="tech-label absolute bottom-[20%] left-[20%] font-mono text-[10px] text-[#272727]/60 tracking-widest">
-                OPTIMIZING...
-            </div>
-             <div className="tech-label absolute top-[50%] left-[10%] font-mono text-[10px] text-[#272727]/40 tracking-widest -rotate-90 origin-center">
+             <div className="tech-label absolute top-[50%] left-[10%] font-mono text-[10px] text-neutral-500 tracking-widest -rotate-90 origin-center">
                 SYS.RDY
             </div>
         </div>

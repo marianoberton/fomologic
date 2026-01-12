@@ -29,8 +29,8 @@ const PACKAGES = [
     name: "CORE",
     fullName: "FOMO CORE",
     target: "Para transformación profunda y activos propios.",
-    includes: ["Fase 04 (Desarrollo a Escala)", "Sistema Operativo"],
-    promise: "Construimos el sistema operativo central de tu nueva empresa inteligente.",
+    includes: ["Fase 04 (Desarrollo a Escala)", "IA para Escalar"],
+    promise: "Construimos agentes de IA integrados con tu empresa.",
     icon: "/svg/illustrations/10-Iso_Infinity_Loop.svg"
   },
   {
@@ -38,8 +38,8 @@ const PACKAGES = [
     name: "GUARDIAN",
     fullName: "FOMO GUARDIAN",
     target: "Mantenimiento y Evolución mensual.",
-    includes: ["Fase 05 (Retainer)", "Mejora Continua"],
-    promise: "Tu seguro contra la obsolescencia. Nosotros vigilamos que la IA no falle.",
+    includes: ["Fase 05 (Evolución Continua)"],
+    promise: "Tu seguro contra la obsolescencia. Nos encargamos de que tu tecnología evolucione y nunca quede vieja.",
     icon: "/svg/illustrations/13-Iso_Hourglass.svg"
   }
 ];
@@ -99,14 +99,14 @@ const Services: React.FC = () => {
         <div className="container mx-auto px-6 md:px-12 py-24 border-b border-neutral-200">
             <div className="flex flex-col md:flex-row justify-between items-end">
                 <h2 className="font-display font-bold text-6xl md:text-9xl tracking-tighter leading-[0.8]">
-                    SERVICES<span className="text-accent-lime">.</span>
+                    Servicios<span className="text-accent-lime">.</span>
                 </h2>
                 <div className="flex items-center gap-4 mt-8 md:mt-0">
                     <div className="w-12 h-12 rounded-full border border-neutral-200 flex items-center justify-center animate-spin-slow">
                         <Plus size={20} className="text-neutral-400" />
                     </div>
                     <span className="font-mono text-sm text-neutral-500 uppercase tracking-widest">
-                        Commercial Packages
+                        Nuestros paquetes
                     </span>
                 </div>
             </div>
