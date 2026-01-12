@@ -75,7 +75,6 @@ const Navbar: React.FC = () => {
     { name: 'nosotros', href: '/nosotros' },
     { name: 'servicios', href: '/servicios' },
     { name: 'casos', href: '/casos' },
-    { name: 'express', href: '/express' },
   ];
 
   // Animation Variants
