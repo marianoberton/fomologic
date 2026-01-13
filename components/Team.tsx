@@ -127,27 +127,27 @@ const Team: React.FC = () => {
       <div className="container mx-auto px-6 md:px-12 relative">
         
         {/* Header */}
-        <div className="mb-32 flex flex-col md:flex-row justify-between items-end gap-12 team-header-trigger">
+        <div className="mb-16 md:mb-32 flex flex-col md:flex-row justify-between items-end gap-12 team-header-trigger">
            <div className="max-w-3xl">
               <div className="flex items-center gap-3 mb-6 team-header-anim">
                  <div className="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></div>
                  <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Núcleo Operativo</span>
               </div>
-              <h2 className="font-display font-bold text-7xl md:text-8xl tracking-tighter leading-[0.9] team-header-anim">
+              <h2 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter leading-[0.9] team-header-anim">
                  INTELIGENCIA<br/><span className="text-neutral-300">HUMANA.</span>
               </h2>
            </div>
-           <p className="font-body text-neutral-500 text-lg max-w-md text-right leading-relaxed mb-2 team-header-anim">
+           <p className="font-body text-neutral-500 text-base md:text-lg max-w-md text-left md:text-right leading-relaxed mb-2 team-header-anim">
               Diseñamos procesos. Los ejecutamos con agentes de IA.
            </p>
         </div>
 
         {/* Founders Visual Grid - The "Heroes" */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mb-40 founders-grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mb-24 md:mb-40 founders-grid">
            {FOUNDERS.map((founder, i) => (
               <div key={i} className="group relative founder-card">
                  {/* Card Container */}
-                 <div className="relative h-[700px] w-full bg-transparent overflow-visible">
+                 <div className="relative h-[500px] md:h-[700px] w-full bg-transparent overflow-visible">
                     
                     {/* Layer 1: The Masked Shape (Visible by Default, Fades Out on Hover) */}
                     <div 
@@ -174,7 +174,7 @@ const Team: React.FC = () => {
                     </div>
 
                     {/* Layer 2: The Full Reveal (Hidden by Default, Fades In on Hover) */}
-                    <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out overflow-hidden rounded-[3rem]">
+                    <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out overflow-hidden rounded-[2rem] md:rounded-[3rem]">
                         <img 
                             src={founder.img} 
                             alt={founder.name} 
@@ -185,19 +185,19 @@ const Team: React.FC = () => {
                     </div>
                     
                     {/* Text Content */}
-                    <div className="absolute -bottom-12 left-0 w-full p-8 z-30 pointer-events-none">
+                    <div className="absolute -bottom-12 left-0 w-full p-4 md:p-8 z-30 pointer-events-none">
                         <div className="transform transition-transform duration-500 group-hover:-translate-y-24 relative">
                              
                              {/* Role Label */}
                              <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur border border-neutral-200 px-4 py-1.5 rounded-full mb-4">
                                 <span className="w-2 h-2 rounded-full bg-accent-lime"></span>
-                                <span className="font-mono text-xs text-neutral-900 uppercase tracking-widest">
+                                <span className="font-mono text-[10px] md:text-xs text-neutral-900 uppercase tracking-widest">
                                     {founder.role}
                                 </span>
                              </div>
 
                              {/* Name - Always Black */}
-                             <h3 className="font-display font-bold text-6xl md:text-7xl tracking-tighter drop-shadow-sm text-[#272727] leading-none mb-2">
+                             <h3 className="font-display font-bold text-4xl md:text-6xl lg:text-7xl tracking-tighter drop-shadow-sm text-[#272727] leading-none mb-2">
                                 {founder.name}
                              </h3>
 
@@ -219,15 +219,15 @@ const Team: React.FC = () => {
         </div>
 
         {/* The Swarm - "Maximalist Pattern" */}
-        <div className="relative pt-12 pb-24 swarm-container overflow-hidden">
+        <div className="relative pt-0 md:pt-12 pb-12 md:pb-24 swarm-container overflow-hidden">
             <div className="flex flex-col md:flex-row items-center gap-12 md:gap-0 relative z-10 px-4 md:px-0">
                
                {/* Text Block - Integrated Left */}
                <div className="w-full md:w-1/3 flex flex-col justify-center relative z-20 md:pr-12">
-                    <h3 className="font-display font-bold text-5xl md:text-6xl tracking-tighter mb-6 leading-[0.9]">
+                    <h3 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl tracking-tighter mb-6 leading-[0.9]">
                         UNIDAD TÁCTICA<br/><span className="text-neutral-300">DE EJECUCIÓN.</span>
                     </h3>
-                    <p className="font-body text-neutral-500 leading-relaxed text-lg max-w-md">
+                    <p className="font-body text-neutral-500 leading-relaxed text-base md:text-lg max-w-md">
                         No ampliamos equipos. Armamos células tácticas para rediseñar un proceso y automatizar su ejecución.
                     </p>
                </div>

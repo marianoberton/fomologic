@@ -108,7 +108,7 @@ const Manifesto: React.FC = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={triggerRef} className="relative w-full h-screen bg-transparent overflow-hidden">
+    <section ref={triggerRef} className="relative w-full h-[100dvh] bg-transparent overflow-hidden">
       
       {/* Background Noise/Texture could go here */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat z-0"></div>

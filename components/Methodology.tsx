@@ -211,26 +211,26 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
         </div>
 
         {/* Right: Content */}
-        <div className="md:col-span-7 p-8 md:p-24 flex flex-col justify-center relative">
-            <h3 className="font-display font-bold text-4xl md:text-5xl text-white mb-2 leading-tight">
+        <div className="md:col-span-7 p-6 md:p-24 flex flex-col justify-center relative h-[60%] md:h-full overflow-y-auto md:overflow-visible">
+            <h3 className="font-display font-bold text-3xl md:text-5xl text-white mb-2 leading-tight">
                 {phase.title}
             </h3>
-            <p className="font-mono text-[#CED600] mb-8 text-lg">
+            <p className="font-mono text-[#CED600] mb-4 md:mb-8 text-sm md:text-lg">
                 // {phase.subtitle}
             </p>
             
-            <p className="font-body text-neutral-300 text-xl leading-relaxed mb-8 max-w-xl">
+            <p className="font-body text-neutral-300 text-base md:text-xl leading-relaxed mb-4 md:mb-8 max-w-xl">
                 {phase.concept}
             </p>
 
-            <div className="bg-neutral-800/30 border border-neutral-700 p-6 mb-8 backdrop-blur-sm">
-                <p className="font-body text-neutral-400 italic text-sm mb-2">El Problema:</p>
-                <p className="font-body text-white">"{phase.problem}"</p>
+            <div className="bg-neutral-800/30 border border-neutral-700 p-4 md:p-6 mb-4 md:mb-8 backdrop-blur-sm">
+                <p className="font-body text-neutral-400 italic text-xs md:text-sm mb-2">El Problema:</p>
+                <p className="font-body text-white text-sm md:text-base">"{phase.problem}"</p>
             </div>
 
-            <ul className="space-y-3 mb-10">
+            <ul className="space-y-2 md:space-y-3 mb-6 md:mb-10">
                 {phase.actions.map((action, i) => (
-                    <li key={i} className="flex items-center text-neutral-300 font-mono text-sm">
+                    <li key={i} className="flex items-center text-neutral-300 font-mono text-xs md:text-sm">
                         <span className="w-1.5 h-1.5 bg-[#CED600] mr-3"></span>
                         {action}
                     </li>
@@ -302,7 +302,7 @@ const Methodology: React.FC = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen bg-transparent text-white border-t border-neutral-700 overflow-hidden">
+    <section ref={containerRef} className="relative w-full h-[100dvh] bg-transparent text-white border-t border-neutral-700 overflow-hidden">
       <div className="container mx-auto px-0 md:px-8 max-w-[98%] h-full">
         <div className="flex flex-col lg:flex-row h-full">
           {/* Left Column: Sticky Context (Always visible due to Pinning) */}

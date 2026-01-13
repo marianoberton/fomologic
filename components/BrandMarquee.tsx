@@ -96,7 +96,7 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ items, baseVelocity, className,
                 {/* TEXT ITEM */}
                 {item.type === 'text' && (
                   <span
-                    className={`font-display font-black text-[6vw] md:text-[5vw] leading-[1.1] pb-2 lowercase tracking-tighter whitespace-nowrap ${
+                    className={`font-display font-black text-[10vw] md:text-[5vw] leading-[1.1] pb-2 lowercase tracking-tighter whitespace-nowrap ${
                       item.outline ? 'text-transparent' : (item.color || defaultTextColor)
                     }`}
                     style={item.outline ? { WebkitTextStroke: `1.5px ${strokeColor}` } : undefined}

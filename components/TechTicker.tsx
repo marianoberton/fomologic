@@ -46,43 +46,28 @@ const TechTicker: React.FC = () => {
     });
 
     return (
-        <div className="w-full h-[120px] bg-white border-y border-neutral-200 flex items-center overflow-hidden relative z-[50]">
-            
-            <motion.div className="flex items-center gap-24 pl-24 whitespace-nowrap relative z-20" style={{ x }}>
+        <div className="w-full h-[80px] md:h-[120px] bg-white border-y border-neutral-200 flex items-center overflow-hidden relative z-[50]">
+            <motion.div className="flex items-center gap-12 md:gap-24 pl-12 md:pl-24 whitespace-nowrap relative z-20" style={{ x }}>
                 {Array.from({ length: WRAP_COUNT }).map((_, i) => (
                     <React.Fragment key={i}>
                         {items.map((item, idx) => (
-                            <div key={`${i}-${idx}`} className="flex items-center gap-24 group select-none">
-                                {/* Image Container */}
-                                <div className="h-24 flex items-center justify-center relative px-4">
-                                    {/* 1. Ghost Image for Layout (preserves aspect ratio) */}
-                                    <img 
-                                        src={item.src}
-                                        alt={item.alt}
-                                        loading="eager"
-                                        className="h-full w-auto opacity-0" 
-                                    />
-                                    
-                                    {/* 2. Color Layer with Mask (The Visible Logo) */}
-                                    <div 
-                                        className="absolute inset-0 w-full h-full bg-[#272727]"
-                                        style={{
-                                            maskImage: `url(${item.src})`,
-                                            WebkitMaskImage: `url(${item.src})`,
-                                            maskSize: 'contain',
-                                            WebkitMaskSize: 'contain',
-                                            maskRepeat: 'no-repeat',
-                                            WebkitMaskRepeat: 'no-repeat',
-                                            maskPosition: 'center',
-                                            WebkitMaskPosition: 'center',
-                                            transform: 'scale(2.5)', // Increased scale for massive visual impact (approx 50% larger than 1.8)
-                                            transformOrigin: 'center'
-                                        }}
-                                    />
+                            <div key={`${i}-${idx}`} className="flex items-center gap-12 md:gap-24 group select-none">
+                                <div className="h-16 md:h-24 flex items-center justify-center relative px-4">
+                                    <img src={item.src} alt={item.alt} loading="eager" className="h-full w-auto opacity-0" />
+                                    <div className="absolute inset-0 w-full h-full bg-[#272727]" style={{
+                                        maskImage: `url(${item.src})`,
+                                        WebkitMaskImage: `url(${item.src})`,
+                                        maskSize: 'contain',
+                                        WebkitMaskSize: 'contain',
+                                        maskRepeat: 'no-repeat',
+                                        WebkitMaskRepeat: 'no-repeat',
+                                        maskPosition: 'center',
+                                        WebkitMaskPosition: 'center',
+                                        transform: 'scale(2.5)',
+                                        transformOrigin: 'center'
+                                    }} />
                                 </div>
-                                
-                                {/* Tech Separator */}
-                                <div className="w-[2px] h-16 bg-neutral-300 rotate-12" />
+                                <div className="w-[2px] h-10 md:h-16 bg-neutral-300 rotate-12" />
                             </div>
                         ))}
                     </React.Fragment>

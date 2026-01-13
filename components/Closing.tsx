@@ -47,7 +47,7 @@ const Closing: React.FC = () => {
           </motion.div>
 
           {/* Massive Headline */}
-          <h2 className="font-display font-black text-[12vw] lg:text-[10vw] leading-[0.8] tracking-tighter uppercase mb-12 mix-blend-exclusion">
+          <h2 className="font-display font-black text-[15vw] lg:text-[10vw] leading-[0.8] tracking-tighter uppercase mb-12 mix-blend-exclusion">
             <div className="overflow-hidden">
               <motion.span 
                 initial={{ y: "100%" }}

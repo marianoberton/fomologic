@@ -60,20 +60,20 @@ const Insights: React.FC = () => {
   return (
     <section 
       ref={containerRef} 
-      className="py-32 pb-64 text-[#272727] relative overflow-hidden"
+      className="py-16 md:py-32 pb-32 md:pb-64 text-[#272727] relative overflow-hidden"
     >
         {/* Background Texture */}
         <div className="absolute inset-0 opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-multiply"></div>
 
         <div className="container mx-auto px-4 md:px-8">
             {/* Header */}
-            <div className="mb-20 flex flex-col md:flex-row justify-between items-end gap-8 border-b border-[#272727]/10 pb-8">
+            <div className="mb-12 md:mb-20 flex flex-col md:flex-row justify-between items-end gap-8 border-b border-[#272727]/10 pb-8">
                 <motion.h2 
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="font-display font-bold text-5xl md:text-7xl tracking-tighter"
+                    className="font-display font-bold text-4xl md:text-7xl tracking-tighter"
                 >
                     insights <span className="text-[#CED600]">&</span><br/>
                     thoughts.
@@ -105,7 +105,7 @@ const Insights: React.FC = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className={`group relative rounded-3xl overflow-hidden bg-[#272727]/5 transition-colors duration-500 block ${item.size === 'large' ? 'md:col-span-2 aspect-[16/9] md:aspect-auto' : 'md:col-span-1 aspect-square'}`}
+                        className={`group relative rounded-3xl overflow-hidden bg-[#272727]/5 transition-colors duration-500 block ${item.size === 'large' ? 'md:col-span-2 aspect-[4/3] md:aspect-auto' : 'md:col-span-1 aspect-[4/3] md:aspect-square'}`}
                     >
                         {/* Liquid Border */}
                         <LiquidBorder className="text-[#272727]/10 group-hover:text-[#CED600] transition-colors duration-500 z-50" />
@@ -125,16 +125,16 @@ const Insights: React.FC = () => {
                         </div>
 
                         {/* Content */}
-                        <div className="absolute inset-0 p-8 flex flex-col justify-between z-10">
+                        <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-10">
                             <div className="flex justify-between items-start">
-                                <span className="px-3 py-1 rounded-full border border-white/20 text-xs font-display font-bold uppercase tracking-wider backdrop-blur-md bg-white/10 text-white group-hover:bg-[#CED600] group-hover:text-[#272727] group-hover:border-[#CED600] transition-colors duration-300">
+                                <span className="px-3 py-1 rounded-full border border-white/20 text-[10px] md:text-xs font-display font-bold uppercase tracking-wider backdrop-blur-md bg-white/10 text-white group-hover:bg-[#CED600] group-hover:text-[#272727] group-hover:border-[#CED600] transition-colors duration-300">
                                     {item.category}
                                 </span>
                                 <ArrowUpRight className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 -translate-x-4 group-hover:translate-x-0 transition-all duration-300" />
                             </div>
 
                             <div>
-                                <div className="flex items-center gap-4 text-white/80 text-sm mb-3 font-medium">
+                                <div className="flex items-center gap-4 text-white/80 text-xs md:text-sm mb-3 font-medium">
                                     <div className="flex items-center gap-1">
                                         <Calendar size={14} />
                                         <span>{item.date}</span>
@@ -144,7 +144,7 @@ const Insights: React.FC = () => {
                                         <span>{item.readTime}</span>
                                     </div>
                                 </div>
-                                <h3 className={`font-display font-bold leading-none tracking-tight text-white group-hover:text-[#CED600] transition-colors duration-300 ${item.size === 'large' ? 'text-3xl md:text-5xl' : 'text-2xl md:text-3xl'}`}>
+                                <h3 className={`font-display font-bold leading-none tracking-tight text-white group-hover:text-[#CED600] transition-colors duration-300 ${item.size === 'large' ? 'text-2xl md:text-5xl' : 'text-xl md:text-3xl'}`}>
                                     {item.title}
                                 </h3>
                             </div>

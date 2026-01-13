@@ -44,7 +44,7 @@ const QuoteSeparator: React.FC = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="w-full py-32 md:py-48 bg-[#FAFAFA] relative overflow-hidden flex items-center justify-center">
+    <section ref={containerRef} className="w-full py-20 md:py-48 bg-[#FAFAFA] relative overflow-hidden flex items-center justify-center">
       {/* Background Noise */}
       <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none mix-blend-multiply" />
       
@@ -52,7 +52,7 @@ const QuoteSeparator: React.FC = () => {
         {/* Decorative Top Line */}
         <div ref={lineRef} className="w-full h-[1px] bg-[#272727] mb-12 origin-center transform" />
 
-        <h2 ref={textRef} className="font-display font-bold text-4xl md:text-6xl lg:text-7xl text-[#272727] leading-[1.1] tracking-tight perspective-1000 max-w-4xl mx-auto">
+        <h2 ref={textRef} className="font-display font-bold text-3xl md:text-6xl lg:text-7xl text-[#272727] leading-[1.1] tracking-tight perspective-1000 max-w-4xl mx-auto">
           No vendemos horas. <br />
           <span className="text-[#CED600]">Diseñamos sistemas que trabajan por vos.</span>
         </h2>

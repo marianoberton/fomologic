@@ -72,7 +72,7 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen min-h-[800px] overflow-hidden">
+    <section ref={containerRef} className="relative w-full h-[100dvh] min-h-[600px] overflow-hidden">
       
       {/* --- LAYER 0: NOISE TEXTURE --- */}
       <div className="absolute inset-0 z-[1] opacity-[0.03] pointer-events-none mix-blend-multiply" 
@@ -89,7 +89,7 @@ const Hero: React.FC = () => {
         <div className="max-w-5xl pointer-events-auto">
           
           {/* Headline - Split for Animation */}
-          <h1 ref={titleRef} className="font-display font-bold text-[8vw] md:text-[5rem] lg:text-[6.5rem] leading-[1.1] tracking-[-0.04em] text-[#272727] mb-12 will-change-transform">
+          <h1 ref={titleRef} className="font-display font-bold text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] tracking-[-0.04em] text-[#272727] mb-8 md:mb-12 will-change-transform">
             <div className="overflow-hidden">
                 <div className="line-inner">Usar IA es fácil.</div>
             </div>
@@ -101,14 +101,14 @@ const Hero: React.FC = () => {
           </h1>
 
           {/* Copy & CTA */}
-          <div ref={subRef} className="flex flex-col md:flex-row items-start md:items-center gap-12 pl-2">
-             <div className="font-body text-lg md:text-xl text-neutral-600 font-medium leading-relaxed max-w-xl text-pretty space-y-1">
+          <div ref={subRef} className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12 pl-1 md:pl-2">
+             <div className="font-body text-base md:text-xl text-neutral-600 font-medium leading-relaxed max-w-xl text-pretty space-y-1">
                <p>Diseñamos procesos claros y los ejecutamos con agentes de IA.</p>
                <p className="text-[#272727] font-bold">Menos fricción. Menos costo. Más control.</p>
              </div>
              
-             <MagneticButton onClick={openContact} className="group relative bg-[#CED600] text-[#272727] px-10 py-5 rounded-full flex items-center gap-4 transition-all duration-500 hover:brightness-110 hover:scale-105 shadow-[0_0_20px_rgba(206,214,0,0.4)] hover:shadow-[0_0_50px_rgba(206,214,0,0.8)] cursor-pointer">
-                  <span className="relative z-10 font-display text-sm font-bold tracking-widest uppercase">
+             <MagneticButton onClick={openContact} className="group relative bg-[#CED600] text-[#272727] px-8 py-4 md:px-10 md:py-5 rounded-full flex items-center gap-4 transition-all duration-500 hover:brightness-110 hover:scale-105 shadow-[0_0_20px_rgba(206,214,0,0.4)] hover:shadow-[0_0_50px_rgba(206,214,0,0.8)] cursor-pointer">
+                  <span className="relative z-10 font-display text-xs md:text-sm font-bold tracking-widest uppercase">
                     Hablemos
                   </span>
                   <div className="relative z-10 w-8 h-8 bg-[#272727]/10 rounded-full flex items-center justify-center group-hover:bg-[#272727]/20 transition-colors">
@@ -120,9 +120,9 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <div ref={scrollRef} className="absolute bottom-12 left-6 md:left-12 flex items-center gap-4 mix-blend-difference opacity-0 pointer-events-auto">
-             <span className="font-mono text-xs text-neutral-400 uppercase tracking-widest">Scroll</span>
-             <div className="w-[1px] h-12 bg-neutral-300 relative overflow-hidden">
+        <div ref={scrollRef} className="absolute bottom-8 md:bottom-12 left-6 md:left-12 flex items-center gap-4 mix-blend-difference opacity-0 pointer-events-auto">
+             <span className="font-mono text-[10px] md:text-xs text-neutral-400 uppercase tracking-widest">Scroll</span>
+             <div className="w-[1px] h-8 md:h-12 bg-neutral-300 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1/2 bg-[#CED600] animate-scroll-down"></div>
              </div>
         </div>

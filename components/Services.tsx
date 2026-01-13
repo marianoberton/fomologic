@@ -50,8 +50,10 @@ const Services: React.FC = () => {
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Horizontal Scroll
+    const mm = gsap.matchMedia();
+    
+    mm.add("(min-width: 768px)", () => {
+      // Desktop Horizontal Scroll
       const cards = gsap.utils.toArray('.service-card');
       
       const scrollTween = gsap.to(cardsRef.current, {
@@ -86,10 +88,9 @@ const Services: React.FC = () => {
             }
         );
       });
+    });
 
-    }, sectionRef);
-
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
@@ -112,40 +113,40 @@ const Services: React.FC = () => {
             </div>
         </div>
 
-        {/* Horizontal Scroll Container */}
-        <div ref={triggerRef} className="h-screen flex items-center overflow-hidden bg-transparent relative z-20">
-            <div ref={cardsRef} className="flex h-full pl-[5vw] md:pl-[10vw]">
+        {/* Horizontal Scroll Container (Desktop) / Vertical Stack (Mobile) */}
+        <div ref={triggerRef} className="h-auto md:h-screen flex items-center overflow-visible md:overflow-hidden bg-transparent relative z-20">
+            <div ref={cardsRef} className="flex flex-col md:flex-row h-auto md:h-full w-full px-6 md:px-0 md:pl-[10vw] gap-8 md:gap-0 py-12 md:py-0">
                 {PACKAGES.map((pkg, index) => (
                     <div 
                         key={pkg.id} 
-                        className="service-card w-[90vw] md:w-[80vw] h-[80vh] flex-shrink-0 flex flex-col md:flex-row bg-white border border-neutral-200 mr-[5vw] md:mr-[10vw] relative group overflow-hidden transition-colors duration-700 hover:border-neutral-900 mt-[10vh] rounded-[2.5rem]"
+                        className="service-card w-full md:w-[80vw] h-[600px] md:h-[80vh] flex-shrink-0 flex flex-col md:flex-row bg-white border border-neutral-200 md:mr-[10vw] relative group overflow-hidden transition-colors duration-700 hover:border-neutral-900 md:mt-[10vh] rounded-[2.5rem]"
                     >
                         {/* Background Noise */}
                         <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none mix-blend-multiply"></div>
                         
                         {/* ID Number - Absolute Big */}
-                        <span className="absolute top-0 left-0 font-display font-bold text-[12rem] md:text-[20rem] leading-none text-neutral-100 tracking-tighter -translate-y-1/4 -translate-x-1/4 select-none pointer-events-none group-hover:text-neutral-200 transition-colors duration-700">
+                        <span className="absolute top-0 left-0 font-display font-bold text-[8rem] md:text-[20rem] leading-none text-neutral-100 tracking-tighter -translate-y-1/4 -translate-x-1/4 select-none pointer-events-none group-hover:text-neutral-200 transition-colors duration-700">
                             {pkg.id}
                         </span>
 
                         {/* Left: Content */}
-                        <div className="relative z-10 w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-between h-full border-r border-neutral-100">
+                        <div className="relative z-10 w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-between h-full border-b md:border-b-0 md:border-r border-neutral-100">
                             <div>
-                                <h3 className="service-title font-display font-bold text-5xl md:text-7xl tracking-tighter mb-6 group-hover:translate-x-2 transition-transform duration-500">
+                                <h3 className="service-title font-display font-bold text-4xl md:text-7xl tracking-tighter mb-6 group-hover:translate-x-2 transition-transform duration-500">
                                     {pkg.name}
                                 </h3>
                                 
-                                <p className="font-body text-lg text-neutral-500 max-w-md leading-relaxed">
+                                <p className="font-body text-base md:text-lg text-neutral-500 max-w-md leading-relaxed">
                                     {pkg.target}
                                 </p>
                             </div>
 
-                            <div className="mt-12">
+                            <div className="mt-8 md:mt-12">
                                 <div className="space-y-4">
                                     {pkg.includes.map((item, i) => (
                                         <div key={i} className="group/item border-t border-neutral-200 pt-4 hover:border-neutral-900 transition-colors duration-300">
                                             <div className="flex items-baseline justify-between mb-1">
-                                                <span className="font-display font-bold text-lg text-neutral-900">{item}</span>
+                                                <span className="font-display font-bold text-base md:text-lg text-neutral-900">{item}</span>
                                                 <span className="font-mono text-[10px] text-neutral-300 group-hover/item:text-[#CED600] transition-colors">0{i+1}</span>
                                             </div>
                                         </div>
@@ -167,13 +168,13 @@ const Services: React.FC = () => {
                             </div>
 
                             <div className="relative z-20 mt-auto">
-                                <div className="mb-8">
-                                    <ArrowRight className="w-12 h-12 text-neutral-900 -rotate-45 group-hover:rotate-0 transition-transform duration-500 ease-out" />
+                                <div className="mb-6 md:mb-8">
+                                    <ArrowRight className="w-10 h-10 md:w-12 md:h-12 text-neutral-900 -rotate-45 group-hover:rotate-0 transition-transform duration-500 ease-out" />
                                 </div>
-                                <h4 className="font-display text-2xl md:text-4xl leading-tight text-neutral-900">
+                                <h4 className="font-display text-xl md:text-4xl leading-tight text-neutral-900">
                                     "{pkg.promise}"
                                 </h4>
-                                <div className="mt-8 h-[2px] w-12 bg-neutral-900 group-hover:w-full group-hover:bg-accent-lime transition-all duration-700"></div>
+                                <div className="mt-6 md:mt-8 h-[2px] w-12 bg-neutral-900 group-hover:w-full group-hover:bg-accent-lime transition-all duration-700"></div>
                             </div>
                         </div>
 

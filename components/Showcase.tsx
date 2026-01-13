@@ -186,13 +186,13 @@ const Showcase: React.FC = () => {
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
         {/* Header */}
-        <div className="mb-24 border-b border-neutral-200 pb-8 flex flex-col md:flex-row justify-between items-end">
+        <div className="mb-12 md:mb-24 border-b border-neutral-200 pb-8 flex flex-col md:flex-row justify-between items-end">
           <div>
-             <div className="flex items-center gap-3 mb-6">
+             <div className="flex items-center gap-3 mb-4 md:mb-6">
                 <div className="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></div>
                 <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Casos seleccionados</span>
              </div>
-             <h2 className="font-display font-bold text-7xl md:text-9xl tracking-tighter leading-[0.8]">
+             <h2 className="font-display font-bold text-5xl md:text-7xl lg:text-9xl tracking-tighter leading-[0.8]">
                Casos<span className="text-neutral-300">.</span>
              </h2>
           </div>
@@ -210,33 +210,34 @@ const Showcase: React.FC = () => {
               className="group relative border-b border-neutral-200 hover:border-neutral-900 transition-colors duration-500"
               onMouseEnter={() => setActiveCase(index)}
               onMouseLeave={() => setActiveCase(null)}
+              onClick={() => setActiveCase(activeCase === index ? null : index)} // Toggle for mobile tap
             >
               {/* Hover Background Fill */}
-              <div className="absolute inset-0 bg-[#272727] scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500 ease-out -z-10"></div>
+              <div className="absolute inset-0 bg-[#272727] scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500 ease-out -z-10 hidden md:block"></div>
 
-              <div className="flex flex-col md:flex-row items-stretch min-h-[180px]">
+              <div className="flex flex-col md:flex-row items-stretch min-h-[auto] md:min-h-[180px]">
                 
                 {/* ID Column */}
-                <div className="w-full md:w-[15%] p-8 border-r border-transparent group-hover:border-neutral-700 transition-colors duration-500 flex items-start">
-                   <span className="font-mono text-sm text-neutral-400 group-hover:text-accent-lime transition-colors duration-300">
+                <div className="w-full md:w-[15%] p-4 md:p-8 border-r-0 md:border-r border-transparent group-hover:border-neutral-700 transition-colors duration-500 flex items-start">
+                   <span className="font-mono text-xs md:text-sm text-neutral-400 group-hover:text-accent-lime transition-colors duration-300">
                      /{project.id}
                    </span>
                 </div>
 
                 {/* Main Content Column */}
-                <div className="w-full md:w-[65%] p-8 flex flex-col justify-center">
-                    <h3 className="font-display font-bold text-5xl md:text-7xl tracking-tighter text-neutral-900 group-hover:text-white mb-2 group-hover:translate-x-2 transition-transform duration-500">
+                <div className="w-full md:w-[65%] p-4 md:p-8 flex flex-col justify-center">
+                    <h3 className="font-display font-bold text-3xl md:text-5xl lg:text-7xl tracking-tighter text-neutral-900 group-hover:text-white mb-2 group-hover:translate-x-2 transition-transform duration-500">
                         {project.client}
                     </h3>
-                    <span className="font-body text-lg text-neutral-500 group-hover:text-neutral-400 transition-colors">
+                    <span className="font-body text-base md:text-lg text-neutral-500 group-hover:text-neutral-400 transition-colors">
                         {project.category}
                     </span>
                 </div>
 
                 {/* Action Column */}
-                <div className="w-full md:w-[20%] p-8 border-l border-transparent group-hover:border-neutral-700 transition-colors duration-500 flex items-center justify-end md:justify-center overflow-hidden">
-                    <div className="relative w-16 h-16 rounded-full border border-neutral-200 flex items-center justify-center group-hover:bg-accent-lime group-hover:border-accent-lime transition-all duration-500">
-                        <ArrowUpRight size={24} className="text-neutral-900 group-hover:scale-125 transition-transform duration-500" />
+                <div className="w-full md:w-[20%] p-4 md:p-8 border-l-0 md:border-l border-transparent group-hover:border-neutral-700 transition-colors duration-500 flex items-center justify-start md:justify-center overflow-hidden">
+                    <div className="relative w-12 h-12 md:w-16 md:h-16 rounded-full border border-neutral-200 flex items-center justify-center group-hover:bg-accent-lime group-hover:border-accent-lime transition-all duration-500">
+                        <ArrowUpRight size={20} className="text-neutral-900 group-hover:scale-125 transition-transform duration-500 md:w-6 md:h-6" />
                     </div>
                 </div>
 
