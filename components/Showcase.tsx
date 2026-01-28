@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowUpRight, Plus } from 'lucide-react';
 import gsap from 'gsap';
+import ShowcaseMobile from './ShowcaseMobile';
 
 const CASES = [
   {
