@@ -52,20 +52,10 @@ const QuoteSeparator: React.FC = () => {
         {/* Decorative Top Line */}
         <div ref={lineRef} className="w-full h-[1px] bg-[#272727] mb-12 origin-center transform" />
 
-        <h2 ref={textRef} className="font-display font-bold text-3xl md:text-6xl lg:text-7xl text-[#272727] leading-[1.1] tracking-tight perspective-1000 max-w-4xl mx-auto">
-          No vendemos horas. <br />
-          <span className="text-[#CED600]">Diseñamos sistemas que trabajan por vos.</span>
-        </h2>
-
-        {/* Technical Subtitle */}
-        <div className="mt-12 flex justify-center items-center gap-4">
-            <span className="font-mono text-xs text-[#272727]/40 uppercase tracking-widest">
-                [ SISTEMAS AUTÓNOMOS ]
-            </span>
-            <div className="w-12 h-[1px] bg-[#272727]/20" />
-            <span className="font-mono text-xs text-[#272727]/40 uppercase tracking-widest">
-                BUSINESS ENGINEERING
-            </span>
+        <div ref={textRef} className="flex flex-col items-center perspective-1000 max-w-6xl mx-auto px-4">
+          <div className="inline-flex items-center justify-center bg-[#272727] text-[#CED600] px-6 py-4 md:px-12 md:py-8 rounded-[2rem] md:rounded-[3rem] text-2xl md:text-5xl lg:text-6xl font-display font-bold rotate-[-2deg] shadow-2xl transform-gpu text-center leading-tight">
+            No vendemos horas. Diseñamos sistemas que trabajan por vos.
+          </div>
         </div>
       </div>
     </section>

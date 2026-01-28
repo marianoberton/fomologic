@@ -134,7 +134,11 @@ const Showcase: React.FC = () => {
   }, [activeCase]);
 
   return (
-    <section ref={containerRef} className="py-32 bg-white text-neutral-900 relative z-10 overflow-hidden cursor-none">
+    <>
+      <div className="block md:hidden">
+        <ShowcaseMobile />
+      </div>
+      <section ref={containerRef} className="hidden md:block py-32 bg-[#FAFAFA] text-neutral-900 relative z-10 overflow-hidden cursor-none">
       {/* Background Noise */}
       <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none mix-blend-multiply"></div>
 
@@ -257,7 +261,8 @@ const Showcase: React.FC = () => {
         </div>
 
       </div>
-    </section>
+      </section>
+    </>
   );
 };
 
