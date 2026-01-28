@@ -26,20 +26,30 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-        // 1. Methodology Background Lifecycle (Fade In -> Hold -> Fade Out)
-        const methTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: methodologyRef.current,
-                start: "top 80%",
-                endTrigger: servicesWrapperRef.current,
-                end: "top 40%", 
-                scrub: true,
-            }
-        });
+        const mm = gsap.matchMedia();
 
-        methTl.to(methodologyBgRef.current, { opacity: 1, duration: 0.1, ease: "none" }) // Fast Fade In
-              .to(methodologyBgRef.current, { opacity: 1, duration: 0.8, ease: "none" }) // Hold Dark
-              .to(methodologyBgRef.current, { opacity: 0, duration: 0.1, ease: "none" }); // Fast Fade Out
+        // 1. Methodology Background Lifecycle
+        // We use matchMedia to adjust the start trigger for Mobile vs Desktop
+        // Mobile needs an earlier trigger ("top bottom") to ensure text is visible against the dark bg
+        
+        const setupMethodologyBg = (startTrigger: string) => {
+            const methTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: methodologyRef.current,
+                    start: startTrigger,
+                    endTrigger: servicesWrapperRef.current,
+                    end: "top 40%", 
+                    scrub: true,
+                }
+            });
+
+            methTl.to(methodologyBgRef.current, { opacity: 1, duration: 0.1, ease: "none" }) // Fast Fade In
+                  .to(methodologyBgRef.current, { opacity: 1, duration: 0.8, ease: "none" }) // Hold Dark
+                  .to(methodologyBgRef.current, { opacity: 0, duration: 0.1, ease: "none" }); // Fast Fade Out
+        };
+
+        mm.add("(max-width: 767px)", () => setupMethodologyBg("top bottom"));
+        mm.add("(min-width: 768px)", () => setupMethodologyBg("top 80%"));
 
         // 2. Closing Background Lifecycle (Fade In)
         gsap.to(closingBgRef.current, {
@@ -76,7 +86,9 @@ const Home: React.FC = () => {
 
       <div className="relative z-10">
         <Hero />
-        <TechTicker />
+        <div className="hidden md:block">
+            <TechTicker />
+        </div>
         <Manifesto />
         
         {/* Dark Zone 1 */}

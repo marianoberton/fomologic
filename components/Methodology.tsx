@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { IsoBaseSlab, IsoHelixTwist, IsoCloudStack, IsoInfinityLoop, IsoHourglass } from './MethodologyIcons';
 import TechnicalOverlay from './TechnicalOverlay';
+import MethodologyMobile from './MethodologyMobile';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -186,18 +187,18 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
     >
       <div className="grid grid-cols-1 md:grid-cols-12 h-full items-center">
         
-        {/* Left: Technical Specs / Icon */}
+        {/* Left: Technical Specs / Icon (DESKTOP ONLY) */}
         <div 
             ref={iconContainerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="md:col-span-5 relative border-r border-neutral-700 p-8 md:p-16 flex flex-col justify-center h-full overflow-hidden cursor-crosshair perspective-1000"
+            className="hidden md:flex md:col-span-5 relative border-r border-neutral-700 p-8 lg:p-12 xl:p-16 flex-col justify-center h-full overflow-hidden cursor-crosshair perspective-1000"
         >
              {/* Technical Overlay */}
              <TechnicalOverlay />
 
              {/* Dynamic Icon */}
-             <div ref={iconRef} className="relative z-20 w-32 h-32 md:w-48 md:h-48 mx-auto">
+             <div ref={iconRef} className="relative z-20 w-36 h-36 lg:w-48 lg:h-48 mx-auto">
                 <phase.icon className="w-full h-full text-[#CED600] drop-shadow-[0_0_15px_rgba(206,214,0,0.3)]" />
              </div>
 
@@ -210,25 +211,25 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
              </div>
         </div>
 
-        {/* Right: Content */}
-        <div className="md:col-span-7 p-6 md:p-24 flex flex-col justify-center relative h-[65%] md:h-full overflow-y-auto md:overflow-visible">
-            <h3 className="font-display font-bold text-3xl md:text-5xl text-white mb-2 leading-tight">
+        {/* Right: Content (DESKTOP ONLY - Mobile handled by MethodologyMobile) */}
+        <div className="hidden md:flex md:col-span-7 p-6 md:p-6 lg:p-16 xl:p-24 flex-col justify-center relative h-full overflow-y-auto md:overflow-visible">
+            <h3 className="font-display font-bold text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white mb-1 md:mb-2 leading-tight mt-2 md:mt-0">
                 {phase.title}
             </h3>
-            <p className="font-mono text-[#CED600] mb-4 md:mb-8 text-sm md:text-lg">
+            <p className="font-mono text-[#CED600] mb-3 md:mb-6 xl:mb-8 text-xs md:text-sm md:text-base xl:text-lg">
                 // {phase.subtitle}
             </p>
             
-            <p className="font-body text-neutral-300 text-base md:text-xl leading-relaxed mb-4 md:mb-8 max-w-xl">
+            <p className="font-body text-neutral-300 text-sm lg:text-lg xl:text-xl leading-relaxed mb-3 md:mb-6 xl:mb-8 max-w-xl">
                 {phase.concept}
             </p>
 
-            <div className="bg-neutral-800/30 border border-neutral-700 p-4 md:p-6 mb-4 md:mb-8 backdrop-blur-sm">
-                <p className="font-body text-neutral-400 italic text-xs md:text-sm mb-2">El Problema:</p>
-                <p className="font-body text-white text-sm md:text-base">"{phase.problem}"</p>
+            <div className="bg-neutral-800/30 border border-neutral-700 p-3 md:p-6 mb-3 md:mb-8 backdrop-blur-sm rounded-lg md:rounded-none">
+                <p className="font-body text-neutral-400 italic text-[10px] md:text-sm mb-1 md:mb-2">El Problema:</p>
+                <p className="font-body text-white text-xs md:text-base leading-snug">"{phase.problem}"</p>
             </div>
 
-            <ul className="space-y-2 md:space-y-3 mb-6 md:mb-10">
+            <ul className="space-y-2 md:space-y-3 mb-6 md:mb-10 hidden md:block">
                 {phase.actions.map((action, i) => (
                     <li key={i} className="flex items-center text-neutral-300 font-mono text-xs md:text-sm">
                         <span className="w-1.5 h-1.5 bg-[#CED600] mr-3"></span>
@@ -236,10 +237,10 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
                     </li>
                 ))}
             </ul>
-
-            <div className="flex items-center gap-4">
+            
+            <div className="flex items-center gap-4 mt-auto md:mt-0 pb-4 md:pb-0">
                 <div className="h-[1px] bg-neutral-700 flex-1"></div>
-                <div className="font-mono text-xs text-neutral-500">FASE_COMPLETADA</div>
+                <div className="font-mono text-[9px] md:text-xs text-neutral-500">FASE_COMPLETADA</div>
             </div>
         </div>
 
@@ -253,100 +254,115 @@ const Methodology: React.FC = () => {
   const [activePhase, setActivePhase] = useState(0);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Scope selector to container to avoid conflicts
-      const slides = gsap.utils.toArray('.methodology-slide', containerRef.current);
-      
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "+=" + (slides.length * 150) + "%", // Increased scroll distance for smoother experience
-          pin: true,
-          scrub: 0.5, // Reduced scrub lag for more responsiveness
-          anticipatePin: 1,
-        }
-      });
+    const mm = gsap.matchMedia();
+    
+    // Desktop only GSAP logic
+    mm.add("(min-width: 768px)", () => {
+        const ctx = gsap.context(() => {
+          // Scope selector to container to avoid conflicts
+          const slides = gsap.utils.toArray('.methodology-slide', containerRef.current);
+          
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top top",
+              end: "+=" + (slides.length * 150) + "%", // Increased scroll distance for smoother experience
+              pin: true,
+              scrub: 0.5, // Reduced scrub lag for more responsiveness
+              anticipatePin: 1,
+            }
+          });
+    
+          slides.forEach((slide: any, i) => {
+            if (i === 0) return; // First slide is already visible
+    
+            // Animate previous slide out
+            tl.to(slides[i - 1], {
+                yPercent: -20,
+                opacity: 0,
+                duration: 0.5,
+                ease: "power2.inOut"
+            }, i - 0.5); // Start at X.5
+    
+            // Animate current slide in
+            tl.fromTo(slide, 
+                { yPercent: 20, opacity: 0 },
+                { 
+                    yPercent: 0, 
+                    opacity: 1, 
+                    duration: 0.5, 
+                    ease: "power2.inOut",
+                    onStart: () => setActivePhase(i),
+                    onReverseComplete: () => setActivePhase(i - 1)
+                },
+                i - 0.5 // Sync with exit
+            );
+          });
+          
+          // Hold the last slide for a moment to ensure it's fully readable before unpinning
+          tl.to({}, { duration: 0.5 });
+          
+        }, containerRef);
+        return () => ctx.revert();
+    });
 
-      slides.forEach((slide: any, i) => {
-        if (i === 0) return; // First slide is already visible
-
-        // Animate previous slide out
-        tl.to(slides[i - 1], {
-            yPercent: -20,
-            opacity: 0,
-            duration: 0.5,
-            ease: "power2.inOut"
-        }, i - 0.5); // Start at X.5
-
-        // Animate current slide in
-        tl.fromTo(slide, 
-            { yPercent: 20, opacity: 0 },
-            { 
-                yPercent: 0, 
-                opacity: 1, 
-                duration: 0.5, 
-                ease: "power2.inOut",
-                onStart: () => setActivePhase(i),
-                onReverseComplete: () => setActivePhase(i - 1)
-            },
-            i - 0.5 // Sync with exit
-        );
-      });
-      
-      // Hold the last slide for a moment to ensure it's fully readable before unpinning
-      tl.to({}, { duration: 0.5 });
-      
-    }, containerRef);
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full h-[100dvh] bg-transparent text-white border-t border-neutral-700 overflow-hidden">
-      <div className="container mx-auto px-0 md:px-8 max-w-[98%] h-full">
-        <div className="flex flex-col lg:flex-row h-full">
-          {/* Left Column: Sticky Context (Always visible due to Pinning) */}
-          <div className="lg:w-[480px] hidden lg:block relative border-r border-neutral-700 h-full">
-            <div className="h-full flex flex-col justify-center px-8 py-12">
-              <h2 className="font-display font-bold text-6xl text-white mb-16 tracking-tighter">
-                Metodología<span className="text-[#CED600]">.</span>
-              </h2>
-              <div className="flex flex-col gap-3">
+    <>
+        {/* MOBILE VIEW: Stacked Cards */}
+        <div className="block md:hidden">
+            <MethodologyMobile />
+        </div>
+
+        {/* DESKTOP VIEW: Pinned Slides */}
+        <section ref={containerRef} className="hidden md:block relative w-full h-[100dvh] bg-transparent text-white border-t border-neutral-700 overflow-hidden">
+          <div className="container mx-auto px-0 md:px-8 max-w-[98%] h-full">
+            <div className="flex flex-col lg:flex-row h-full">
+              {/* Left Column: Sticky Context (Always visible due to Pinning) */}
+              <div className="lg:w-[400px] xl:w-[480px] hidden lg:block relative border-r border-neutral-700 h-full">
+                <div className="h-full flex flex-col justify-center px-6 xl:px-8 py-12">
+                  <h2 className="font-display font-bold text-5xl xl:text-6xl text-white mb-12 xl:mb-16 tracking-tighter">
+                    Metodología<span className="text-[#CED600]">.</span>
+                  </h2>
+                  <div className="flex flex-col gap-2 xl:gap-3">
+                    {PHASES.map((phase, index) => (
+                      <div 
+                        key={phase.id} 
+                        className={`flex items-center gap-4 py-2 transition-all duration-300 ${activePhase === index ? 'opacity-100 translate-x-4' : 'opacity-30'}`}
+                      >
+                        <span className={`font-mono text-xs xl:text-sm ${activePhase === index ? 'text-[#CED600]' : 'text-neutral-500'}`}>
+                          0{index + 1}
+                        </span>
+                        <span className="font-display text-lg xl:text-xl text-white truncate">
+                          {phase.title}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+    
+              {/* Right Column: Stacked Slides */}
+              <div className="flex-1 relative h-full overflow-hidden">
                 {PHASES.map((phase, index) => (
                   <div 
                     key={phase.id} 
-                    className={`flex items-center gap-4 py-2 transition-all duration-300 ${activePhase === index ? 'opacity-100 translate-x-4' : 'opacity-30'}`}
+                    className={`methodology-slide absolute inset-0 w-full h-full flex items-center justify-center ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                   >
-                    <span className={`font-mono text-sm ${activePhase === index ? 'text-[#CED600]' : 'text-neutral-500'}`}>
-                      0{index + 1}
-                    </span>
-                    <span className="font-display text-xl text-white truncate">
-                      {phase.title}
-                    </span>
+                    <MethodologyCard 
+                      phase={phase} 
+                      index={index} 
+                      isActive={activePhase === index} 
+                    />
                   </div>
                 ))}
               </div>
             </div>
           </div>
-
-          {/* Right Column: Stacked Slides */}
-          <div className="flex-1 relative h-full overflow-hidden">
-            {PHASES.map((phase, index) => (
-              <div 
-                key={phase.id} 
-                className={`methodology-slide absolute inset-0 w-full h-full flex items-center justify-center ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-              >
-                <MethodologyCard 
-                  phase={phase} 
-                  index={index} 
-                  isActive={activePhase === index} 
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
+    </>
   );
 };
 

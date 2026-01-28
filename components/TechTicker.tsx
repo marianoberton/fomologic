@@ -3,7 +3,7 @@ import { motion, useScroll, useSpring, useTransform, useMotionValue, useVelocity
 
 const items = [
     { src: '/brands_logos/OpenAI_Logo.svg.png', alt: 'OpenAI' },
-    { src: '/brands_logos/Amazon_Web_Services_Logo.svg.png', alt: 'AWS' },
+    { src: '/brands_logos/Amazon_Web_Services_Logo.svg.png', alt: 'AWS', scale: 1.6 },
     { src: '/brands_logos/Anthropic_logo.svg.png', alt: 'Anthropic' },
     { src: '/brands_logos/Google_Gemini_logo_2025.svg.png', alt: 'Google Gemini' },
     { src: '/brands_logos/N8n-logo-new.svg.png', alt: 'n8n' },
@@ -46,8 +46,8 @@ const TechTicker: React.FC = () => {
     });
 
     return (
-        <div className="w-full h-[80px] md:h-[120px] bg-white border-y border-neutral-200 flex items-center overflow-hidden relative z-[50]">
-            <motion.div className="flex items-center gap-12 md:gap-24 pl-12 md:pl-24 whitespace-nowrap relative z-20" style={{ x }}>
+        <div className="w-full h-[80px] md:h-[120px] bg-[#FAFAFA] border-y border-neutral-200 flex items-center overflow-hidden relative z-[50]">
+            <motion.div className="flex items-center gap-12 md:gap-24 whitespace-nowrap relative z-20" style={{ x }}>
                 {Array.from({ length: WRAP_COUNT }).map((_, i) => (
                     <React.Fragment key={i}>
                         {items.map((item, idx) => (
@@ -63,7 +63,7 @@ const TechTicker: React.FC = () => {
                                         WebkitMaskRepeat: 'no-repeat',
                                         maskPosition: 'center',
                                         WebkitMaskPosition: 'center',
-                                        transform: 'scale(2.5)',
+                                        transform: `scale(${item.scale || 2.5})`,
                                         transformOrigin: 'center'
                                     }} />
                                 </div>
