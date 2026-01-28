@@ -211,7 +211,7 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
         </div>
 
         {/* Right: Content */}
-        <div className="md:col-span-7 p-6 md:p-24 flex flex-col justify-center relative h-[60%] md:h-full overflow-y-auto md:overflow-visible">
+        <div className="md:col-span-7 p-6 md:p-24 flex flex-col justify-center relative h-[65%] md:h-full overflow-y-auto md:overflow-visible">
             <h3 className="font-display font-bold text-3xl md:text-5xl text-white mb-2 leading-tight">
                 {phase.title}
             </h3>

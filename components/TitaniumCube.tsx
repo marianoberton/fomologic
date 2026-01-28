@@ -98,7 +98,7 @@ const Cubelet: React.FC<CubeletProps> = ({ finalPosition, delay }) => {
 
 // --- 3. SUB-COMPONENT: SCENE CONTENT (Lighting & Groups) ---
 
-const TitaniumScene: React.FC = () => {
+const TitaniumScene: React.FC<{ isMobile?: boolean }> = ({ isMobile }) => {
   const groupRef = useRef<THREE.Group>(null);
 
   // Interactive rotation (Auto-spin + Mouse Parallax + Repulsion)
@@ -118,11 +118,16 @@ const TitaniumScene: React.FC = () => {
       groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetX, 0.1);
       groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, targetZ, 0.1);
 
-      // FIXED POSITION: No repulsion/deformation. The cube is a solid anchor.
-      // We only rotate it, we never move it from its perfect spot.
-      groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, 3, 0.1);
-      groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, 1.2, 0.1);
-      groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, -1, 0.1);
+      // FIXED POSITION:
+      // Desktop: x=3 (Right side)
+      // Mobile: x=0 (Center), y=0 (Center - balanced between top/bottom text)
+      const targetPosX = isMobile ? 0 : 3;
+      const targetPosY = isMobile ? 0 : 1.2;
+      const targetPosZ = isMobile ? 0 : -1;
+
+      groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, targetPosX, 0.1);
+      groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetPosY, 0.1);
+      groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, targetPosZ, 0.1);
     }
   });
 
@@ -163,7 +168,7 @@ const TitaniumScene: React.FC = () => {
       <Environment preset="city" />
 
       <Suspense fallback={null}>
-        <group ref={groupRef} rotation={[0, -Math.PI / 4, 0]} scale={0.6}>
+        <group ref={groupRef} rotation={[0, -Math.PI / 4, 0]} scale={isMobile ? 0.45 : 0.6}>
           {cubeData.map((d) => (
             <Cubelet key={d.id} finalPosition={d.pos} delay={d.delay} />
           ))}
@@ -181,9 +186,10 @@ const TitaniumScene: React.FC = () => {
 
 interface TitaniumCubeProps {
   className?: string;
+  isMobile?: boolean;
 }
 
-const TitaniumCube: React.FC<TitaniumCubeProps> = ({ className = "w-full h-full" }) => {
+const TitaniumCube: React.FC<TitaniumCubeProps> = ({ className = "w-full h-full", isMobile }) => {
   return (
     <div className={className}>
       <Canvas
@@ -200,7 +206,7 @@ const TitaniumCube: React.FC<TitaniumCubeProps> = ({ className = "w-full h-full"
         }}
       >
         <Suspense fallback={null}>
-          <TitaniumScene />
+          <TitaniumScene isMobile={isMobile} />
         </Suspense>
       </Canvas>
       <Loader 

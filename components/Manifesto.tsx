@@ -132,15 +132,15 @@ const Manifesto: React.FC = () => {
                  
                  {/* Fade Text - Lead in */}
                  <p className={`font-display font-medium leading-[1.1] tracking-tight text-neutral-400 transition-colors duration-500
-                   ${isFinal ? 'text-3xl md:text-5xl' : 'text-3xl md:text-5xl lg:text-6xl'}
+                   ${isFinal ? 'text-2xl md:text-5xl' : 'text-2xl md:text-5xl lg:text-6xl'}
                  `}>
                    {step.fade}
                  </p>
 
                  {/* Highlight Text - Punchline */}
                  <h2 className={`font-display font-extrabold leading-[0.9] tracking-[-0.04em] text-balance text-[#272727] transition-all duration-500
-                   ${isImpact ? 'text-5xl md:text-7xl lg:text-8xl' : 'text-4xl md:text-6xl lg:text-8xl'}
-                   ${isFinal ? 'text-6xl md:text-8xl lg:text-[10rem] mt-4 pb-20' : ''}
+                   ${isImpact ? 'text-4xl md:text-7xl lg:text-8xl' : 'text-3xl md:text-6xl lg:text-8xl'}
+                   ${isFinal ? 'text-5xl md:text-8xl lg:text-[10rem] mt-4 pb-20' : ''}
                  `}>
                     {step.highlight}
                  </h2>
