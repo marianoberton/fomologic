@@ -52,9 +52,12 @@ const QuoteSeparator: React.FC = () => {
         {/* Decorative Top Line */}
         <div ref={lineRef} className="w-full h-[1px] bg-[#272727] mb-12 origin-center transform" />
 
-        <div ref={textRef} className="flex flex-col items-center perspective-1000 max-w-6xl mx-auto px-4">
+        <div ref={textRef} className="flex flex-col items-center gap-6 md:gap-8 perspective-1000 max-w-6xl mx-auto px-4">
+          <h2 className="font-display font-bold text-3xl md:text-6xl lg:text-7xl text-[#272727] leading-tight tracking-tight text-center">
+            No vendemos horas.
+          </h2>
           <div className="inline-flex items-center justify-center bg-[#272727] text-[#CED600] px-6 py-4 md:px-12 md:py-8 rounded-[2rem] md:rounded-[3rem] text-2xl md:text-5xl lg:text-6xl font-display font-bold rotate-[-2deg] shadow-2xl transform-gpu text-center leading-tight">
-            No vendemos horas. Diseñamos sistemas que trabajan por vos.
+            Diseñamos sistemas que trabajan por vos.
           </div>
         </div>
       </div>
