@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowUpRight, Plus } from 'lucide-react';
+import ButtonSecondary from './ButtonSecondary';
 
 const CASES = [
   {
@@ -30,7 +31,7 @@ const CASES = [
 
 const ShowcaseMobile: React.FC = () => {
   return (
-    <section className="bg-[#FAFAFA] py-24 px-6 relative z-10">
+    <section className="bg-[#FAFAFA] py-12 md:py-24 px-6 relative z-10">
       
       {/* Header */}
       <div className="mb-12">
@@ -38,9 +39,9 @@ const ShowcaseMobile: React.FC = () => {
             <div className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center animate-spin-slow">
                 <Plus size={14} className="text-neutral-400" />
             </div>
-            <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Casos seleccionados</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Casos</span>
         </div>
-        <h2 className="font-display font-bold text-5xl tracking-tighter leading-[0.9] text-neutral-900">
+        <h2 className="font-manrope font-extrabold text-5xl tracking-tighter leading-[1.1] text-neutral-900">
             Casos<span className="text-neutral-300">.</span>
         </h2>
       </div>
@@ -70,8 +71,8 @@ const ShowcaseMobile: React.FC = () => {
                         <span className="font-mono text-xs text-white/60 border border-white/20 px-3 py-1 rounded-full backdrop-blur-md">
                             /{project.id}
                         </span>
-                        <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20">
-                            <ArrowUpRight className="text-white w-5 h-5" />
+                        <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 group-hover:bg-white/20 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-500">
+                            <ArrowUpRight className="text-[#CED600] w-5 h-5 group-hover:text-white group-hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] transition-all duration-500" />
                         </div>
                     </div>
 
@@ -80,7 +81,7 @@ const ShowcaseMobile: React.FC = () => {
                         <span className="font-mono text-xs text-[#CED600] uppercase tracking-widest mb-2 block">
                             {project.category}
                         </span>
-                        <h3 className="font-display font-bold text-5xl text-white mb-6 tracking-tighter leading-none">
+                        <h3 className="font-display font-semibold text-5xl text-white mb-6 tracking-tighter leading-none">
                             {project.client}
                         </h3>
                         
@@ -100,10 +101,9 @@ const ShowcaseMobile: React.FC = () => {
 
       {/* Footer Link */}
       <div className="mt-16 flex justify-center">
-        <button className="flex items-center gap-3 px-6 py-3 rounded-full border border-neutral-200 bg-white text-neutral-900 shadow-sm">
-            <span className="font-display font-bold text-sm tracking-wide">VER TODOS LOS CASOS</span>
-            <ArrowUpRight size={16} />
-        </button>
+        <ButtonSecondary href="/casos" className="bg-white text-neutral-900 border-neutral-200 shadow-sm">
+            VER TODOS LOS CASOS
+        </ButtonSecondary>
       </div>
 
     </section>

@@ -90,7 +90,7 @@ const Philosophy: React.FC = () => {
 
                       {/* Main Text */}
                       <div>
-                         <h3 className={`font-display font-bold text-5xl md:text-6xl mb-6 tracking-tight ${card.text}`}>
+                         <h3 className={`font-display font-semibold text-5xl md:text-6xl mb-6 tracking-tight ${card.text}`}>
                            {card.title}
                          </h3>
                          <h4 className={`font-body text-xs uppercase tracking-widest mb-8 ${card.theme === 'dark' ? 'text-accent-lime' : 'text-accent-orange'}`}>

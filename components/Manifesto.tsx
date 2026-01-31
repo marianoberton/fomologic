@@ -138,7 +138,7 @@ const Manifesto: React.FC = () => {
                  </p>
 
                  {/* Highlight Text - Punchline */}
-                 <h2 className={`font-display font-extrabold leading-[0.9] tracking-[-0.04em] text-balance text-[#272727] transition-all duration-500
+                 <h2 className={`font-display font-semibold leading-[0.9] tracking-[-0.04em] text-balance text-[#272727] transition-all duration-500
                    ${isImpact ? 'text-6xl md:text-7xl lg:text-8xl' : 'text-5xl md:text-6xl lg:text-8xl'}
                    ${isFinal ? 'text-7xl md:text-8xl lg:text-[10rem] mt-4 pb-20' : ''}
                  `}>

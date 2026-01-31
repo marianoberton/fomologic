@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Search, TestTube2, TrendingUp } from 'lucide-react';
 import Closing from '../components/Closing';
-import ServicesSection from '../components/ServicesSection';
+import ServicesComponent from '../components/Services';
+import Methodology from '../components/Methodology';
 
 const Services: React.FC = () => {
   useEffect(() => {
@@ -50,71 +51,12 @@ const Services: React.FC = () => {
       {/* =====================================================================================
           SERVICES SECTION (Replaced with Component)
          ===================================================================================== */}
-      <ServicesSection />
+      <ServicesComponent />
 
       {/* =====================================================================================
           SECTION 2: THE PROTOCOL (PROTOCOLO DE ESCALA)
          ===================================================================================== */}
-      <section className="py-32 bg-canvas border-t border-gray-200 relative">
-         <div className="max-w-[1600px] mx-auto px-6 md:px-12">
-            
-            <div className="mb-24 flex flex-col md:flex-row justify-between items-end">
-               <div>
-                  <div className="flex items-center gap-2 mb-4">
-                     <div className="w-2 h-2 bg-accent-orange rounded-full animate-pulse"></div>
-                     <span className="font-body text-xs text-ink uppercase tracking-widest">Execution Protocol</span>
-                  </div>
-                  <h2 className="font-display font-bold text-5xl md:text-7xl text-ink tracking-tight">
-                     Protocolo <br/> <span className="text-gray-400 font-light">de Escala.</span>
-                  </h2>
-               </div>
-               <div className="text-right max-w-md">
-                  <p className="font-body text-xs text-gray-400 uppercase tracking-widest mb-2">Risk Mitigation</p>
-                  <p className="font-body text-lg text-gray-500 font-light tracking-normal">
-                     Un sistema iterativo para garantizar resultados. Minimizamos riesgos y maximizamos el ROI.
-                  </p>
-               </div>
-            </div>
-
-            {/* THE PROCESS GRID */}
-            <div className="grid grid-cols-1 md:grid-cols-3 border-t border-gray-200">
-               {[
-                  {
-                     id: '01',
-                     icon: Search,
-                     title: 'Descubrir',
-                     desc: 'Entendemos tu negocio antes de cambiarlo. Inmersión profunda para detectar fugas y frenos.',
-                  },
-                  {
-                     id: '02',
-                     icon: TestTube2,
-                     title: 'Validar',
-                     desc: 'Implementamos en entorno controlado (piloto) para confirmar ahorro y eficiencia antes del despliegue.',
-                  },
-                  {
-                     id: '03',
-                     icon: TrendingUp,
-                     title: 'Escalar',
-                     desc: 'Despliegue masivo de la tecnología aprobada y transferencia de control a tu equipo.',
-                  }
-               ].map((step, i) => (
-                  <div key={i} className={`group relative p-8 md:p-12 border-b md:border-b-0 border-gray-200 ${i !== 2 ? 'md:border-r' : ''} transition-colors hover:bg-gray-50`}>
-                     <div className="flex justify-between items-start mb-8">
-                        <span className="font-mono text-6xl text-gray-200 font-light group-hover:text-accent-lime transition-colors duration-300">
-                           {step.id}
-                        </span>
-                        <step.icon size={24} className="text-gray-400 group-hover:text-ink transition-colors" />
-                     </div>
-                     
-                     <h3 className="font-display font-bold text-2xl mb-4 text-ink">{step.title}</h3>
-                     <p className="font-body text-gray-500 text-lg font-light leading-relaxed">
-                        {step.desc}
-                     </p>
-                  </div>
-               ))}
-            </div>
-         </div>
-      </section>
+      <Methodology />
 
       {/* =====================================================================================
           CTA FINAL

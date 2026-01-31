@@ -42,7 +42,7 @@ const PACKAGES = [
 
 const ServicesMobile: React.FC = () => {
   return (
-    <section className="bg-transparent text-[#272727] pb-24 pt-0 relative z-10 -mt-12">
+    <section className="bg-transparent text-[#272727] pb-24 pt-32 relative z-10">
       
       {/* Header */}
       <div className="px-6 mb-12">
@@ -73,7 +73,7 @@ const ServicesMobile: React.FC = () => {
 
                 {/* Content */}
                 <div className="relative z-10 flex-1 flex flex-col">
-                    <h3 className="font-display font-bold text-4xl tracking-tighter mb-3 leading-[0.9] text-[#272727]">
+                    <h3 className="font-display font-semibold text-4xl tracking-tighter mb-3 leading-[0.9] text-[#272727]">
                         {pkg.name}
                     </h3>
                     <p className="font-body text-base text-neutral-500 mb-8 leading-relaxed max-w-[85%]">

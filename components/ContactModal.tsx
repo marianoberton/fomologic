@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Check, Loader2, X, ChevronDown } from 'lucide-react';
-import MagneticButton from './MagneticButton';
+import MagneticButton from './MagneticButton'; // Keep for compatibility if needed elsewhere (though we replace it here)
+import ButtonPrimary from './ButtonPrimary';
 import { useContact } from '../context/ContactContext';
 
 const ROLES = ['Founder/CEO', 'Operaciones', 'Comercial/Ventas', 'Marketing/Growth', 'IT/Sistemas', 'Otro'];
@@ -211,13 +212,13 @@ const ContactModal: React.FC = () => {
                         <div className="relative z-10">
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="h-px w-12 bg-[#CED600]"></div>
-                                <span className="font-display font-bold text-[#CED600] tracking-widest uppercase text-sm">CONTACTO</span>
+                                <span className="font-mono font-bold text-[#CED600] tracking-widest uppercase text-sm">CONTACTO</span>
                             </div>
 
-                            <h2 className="font-display font-black text-6xl leading-[0.9] tracking-tighter uppercase mb-8">
-                                <span className="block text-white">CONTANOS</span>
-                                <span className="block text-white/40">MAS</span>
-                            </h2>
+                            <h2 className="font-manrope font-semibold text-6xl leading-[1.1] tracking-tighter mb-8">
+            <span className="block text-white">Contanos</span>
+            <span className="block text-white/40">más</span>
+          </h2>
 
                             <p className="font-body text-lg text-white/60 max-w-md leading-relaxed">
                                 Buscamos empresas listas para escalar. Completa el perfil técnico para que podamos analizar la viabilidad de tu caso antes de hablar.
@@ -460,25 +461,18 @@ const ContactModal: React.FC = () => {
                                                 <div></div> // Spacer
                                             )}
 
-                                            <MagneticButton 
+                                            <ButtonPrimary 
                                                 type="submit"
                                                 disabled={status === 'submitting'}
-                                                className="group relative px-12 py-6 bg-[#CED600] rounded-full flex items-center gap-6 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                                                showIcon={status !== 'submitting'}
+                                                className="px-12 py-6 text-xl"
                                             >
-                                                <div className="flex items-center gap-4 relative z-10 w-full h-full">
-                                                    {status === 'submitting' ? (
-                                                        <Loader2 className="animate-spin text-[#272727]" />
-                                                    ) : (
-                                                        <>
-                                                            <span className="font-display font-black text-[#272727] text-xl uppercase tracking-wider">
-                                                                {step === 1 ? 'Siguiente' : 'Enviar'}
-                                                            </span>
-                                                            <ArrowUpRight className="text-[#272727] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                                        </>
-                                                    )}
-                                                </div>
-                                                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out z-0"></div>
-                                            </MagneticButton>
+                                                {status === 'submitting' ? (
+                                                    <Loader2 className="animate-spin text-[#272727]" />
+                                                ) : (
+                                                    step === 1 ? 'Siguiente' : 'Enviar'
+                                                )}
+                                            </ButtonPrimary>
                                         </div>
                                     </motion.form>
                                 )}

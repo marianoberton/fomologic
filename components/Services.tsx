@@ -103,7 +103,7 @@ const Services: React.FC = () => {
             <section ref={sectionRef} className="bg-transparent text-neutral-900 overflow-hidden relative z-10">
                 
                 {/* Intro Header (Static) */}
-                <div className="container mx-auto px-6 md:px-12 py-24 border-b border-neutral-200">
+                <div className="container mx-auto px-6 md:px-12 pb-24 pt-40 lg:pt-48 border-b border-neutral-200">
                     <div className="flex flex-col md:flex-row justify-between items-end">
                         <h2 className="font-display font-bold text-6xl md:text-9xl tracking-tighter leading-[0.8]">
                             Servicios<span className="text-accent-lime">.</span>
@@ -120,25 +120,25 @@ const Services: React.FC = () => {
                 </div>
 
                 {/* Horizontal Scroll Container (Desktop) / Vertical Stack (Mobile) */}
-                <div ref={triggerRef} className="h-auto md:h-screen flex items-center overflow-visible md:overflow-hidden bg-transparent relative z-20">
+                <div ref={triggerRef} className="h-auto md:h-screen flex items-center overflow-visible md:overflow-hidden bg-transparent relative z-20 md:pt-20">
                     <div ref={cardsRef} className="flex flex-col md:flex-row h-auto md:h-full w-full px-6 md:px-0 md:pl-[10vw] gap-8 md:gap-0 py-12 md:py-0">
                         {PACKAGES.map((pkg, index) => (
                             <div 
                                 key={pkg.id} 
-                                className="service-card w-full md:w-[80vw] h-[600px] md:h-[80vh] flex-shrink-0 flex flex-col md:flex-row bg-white border border-neutral-200 md:mr-[10vw] relative group overflow-hidden transition-colors duration-700 hover:border-neutral-900 md:mt-[10vh] rounded-[2.5rem]"
+                                className="service-card w-full md:w-[80vw] h-[600px] md:h-[70vh] flex-shrink-0 flex flex-col md:flex-row bg-white border border-neutral-200 md:mr-[10vw] relative group overflow-hidden transition-colors duration-700 hover:border-neutral-900 md:mt-[10vh] rounded-[2.5rem]"
                             >
                                 {/* Background Noise */}
                                 <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none mix-blend-multiply"></div>
                                 
                                 {/* ID Number - Absolute Big */}
-                                <span className="absolute top-0 left-0 font-display font-bold text-[8rem] md:text-[20rem] leading-none text-neutral-100 tracking-tighter -translate-y-1/4 -translate-x-1/4 select-none pointer-events-none group-hover:text-neutral-200 transition-colors duration-700">
+                                <span className="absolute top-0 left-0 font-display font-semibold text-[8rem] md:text-[20rem] leading-none text-neutral-100 tracking-tighter -translate-y-1/4 -translate-x-1/4 select-none pointer-events-none group-hover:text-neutral-200 transition-colors duration-700">
                                     {pkg.id}
                                 </span>
 
                                 {/* Left: Content */}
                                 <div className="relative z-10 w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-between h-full border-b md:border-b-0 md:border-r border-neutral-100">
                                     <div>
-                                        <h3 className="service-title font-display font-bold text-4xl md:text-7xl tracking-tighter mb-6 group-hover:translate-x-2 transition-transform duration-500">
+                                        <h3 className="service-title font-display font-semibold text-4xl md:text-7xl tracking-tighter mb-6 group-hover:translate-x-2 transition-transform duration-500">
                                             {pkg.name}
                                         </h3>
                                         

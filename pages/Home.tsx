@@ -4,13 +4,11 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Hero from '../components/Hero';
 import TechTicker from '../components/TechTicker';
-import Manifesto from '../components/Manifesto';
-import Methodology from '../components/Methodology';
-import Services from '../components/Services';
 
-import Team from '../components/Team';
 import Showcase from '../components/Showcase';
 import QuoteSeparator from '../components/QuoteSeparator';
+import Workforce from '../components/Workforce';
+import StickyStatement from '../components/StickyStatement';
 import BrandMarquee from '../components/BrandMarquee';
 import Insights from '../components/Insights';
 import Closing from '../components/Closing';
@@ -18,47 +16,48 @@ import Closing from '../components/Closing';
 gsap.registerPlugin(ScrollTrigger);
 
 const Home: React.FC = () => {
-  const methodologyBgRef = useRef<HTMLDivElement>(null);
   const closingBgRef = useRef<HTMLDivElement>(null);
-  const methodologyRef = useRef<HTMLDivElement>(null);
-  const servicesWrapperRef = useRef<HTMLDivElement>(null);
   const closingRef = useRef<HTMLDivElement>(null);
+  const workforceRef = useRef<HTMLDivElement>(null);
+  const showcaseRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-        const mm = gsap.matchMedia();
-
-        // 1. Methodology Background Lifecycle
-        // We use matchMedia to adjust the start trigger for Mobile vs Desktop
-        // Mobile needs an earlier trigger ("top bottom") to ensure text is visible against the dark bg
         
-        const setupMethodologyBg = (startTrigger: string) => {
-            const methTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: methodologyRef.current,
-                    start: startTrigger,
-                    endTrigger: servicesWrapperRef.current,
-                    end: "top 40%", 
-                    scrub: true,
-                }
-            });
+        // 1. GLOBAL DARK MODE CONTROLLER
+        // Triggered by Workforce (Enter Dark Mode - Scrubbed for smoothness)
+        gsap.to(closingBgRef.current, {
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+                trigger: workforceRef.current,
+                start: "top 75%", // Starts darkening as Workforce enters the viewport
+                end: "top 25%",   // Fully dark when Workforce is well into view
+                scrub: true
+            }
+        });
 
-            methTl.to(methodologyBgRef.current, { opacity: 1, duration: 0.1, ease: "none" }) // Fast Fade In
-                  .to(methodologyBgRef.current, { opacity: 1, duration: 0.8, ease: "none" }) // Hold Dark
-                  .to(methodologyBgRef.current, { opacity: 0, duration: 0.1, ease: "none" }); // Fast Fade Out
-        };
+        // Triggered by Showcase (Exit Dark Mode - Scrubbed for smoothness)
+        // This creates a smooth fade-out of the dark background as Showcase enters
+        gsap.to(closingBgRef.current, {
+            opacity: 0,
+            ease: "none",
+            scrollTrigger: {
+                trigger: showcaseRef.current,
+                start: "center top", // Delayed fade out to keep corners visible against dark bg
+                end: "bottom top",   // Fade out when Showcase is leaving
+                scrub: true
+            }
+        });
 
-        mm.add("(max-width: 767px)", () => setupMethodologyBg("top bottom"));
-        mm.add("(min-width: 768px)", () => setupMethodologyBg("top 80%"));
-
-        // 2. Closing Background Lifecycle (Fade In)
+        // 2. Closing Background Lifecycle (Fade In for Footer)
         gsap.to(closingBgRef.current, {
             opacity: 1,
             ease: "none",
             scrollTrigger: {
                 trigger: closingRef.current,
-                start: "top 80%",
-                end: "top 40%",
+                start: "top 75%",
+                end: "top 25%",
                 scrub: true,
             }
         });
@@ -70,14 +69,7 @@ const Home: React.FC = () => {
 
   return (
     <main className="relative w-full bg-[#FAFAFA] min-h-screen">
-      {/* METHODOLOGY DARK LAYER */}
-      <div 
-        ref={methodologyBgRef}
-        className="fixed inset-0 z-0 pointer-events-none bg-[#272727]"
-        style={{ opacity: 0 }}
-      />
-
-      {/* CLOSING DARK LAYER */}
+      {/* GLOBAL DARK LAYER (Shared by QuoteSeparator, Workforce, StickyStatement & Closing) */}
       <div 
         ref={closingBgRef}
         className="fixed inset-0 z-0 pointer-events-none bg-[#272727]"
@@ -89,21 +81,19 @@ const Home: React.FC = () => {
         <div className="hidden md:block">
             <TechTicker />
         </div>
-        <Manifesto />
         
-        {/* Dark Zone 1 */}
-        <div ref={methodologyRef}>
-            <Methodology />
-        </div>
-
-        {/* Services Wrapper for Trigger */}
-        <div ref={servicesWrapperRef}>
-            <Services />
-        </div>
-
         <QuoteSeparator />
-        <Showcase />
-        <Team />
+        
+        <div ref={workforceRef}>
+            <Workforce />
+        </div>
+
+        <StickyStatement />
+
+        <div ref={showcaseRef}>
+            <Showcase />
+        </div>
+
         <BrandMarquee />
         <Insights />
         

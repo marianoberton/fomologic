@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { IsoBaseSlab, IsoHelixTwist, IsoCloudStack, IsoInfinityLoop, IsoHourglass } from './MethodologyIcons';
-import TechnicalOverlay from './TechnicalOverlay';
 import MethodologyMobile from './MethodologyMobile';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -194,9 +193,6 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
             onMouseLeave={handleMouseLeave}
             className="hidden md:flex md:col-span-5 relative border-r border-neutral-700 p-8 lg:p-12 xl:p-16 flex-col justify-center h-full overflow-hidden cursor-crosshair perspective-1000"
         >
-             {/* Technical Overlay */}
-             <TechnicalOverlay />
-
              {/* Dynamic Icon */}
              <div ref={iconRef} className="relative z-20 w-36 h-36 lg:w-48 lg:h-48 mx-auto">
                 <phase.icon className="w-full h-full text-[#CED600] drop-shadow-[0_0_15px_rgba(206,214,0,0.3)]" />
@@ -213,7 +209,7 @@ const MethodologyCard: React.FC<{ phase: typeof PHASES[0]; index: number; isActi
 
         {/* Right: Content (DESKTOP ONLY - Mobile handled by MethodologyMobile) */}
         <div className="hidden md:flex md:col-span-7 p-6 md:p-6 lg:p-16 xl:p-24 flex-col justify-center relative h-full overflow-y-auto md:overflow-visible">
-            <h3 className="font-display font-bold text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white mb-1 md:mb-2 leading-tight mt-2 md:mt-0">
+            <h3 className="font-display font-semibold text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white mb-1 md:mb-2 leading-tight mt-2 md:mt-0">
                 {phase.title}
             </h3>
             <p className="font-mono text-[#CED600] mb-3 md:mb-6 xl:mb-8 text-xs md:text-sm md:text-base xl:text-lg">
@@ -323,7 +319,7 @@ const Methodology: React.FC = () => {
               {/* Left Column: Sticky Context (Always visible due to Pinning) */}
               <div className="lg:w-[400px] xl:w-[480px] hidden lg:block relative border-r border-neutral-700 h-full">
                 <div className="h-full flex flex-col justify-center px-6 xl:px-8 py-12">
-                  <h2 className="font-display font-bold text-5xl xl:text-6xl text-white mb-12 xl:mb-16 tracking-tighter">
+                  <h2 className="font-display font-semibold text-5xl xl:text-6xl text-white mb-12 xl:mb-16 tracking-tighter">
                     Metodología<span className="text-[#CED600]">.</span>
                   </h2>
                   <div className="flex flex-col gap-2 xl:gap-3">

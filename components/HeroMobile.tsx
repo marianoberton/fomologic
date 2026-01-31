@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowDown } from 'lucide-react';
 import gsap from 'gsap';
-import MagneticButton from './MagneticButton';
+import MagneticButton from './MagneticButton'; // Keeping for compatibility if needed, but we will use ButtonPrimary
+import ButtonPrimary from './ButtonPrimary';
+import ButtonSecondary from './ButtonSecondary';
 import TechTicker from './TechTicker';
 import { useContact } from '../context/ContactContext';
 
@@ -155,36 +157,39 @@ const HeroMobile: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(250,250,250,0.8)_0%,_transparent_70%)] pointer-events-none -z-10 scale-125"></div>
 
         {/* Headline Group */}
-        <div className="flex flex-col gap-4 items-center w-full">
-            <h1 ref={titleRef} className="font-display font-bold text-[16vw] leading-[0.9] tracking-[-0.04em] text-[#272727] w-full">
-              <div className="overflow-hidden flex justify-center"><div className="line-inner">Usar IA</div></div>
+        <div className="relative z-10 w-full flex flex-col items-center justify-center text-center mt-[-10vh]">
+            <h1 ref={titleRef} className="font-manrope font-semibold text-[14vw] leading-[1.1] tracking-tighter text-[#272727] w-full">
+              <div className="overflow-hidden flex justify-center"><div className="line-inner">IA Trabajando</div></div>
               <div className="overflow-hidden flex justify-center">
-                  <div className="line-inner">
-                      es fácil.
+                  <div className="line-inner text-neutral-400">
+                      para vos.
                   </div>
               </div>
             </h1>
 
             {/* Subtext - Styled to match Desktop (Gray Punchline) */}
-            <div ref={bodyRef} className="max-w-[90%] mx-auto">
-                 <p className="font-display font-bold text-[6.5vw] leading-snug tracking-tight text-neutral-600 text-balance flex flex-wrap justify-center items-baseline gap-x-2">
-                    <span>Hacer que trabaje <span className="text-[#272727]">realmente</span> para tu empresa,</span>
-                    <span className="no-badge inline-flex items-center justify-center bg-[#272727] text-[#CED600] px-4 py-1 rounded-2xl text-[8vw] rotate-[-3deg] shadow-lg transform-gpu">no.</span>
+            <div ref={bodyRef} className="max-w-[90%] mx-auto mt-6">
+                 <p className="font-body text-lg text-neutral-600 leading-relaxed text-balance">
+                    Sumá agentes al staff o diseñá soluciones propias.
+                 </p>
+                 <p className="font-body text-lg text-[#272727] font-bold mt-2 flex flex-col items-center gap-2">
+                    <span>Tu operación tiene que correr 24/7.</span>
+                    <span className="no-badge inline-flex items-center justify-center bg-[#272727] text-[#CED600] px-4 py-1 rounded-xl text-xl rotate-[-2deg] shadow-lg transform-gpu">Vos no.</span>
                  </p>
             </div>
         </div>
 
         {/* CTA (Replicating Desktop Style - Minimalist) */}
-        <div ref={ctaRef} className="w-full mt-4 flex justify-center">
-             <div onClick={openContact} className="cursor-pointer">
-                <MagneticButton className="group relative bg-[#CED600] text-[#272727] px-8 py-4 rounded-full flex items-center gap-4 transition-all duration-500 hover:brightness-110 hover:scale-105 shadow-[0_0_15px_rgba(206,214,0,0.3)] hover:shadow-[0_0_30px_rgba(206,214,0,0.6)]">
-                     <span className="relative z-10 font-display text-base font-bold tracking-wide">
-                       HABLEMOS
-                     </span>
-                     <div className="relative z-10 w-8 h-8 bg-[#272727]/10 rounded-full flex items-center justify-center group-hover:bg-[#272727]/20 transition-colors">
-                        <ArrowRight size={14} className="group-hover:-rotate-45 transition-transform duration-300 stroke-[2px]" />
-                     </div>
-                </MagneticButton>
+        <div ref={ctaRef} className="w-full mt-8 flex flex-col items-center gap-4">
+             <div onClick={() => document.getElementById('workforce')?.scrollIntoView({ behavior: 'smooth' })} className="cursor-pointer w-full max-w-[280px]">
+                <ButtonPrimary className="text-sm w-full">
+                     VER AGENTES
+                </ButtonPrimary>
+             </div>
+             <div onClick={() => document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth' })} className="cursor-pointer w-full max-w-[280px]">
+                <ButtonSecondary className="text-sm w-full border-neutral-300 text-[#272727]">
+                     SOLUCIONES
+                </ButtonSecondary>
              </div>
         </div>
 

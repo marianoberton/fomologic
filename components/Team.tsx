@@ -91,7 +91,73 @@ const Team: React.FC = () => {
 
     }, containerRef);
 
-    return () => ctx.revert();
+    // Mobile Interaction Logic (Physics Engine)
+    let mm = gsap.matchMedia();
+    
+    mm.add("(max-width: 768px)", () => {
+      const cards = document.querySelectorAll('.founder-card');
+      
+      cards.forEach((card) => {
+        const mask = card.querySelector('.founder-mask');
+        const reveal = card.querySelector('.founder-reveal');
+        const text = card.querySelector('.founder-text');
+        const linkedin = card.querySelector('.founder-linkedin');
+        
+        if (!mask || !reveal || !text || !linkedin) return;
+
+        // Create a timeline that is scrubbed by scroll for that "magnetic" feel
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: card,
+            start: "top 75%", // Start revealing as it enters
+            end: "center 50%", // Fully revealed at center
+            scrub: 1,
+            toggleActions: "play reverse play reverse"
+          }
+        });
+
+        // 1. Dissolve the mask (Physics: State Change)
+        tl.to(mask, { 
+          opacity: 0, 
+          scale: 1.05, 
+          filter: "blur(8px)", 
+          duration: 1,
+          ease: "power2.out",
+          force3D: true // Hardware acceleration
+        }, 0);
+        
+        // 2. Reveal the true form
+        tl.to(reveal, { 
+          opacity: 1, 
+          duration: 1,
+          ease: "power2.inOut",
+          force3D: true // Hardware acceleration
+        }, 0);
+        
+        // 3. Text floats up (Magnetic Pull)
+        tl.to(text, { 
+          y: -80, // Matches roughly the -translate-y-24 (6rem = 96px), adjusted for mobile scale
+          duration: 1,
+          ease: "back.out(1.2)",
+          force3D: true
+        }, 0);
+        
+        // 4. LinkedIn button emerges
+        tl.to(linkedin, { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8,
+          delay: 0.2, // Slight stagger
+          ease: "power2.out",
+          force3D: true
+        }, 0);
+      });
+    });
+
+    return () => {
+      ctx.revert();
+      mm.revert();
+    };
   }, []);
 
   const handleMagnetic = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -118,7 +184,7 @@ const Team: React.FC = () => {
   };
   
   return (
-    <section ref={containerRef} className="py-32 bg-[#FAFAFA] text-neutral-900 relative z-10 border-t border-neutral-200 overflow-hidden">
+    <section ref={containerRef} className="py-16 md:py-32 bg-[#FAFAFA] text-neutral-900 relative z-10 border-t border-neutral-200 overflow-hidden">
       {/* Background Noise Texture */}
       <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none mix-blend-multiply"></div>
 
@@ -131,8 +197,8 @@ const Team: React.FC = () => {
                  <div className="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></div>
                  <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Núcleo Operativo</span>
               </div>
-              <h2 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter leading-[0.9] team-header-anim">
-                 INTELIGENCIA<br/><span className="text-neutral-300">HUMANA.</span>
+              <h2 className="font-display font-semibold text-5xl md:text-7xl lg:text-8xl tracking-tighter leading-[0.9] team-header-anim">
+                 Inteligencia<br/><span className="text-neutral-300">Humana.</span>
               </h2>
            </div>
            <p className="font-body text-neutral-500 text-base md:text-lg max-w-md text-left md:text-right leading-relaxed mb-2 team-header-anim">
@@ -149,7 +215,7 @@ const Team: React.FC = () => {
                     
                     {/* Layer 1: The Masked Shape (Visible by Default, Fades Out on Hover) */}
                     <div 
-                        className="absolute inset-0 z-20 transition-all duration-700 ease-out group-hover:opacity-0 group-hover:scale-110 group-hover:blur-sm"
+                        className="absolute inset-0 z-20 md:transition-all md:duration-700 md:ease-out md:group-hover:opacity-0 md:group-hover:scale-110 md:group-hover:blur-sm founder-mask will-change-transform backface-hidden"
                         style={{
                             maskImage: `url(${founder.mask})`,
                             maskSize: '90%', 
@@ -158,7 +224,11 @@ const Team: React.FC = () => {
                             WebkitMaskImage: `url(${founder.mask})`,
                             WebkitMaskSize: '90%',
                             WebkitMaskRepeat: 'no-repeat',
-                            WebkitMaskPosition: 'center'
+                            WebkitMaskPosition: 'center',
+                            backfaceVisibility: 'hidden',
+                            WebkitBackfaceVisibility: 'hidden',
+                            transform: 'translateZ(0)',
+                            WebkitTransform: 'translateZ(0)'
                         }}
                     >
                         {/* Image inside the mask */}
@@ -172,7 +242,14 @@ const Team: React.FC = () => {
                     </div>
 
                     {/* Layer 2: The Full Reveal (Hidden by Default, Fades In on Hover) */}
-                    <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out overflow-hidden rounded-[2rem] md:rounded-[3rem]">
+                    <div className="absolute inset-0 z-10 opacity-0 md:group-hover:opacity-100 md:transition-all md:duration-700 md:ease-out overflow-hidden rounded-[2rem] md:rounded-[3rem] founder-reveal will-change-transform backface-hidden"
+                        style={{
+                            backfaceVisibility: 'hidden',
+                            WebkitBackfaceVisibility: 'hidden',
+                            transform: 'translateZ(0)',
+                            WebkitTransform: 'translateZ(0)'
+                        }}
+                    >
                         <img 
                             src={founder.img} 
                             alt={founder.name} 
@@ -184,7 +261,7 @@ const Team: React.FC = () => {
                     
                     {/* Text Content */}
                     <div className="absolute -bottom-12 left-0 w-full p-4 md:p-8 z-30 pointer-events-none">
-                        <div className="transform transition-transform duration-500 group-hover:-translate-y-24 relative">
+                        <div className="transform md:transition-transform md:duration-500 md:group-hover:-translate-y-24 relative founder-text will-change-transform">
                              
                              {/* Role Label */}
                              <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur border border-neutral-200 px-4 py-1.5 rounded-full mb-4">
@@ -195,14 +272,14 @@ const Team: React.FC = () => {
                              </div>
 
                              {/* Name - Always Black */}
-                             <h3 className="font-display font-bold text-4xl md:text-6xl lg:text-7xl tracking-tighter drop-shadow-sm text-[#272727] leading-none mb-2">
+                             <h3 className="font-display font-semibold text-4xl md:text-6xl lg:text-7xl tracking-tighter drop-shadow-sm text-[#272727] leading-none mb-2">
                                 {founder.name}
                              </h3>
 
                              {/* Linkedin Button - Absolute positioned, floats in on hover */}
                              <a 
                                  href={founder.linkedin} 
-                                 className="absolute bottom-2 right-0 md:top-0 md:right-0 md:bottom-auto pointer-events-auto text-[#272727] opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100"
+                                 className="absolute bottom-2 right-0 md:top-0 md:right-0 md:bottom-auto pointer-events-auto text-[#272727] opacity-0 md:group-hover:opacity-100 translate-y-4 md:group-hover:translate-y-0 md:transition-all md:duration-500 md:delay-100 founder-linkedin"
                                  aria-label={`LinkedIn of ${founder.name}`}
                                  onMouseMove={handleMagnetic}
                                  onMouseLeave={resetMagnetic}
@@ -218,12 +295,12 @@ const Team: React.FC = () => {
 
         {/* The Swarm - "Maximalist Pattern" */}
         <div className="relative pt-0 md:pt-12 pb-12 md:pb-24 swarm-container overflow-hidden">
-            <div className="flex flex-col md:flex-row items-center gap-12 md:gap-0 relative z-10 px-4 md:px-0">
+            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 relative z-10 px-4 md:px-0">
                
                {/* Text Block - Integrated Left */}
-               <div className="w-full md:w-1/3 flex flex-col justify-center relative z-20 md:pr-12">
-                    <h3 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl tracking-tighter mb-6 leading-[0.9]">
-                        UNIDAD TÁCTICA<br/><span className="text-neutral-300">DE EJECUCIÓN.</span>
+               <div className="w-full lg:w-[30%] flex flex-col justify-center relative z-20 lg:pr-0 text-center lg:text-left items-center lg:items-start">
+                    <h3 className="font-manrope font-semibold text-4xl md:text-5xl lg:text-6xl tracking-tighter mb-6 leading-[1.1]">
+                        Nuestros<br/><span className="text-neutral-300">partners.</span>
                     </h3>
                     <p className="font-body text-neutral-500 leading-relaxed text-base md:text-lg max-w-md">
                         No ampliamos equipos. Armamos células tácticas para rediseñar un proceso y automatizar su ejecución.
@@ -231,7 +308,7 @@ const Team: React.FC = () => {
                </div>
 
                 {/* Multiple Masked Shapes Cluster - Unified Level & Compact */}
-                <div className="w-full md:w-2/3 flex flex-wrap md:flex-nowrap justify-center md:justify-end items-center gap-4 md:-space-x-16 scale-90 md:scale-100 origin-right">
+                <div className="w-full lg:flex-1 flex flex-wrap md:flex-nowrap justify-center items-center gap-4 md:-space-x-12 scale-90 md:scale-75 lg:scale-[0.60] xl:scale-75 2xl:scale-90 origin-center">
                     
                     {/* Shape 1: Large Cloud Stack */}
                     <div className="relative w-full md:w-[400px] aspect-square flex-shrink-0">
@@ -282,7 +359,7 @@ const Team: React.FC = () => {
                     </div>
 
                     {/* Shape 3: Wide Capsule (Aligned & Overlapping) */}
-                    <div className="relative w-full md:w-[380px] aspect-square flex-shrink-0 md:-translate-y-4">
+                    <div className="relative w-full md:w-[280px] lg:w-[240px] xl:w-[340px] aspect-square flex-shrink-0 md:-translate-y-4">
                          <div className="absolute inset-0 z-10"
                             style={{
                                 maskImage: `url(/svg/illustrations/03-Iso_Capsule.svg)`,

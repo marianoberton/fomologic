@@ -23,7 +23,7 @@ const QuoteSeparator: React.FC = () => {
         }
       );
 
-      // Text reveal (staggered characters if we split them, but simple fade-up for now is cleaner)
+      // Text reveal
       gsap.fromTo(textRef.current,
         { y: 100, opacity: 0, rotateX: -20 },
         {
@@ -44,7 +44,7 @@ const QuoteSeparator: React.FC = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="w-full py-20 md:py-48 bg-[#FAFAFA] relative overflow-hidden flex items-center justify-center">
+    <section ref={containerRef} className="w-full py-20 md:py-48 bg-transparent relative overflow-hidden flex items-center justify-center">
       {/* Background Noise */}
       <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none mix-blend-multiply" />
       
@@ -53,10 +53,10 @@ const QuoteSeparator: React.FC = () => {
         <div ref={lineRef} className="w-full h-[1px] bg-[#272727] mb-12 origin-center transform" />
 
         <div ref={textRef} className="flex flex-col items-center gap-6 md:gap-8 perspective-1000 max-w-6xl mx-auto px-4">
-          <h2 className="font-display font-bold text-3xl md:text-6xl lg:text-7xl text-[#272727] leading-tight tracking-tight text-center">
+          <h2 className="qs-text font-manrope font-semibold text-3xl md:text-6xl lg:text-7xl text-[#272727] leading-[1.1] tracking-tighter text-center">
             No vendemos horas.
           </h2>
-          <div className="inline-flex items-center justify-center bg-[#272727] text-[#CED600] px-6 py-4 md:px-12 md:py-8 rounded-[2rem] md:rounded-[3rem] text-2xl md:text-5xl lg:text-6xl font-display font-bold rotate-[-2deg] shadow-2xl transform-gpu text-center leading-tight">
+          <div className="qs-badge inline-flex items-center justify-center bg-[#272727] text-[#CED600] px-6 py-4 md:px-12 md:py-8 rounded-[2rem] md:rounded-[3rem] text-2xl md:text-5xl lg:text-6xl font-display font-bold rotate-[-2deg] shadow-2xl transform-gpu text-center leading-tight">
             Diseñamos sistemas que trabajan por vos.
           </div>
         </div>

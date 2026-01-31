@@ -76,7 +76,7 @@ const ServicesSection: React.FC = () => {
                     </span>
                   </div>
 
-                  <h2 className={`font-display font-bold text-4xl md:text-5xl tracking-tight ${isInverted ? 'text-white' : 'text-ink'}`}>
+                  <h2 className={`font-display font-semibold text-4xl md:text-5xl tracking-tight ${isInverted ? 'text-white' : 'text-ink'}`}>
                     {service.title}
                   </h2>
 

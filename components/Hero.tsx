@@ -4,7 +4,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TitaniumCube from './TitaniumCube';
 import HeroMobile from './HeroMobile';
-import MagneticButton from './MagneticButton';
+import ButtonPrimary from './ButtonPrimary';
+import ButtonSecondary from './ButtonSecondary';
 import { useContact } from '../context/ContactContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -95,32 +96,32 @@ const Hero: React.FC = () => {
             <div className="max-w-5xl pointer-events-auto">
               
               {/* Headline - Split for Animation */}
-              <h1 ref={titleRef} className="font-display font-bold text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] tracking-[-0.04em] text-[#272727] mb-8 md:mb-12 will-change-transform">
+              <h1 ref={titleRef} className="font-manrope font-semibold text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] tracking-tighter text-[#272727] mb-8 md:mb-12 will-change-transform">
                 <div className="overflow-hidden">
-                    <div className="line-inner">Usar IA es fácil.</div>
+                    <div className="line-inner">IA Trabajando</div>
                 </div>
                 <div className="overflow-hidden">
                     <div className="line-inner text-neutral-400">
-                        Hacer que trabaje para tu empresa no.
+                        para vos.
                     </div>
                 </div>
               </h1>
 
               {/* Copy & CTA */}
-              <div ref={subRef} className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12 pl-1 md:pl-2">
+              <div ref={subRef} className="flex flex-col items-start gap-8 pl-1 md:pl-2">
                  <div className="font-body text-base md:text-xl text-neutral-600 font-medium leading-relaxed max-w-xl text-pretty space-y-1">
-                   <p>Diseñamos procesos claros y los ejecutamos con agentes de IA.</p>
-                   <p className="text-[#272727] font-bold">Menos fricción. Menos costo. Más control.</p>
+                   <p>Sumá agentes al staff o diseñá soluciones propias.</p>
+                   <p className="text-[#272727] font-bold">Tu operación tiene que correr 24/7. Vos no.</p>
                  </div>
                  
-                 <MagneticButton onClick={openContact} className="group relative bg-[#CED600] text-[#272727] px-8 py-4 md:px-10 md:py-5 rounded-full flex items-center gap-4 transition-all duration-500 hover:brightness-110 hover:scale-105 shadow-[0_0_20px_rgba(206,214,0,0.4)] hover:shadow-[0_0_50px_rgba(206,214,0,0.8)] cursor-pointer">
-                      <span className="relative z-10 font-display text-xs md:text-sm font-bold tracking-widest uppercase">
-                        Hablemos
-                      </span>
-                      <div className="relative z-10 w-8 h-8 bg-[#272727]/10 rounded-full flex items-center justify-center group-hover:bg-[#272727]/20 transition-colors">
-                         <ArrowRight size={14} className="group-hover:-rotate-45 transition-transform duration-300" />
-                      </div>
-                 </MagneticButton>
+                 <div className="flex flex-wrap gap-4">
+                     <ButtonPrimary onClick={() => document.getElementById('workforce')?.scrollIntoView({ behavior: 'smooth' })} className="md:px-10 md:py-5 text-xs md:text-sm">
+                          Ver agentes
+                     </ButtonPrimary>
+                     <ButtonSecondary onClick={() => document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth' })} className="md:px-10 md:py-5 text-xs md:text-sm text-[#272727] border-neutral-300 hover:border-[#CED600]">
+                          Soluciones
+                     </ButtonSecondary>
+                 </div>
               </div>
 
             </div>

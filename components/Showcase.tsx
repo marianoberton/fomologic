@@ -3,12 +3,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ArrowUpRight, Plus } from 'lucide-react';
 import gsap from 'gsap';
 import ShowcaseMobile from './ShowcaseMobile';
+import ButtonSecondary from './ButtonSecondary';
 
 const CASES = [
   {
     id: '01',
     client: 'MarketPaper',
-    category: 'High Volume Automation',
+    category: 'High volume automation',
     year: '2024',
     tech: ['n8n', 'hubspot', 'airtable'],
     image: 'https://images.unsplash.com/photo-1664575602276-acd073f104c1?q=80&w=2070&auto=format&fit=crop'
@@ -16,7 +17,7 @@ const CASES = [
   {
     id: '02',
     client: 'Inted',
-    category: 'Data Mining & Alerts',
+    category: 'Data mining & alerts',
     year: '2024',
     tech: ['python', 'telegram', 'aws'],
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop'
@@ -24,7 +25,7 @@ const CASES = [
   {
     id: '03',
     client: 'Velvet',
-    category: 'AI Customer Support',
+    category: 'AI customer support',
     year: '2025',
     tech: ['openai', 'vector db', 'react'],
     image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop'
@@ -157,7 +158,7 @@ const Showcase: React.FC = () => {
         {/* Inner Container (The Scaler/Revealer) */}
         <div 
             ref={cursorInnerRef}
-            className="w-full h-full relative overflow-hidden rounded-lg shadow-2xl origin-center"
+            className="w-full h-full relative overflow-hidden rounded-[2.5rem] shadow-2xl origin-center"
             style={{ opacity: 0, transform: 'scale(0)' }}
         >
            {activeCase !== null && (
@@ -190,21 +191,20 @@ const Showcase: React.FC = () => {
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
-        {/* Header */}
-        <div className="mb-12 md:mb-24 border-b border-neutral-200 pb-8 flex flex-col md:flex-row justify-between items-end">
-          <div>
-             <div className="flex items-center gap-3 mb-4 md:mb-6">
-                <div className="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></div>
-                <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Casos seleccionados</span>
-             </div>
-             <h2 className="font-display font-bold text-5xl md:text-7xl lg:text-9xl tracking-tighter leading-[0.8]">
-               Casos<span className="text-neutral-300">.</span>
-             </h2>
-          </div>
-          <div className="hidden md:block text-right">
-             <span className="font-mono text-xs text-neutral-400 block mb-2">ARCHIVO 2024-2026</span>
-             <span className="font-mono text-xs text-neutral-900 block">3 CASOS SELECCIONADOS</span>
-          </div>
+        {/* Section Header */}
+        <div className="mb-20 flex flex-col md:flex-row justify-between items-end gap-6 border-b border-neutral-200 pb-8">
+            <div>
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="w-2 h-2 bg-[#CED600] rounded-full animate-pulse shadow-[0_0_10px_#CED600]"></div>
+                    <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">Casos</span>
+                </div>
+                <h2 className="font-manrope font-semibold text-5xl md:text-7xl lg:text-9xl tracking-tighter leading-[1.1]">
+                    Casos<span className="text-neutral-300">.</span>
+                </h2>
+            </div>
+            <p className="font-body text-neutral-500 max-w-md text-lg leading-relaxed text-right md:text-left">
+                No mostramos demos. Mostramos resultados auditables de eficiencia operativa.
+            </p>
         </div>
 
         {/* List */}
@@ -231,7 +231,7 @@ const Showcase: React.FC = () => {
 
                 {/* Main Content Column */}
                 <div className="w-full md:w-[65%] p-4 md:p-8 flex flex-col justify-center">
-                    <h3 className="font-display font-bold text-3xl md:text-5xl lg:text-7xl tracking-tighter text-neutral-900 group-hover:text-white mb-2 group-hover:translate-x-2 transition-transform duration-500">
+                    <h3 className="font-display font-semibold text-3xl md:text-5xl lg:text-7xl tracking-tighter text-neutral-900 group-hover:text-white mb-2 group-hover:translate-x-2 transition-transform duration-500">
                         {project.client}
                     </h3>
                     <span className="font-body text-base md:text-lg text-neutral-500 group-hover:text-neutral-400 transition-colors">
@@ -252,13 +252,10 @@ const Showcase: React.FC = () => {
         </div>
 
         {/* Footer Link */}
-        <div className="mt-24 flex justify-center">
-            <a href="#" className="group flex items-center gap-4 text-neutral-900 hover:text-accent-lime transition-colors duration-300">
-                <span className="font-display font-bold text-xl tracking-tight">VER TODOS LOS CASOS</span>
-                <div className="w-12 h-12 border border-neutral-200 rounded-full flex items-center justify-center group-hover:border-accent-lime transition-colors duration-300">
-                    <ArrowUpRight size={20} className="group-hover:rotate-45 transition-transform duration-300" />
-                </div>
-            </a>
+        <div className="flex justify-center mt-20">
+            <ButtonSecondary href="/casos" className="text-neutral-900 border-neutral-200">
+                VER TODOS LOS CASOS
+            </ButtonSecondary>
         </div>
 
       </div>

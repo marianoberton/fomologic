@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight, Calendar, Clock } from 'lucide-react';
 import LiquidBorder from './LiquidBorder';
+import ButtonSecondary from './ButtonSecondary';
 
 const INSIGHTS = [
   {
@@ -73,9 +74,9 @@ const Insights: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="font-display font-bold text-4xl md:text-7xl tracking-tighter"
+                    className="font-manrope font-semibold text-4xl md:text-7xl tracking-tighter leading-[1.1]"
                 >
-                    insights <span className="text-[#CED600]">&</span><br/>
+                    Insights &<br/>
                     thoughts.
                 </motion.h2>
 
@@ -84,12 +85,10 @@ const Insights: React.FC = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2, duration: 0.8 }}
-                    className="flex items-center gap-4 group cursor-pointer"
                 >
-                    <span className="font-display font-medium text-lg">view all articles</span>
-                    <div className="w-12 h-12 rounded-full border border-[#272727]/20 flex items-center justify-center group-hover:bg-[#CED600] group-hover:border-[#CED600] group-hover:text-[#272727] transition-all duration-300">
-                        <ArrowUpRight className="w-5 h-5" />
-                    </div>
+                    <ButtonSecondary href="/insights" className="text-[#272727] border-[#272727]/20">
+                        VER TODOS LOS ARTÍCULOS
+                    </ButtonSecondary>
                 </motion.div>
             </div>
 
@@ -105,7 +104,7 @@ const Insights: React.FC = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className={`group relative rounded-3xl overflow-hidden bg-[#272727]/5 transition-colors duration-500 block ${item.size === 'large' ? 'md:col-span-2 aspect-[4/3] md:aspect-auto' : 'md:col-span-1 aspect-[4/3] md:aspect-square'}`}
+                        className={`group relative rounded-[2.5rem] overflow-hidden bg-[#272727]/5 transition-colors duration-500 block ${item.size === 'large' ? 'md:col-span-2 aspect-[4/3] md:aspect-auto' : 'md:col-span-1 aspect-[4/3] md:aspect-square'}`}
                     >
                         {/* Liquid Border */}
                         <LiquidBorder className="text-[#272727]/10 group-hover:text-[#CED600] transition-colors duration-500 z-50" />
@@ -144,7 +143,7 @@ const Insights: React.FC = () => {
                                         <span>{item.readTime}</span>
                                     </div>
                                 </div>
-                                <h3 className={`font-display font-bold leading-none tracking-tight text-white group-hover:text-[#CED600] transition-colors duration-300 ${item.size === 'large' ? 'text-2xl md:text-5xl' : 'text-xl md:text-3xl'}`}>
+                                <h3 className={`font-display font-semibold leading-none tracking-tight text-white group-hover:text-[#CED600] transition-colors duration-300 ${item.size === 'large' ? 'text-2xl md:text-5xl' : 'text-xl md:text-3xl'}`}>
                                     {item.title}
                                 </h3>
                             </div>

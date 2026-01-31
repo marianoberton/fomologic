@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Mail, Linkedin, ArrowUpRight } from 'lucide-react';
 import { IsoCloud, IsoTetris, IsoInfinity } from './IsoIcons';
-import MagneticButton from './MagneticButton';
+import ButtonPrimary from './ButtonPrimary';
 import { useContact } from '../context/ContactContext';
 
 const Closing: React.FC = () => {
@@ -43,11 +43,11 @@ const Closing: React.FC = () => {
             className="flex items-center gap-4 mb-8 md:mb-12"
           >
             <div className="h-px w-12 bg-[#CED600]"></div>
-            <span className="font-display font-bold text-[#CED600] tracking-widest uppercase text-sm">Ready to Scale</span>
+            <span className="font-mono font-bold text-[#CED600] tracking-widest uppercase text-sm">Ready to Scale</span>
           </motion.div>
 
           {/* Massive Headline */}
-          <h2 className="font-display font-black text-[15vw] lg:text-[10vw] leading-[0.8] tracking-tighter uppercase mb-12 mix-blend-exclusion">
+          <h2 className="font-manrope font-semibold text-[15vw] lg:text-[10vw] leading-[1.1] tracking-tighter mb-12 mix-blend-exclusion">
             <div className="overflow-hidden">
               <motion.span 
                 initial={{ y: "100%" }}
@@ -57,7 +57,7 @@ const Closing: React.FC = () => {
                 className="block text-transparent stroke-text-white"
                 style={{ WebkitTextStroke: '1px rgba(255,255,255,0.3)' }}
               >
-                Tu Operación
+                Tu operación
               </motion.span>
             </div>
             <div className="overflow-hidden">
@@ -68,7 +68,7 @@ const Closing: React.FC = () => {
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="block text-[#FAFAFA]"
               >
-                Lista Para
+                lista para
               </motion.span>
             </div>
             <div className="overflow-hidden">
@@ -79,7 +79,7 @@ const Closing: React.FC = () => {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="flex items-center gap-4 md:gap-8"
               >
-                <span className="text-[#CED600]">Escalar</span>
+                <span className="text-[#CED600]">escalar</span>
                 <div className="hidden md:block w-32 h-4 bg-[#CED600] mt-4 md:mt-8"></div>
               </motion.div>
             </div>
@@ -92,11 +92,12 @@ const Closing: React.FC = () => {
           
           {/* Magnetic CTA */}
           <div className="w-full flex justify-end">
-            <MagneticButton onClick={openContact} className="group relative px-10 py-6 md:px-12 md:py-8 bg-[#CED600] rounded-full flex items-center justify-between gap-6 md:gap-8 cursor-pointer overflow-hidden transition-all hover:pr-8 md:hover:pr-10">
-              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></div>
-              <span className="relative z-10 font-display font-black text-[#272727] text-3xl md:text-5xl uppercase tracking-tighter">hablemos</span>
-              <ArrowUpRight size={40} className="relative z-10 text-[#272727] group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300 md:w-12 md:h-12" />
-            </MagneticButton>
+            <ButtonPrimary 
+              onClick={openContact} 
+              className="text-2xl md:text-4xl px-10 py-6 md:px-12 md:py-8"
+            >
+              hablemos
+            </ButtonPrimary>
           </div>
 
           {/* Floating Cloud (Moved) */}
