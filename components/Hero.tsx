@@ -96,7 +96,7 @@ const Hero: React.FC = () => {
             <div className="max-w-5xl pointer-events-auto">
               
               {/* Headline - Split for Animation */}
-              <h1 ref={titleRef} className="font-manrope font-semibold text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] tracking-tighter text-[#272727] mb-8 md:mb-12 will-change-transform">
+              <h1 ref={titleRef} className="font-manrope font-extrabold text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] tracking-tighter text-[#272727] mb-8 md:mb-12 will-change-transform">
                 <div className="overflow-hidden">
                     <div className="line-inner">IA Trabajando</div>
                 </div>
@@ -109,7 +109,7 @@ const Hero: React.FC = () => {
 
               {/* Copy & CTA */}
               <div ref={subRef} className="flex flex-col items-start gap-8 pl-1 md:pl-2">
-                 <div className="font-body text-base md:text-xl text-neutral-600 font-medium leading-relaxed max-w-xl text-pretty space-y-1">
+                 <div className="font-body text-lg md:text-2xl text-neutral-600 font-medium leading-relaxed max-w-2xl text-pretty space-y-1">
                    <p>Sumá agentes al staff o diseñá soluciones propias.</p>
                    <p className="text-[#272727] font-bold">Tu operación tiene que correr 24/7. Vos no.</p>
                  </div>
