@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Nosotros from './pages/Nosotros';
 import Services from './pages/Services';
+import WorkforcePage from './pages/WorkforcePage';
 import Cases from './pages/Cases';
 import MarketPaper from './pages/cases/MarketPaper';
 import Inted from './pages/cases/Inted';
