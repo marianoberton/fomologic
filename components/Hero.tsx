@@ -97,10 +97,10 @@ const Hero: React.FC = () => {
               
               {/* Headline - Split for Animation */}
               <h1 ref={titleRef} className="font-manrope font-extrabold text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.1] tracking-tighter text-[#272727] mb-8 md:mb-12 will-change-transform">
-                <div className="overflow-hidden">
+                <div className="overflow-hidden pb-4 -mb-4">
                     <div className="line-inner">IA Trabajando</div>
                 </div>
-                <div className="overflow-hidden">
+                <div className="overflow-hidden pb-4 -mb-4">
                     <div className="line-inner text-neutral-400">
                         para vos.
                     </div>

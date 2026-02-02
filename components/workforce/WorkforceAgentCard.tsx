@@ -1,6 +1,7 @@
 import React from 'react';
 import { LucideIcon } from 'lucide-react';
 import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface WorkforceAgentCardProps {
   id: string;
@@ -8,8 +9,12 @@ interface WorkforceAgentCardProps {
   title: string;
   desc: string;
   hook: string;
+  problem?: string;
+  metrics?: string;
   stack: string[];
   icon: LucideIcon;
+  onClick?: () => void;
+  layoutId?: string;
 }
 
 // Helper for logos (simplified version of what was in Workforce.tsx)
@@ -28,9 +33,13 @@ const getBrandLogo = (name: string) => {
   return <span className="font-mono text-[10px] font-bold text-white uppercase tracking-wider">{name}</span>;
 };
 
-const WorkforceAgentCard: React.FC<WorkforceAgentCardProps> = ({ id, tag, title, desc, hook, stack, icon: Icon }) => {
+const WorkforceAgentCard: React.FC<WorkforceAgentCardProps> = ({ id, tag, title, desc, hook, problem, metrics, stack, icon: Icon, onClick, layoutId }) => {
   return (
-    <div className="group relative flex flex-col h-full bg-[#272727] rounded-[2.5rem] p-8 md:p-10 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-[#CED600]/10 border border-white/5 hover:border-[#CED600]/30">
+    <motion.div 
+      layoutId={layoutId}
+      onClick={onClick}
+      className="group relative flex flex-col h-full bg-[#272727] rounded-[2.5rem] p-8 md:p-10 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-[#CED600]/10 border border-white/5 hover:border-[#CED600]/30 cursor-pointer"
+    >
       
       {/* Hover Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#CED600]/0 via-[#CED600]/0 to-[#CED600]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -58,7 +67,7 @@ const WorkforceAgentCard: React.FC<WorkforceAgentCardProps> = ({ id, tag, title,
           {desc}
         </p>
         
-        <div className="pl-4 border-l-2 border-[#CED600]/30 mb-8">
+        <div className="pl-4 border-l-2 border-[#CED600]/30 mb-6">
           <p className="font-manrope text-sm font-semibold text-white/90 italic">
             "{hook}"
           </p>
@@ -79,7 +88,7 @@ const WorkforceAgentCard: React.FC<WorkforceAgentCardProps> = ({ id, tag, title,
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

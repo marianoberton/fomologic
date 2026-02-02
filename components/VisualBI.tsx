@@ -12,25 +12,25 @@ const VisualBI: React.FC = () => {
   ];
 
   return (
-    <div className="relative w-full h-full min-h-[400px] flex items-center justify-center bg-gray-50/50 rounded-[2.5rem] overflow-hidden">
+    <div className="relative w-full h-full min-h-[200px] flex items-center justify-center bg-[#1A1A1A] rounded-[2rem] overflow-hidden border border-white/5">
       {/* Container for the chart */}
       <div className="relative w-64 h-64 flex items-end justify-between px-4 pb-4">
         
         {/* Background Grid Lines (Abstract) */}
-        <div className="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-30">
-            <div className="w-full h-px bg-gray-300 border-dashed" />
-            <div className="w-full h-px bg-gray-300 border-dashed" />
-            <div className="w-full h-px bg-gray-300 border-dashed" />
-            <div className="w-full h-px bg-gray-300 border-dashed" />
-            <div className="w-full h-px bg-gray-300 border-dashed" />
+        <div className="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-10">
+            <div className="w-full h-px bg-white border-dashed" />
+            <div className="w-full h-px bg-white border-dashed" />
+            <div className="w-full h-px bg-white border-dashed" />
+            <div className="w-full h-px bg-white border-dashed" />
+            <div className="w-full h-px bg-white border-dashed" />
         </div>
 
         {bars.map((bar, index) => (
           <div key={bar.id} className="relative w-8 h-full flex items-end justify-center group">
             {/* The Bar */}
             <motion.div
-              className={`w-full rounded-t-lg transition-colors duration-300 ${
-                bar.active ? 'bg-accent-lime shadow-[0_0_20px_rgba(132,204,22,0.3)]' : 'bg-gray-200 group-hover:bg-gray-300'
+              className={`w-full rounded-t-sm transition-all duration-500 ${
+                bar.active ? 'bg-[#CED600] shadow-[0_0_30px_rgba(206,214,0,0.3)]' : 'bg-[#333] group-hover:bg-[#444]'
               }`}
               initial={{ height: 0 }}
               whileInView={{ height: bar.height }}
@@ -53,7 +53,7 @@ const VisualBI: React.FC = () => {
                 transition={{ delay: 0.8, duration: 0.5 }}
               >
                  <motion.div 
-                    className="bg-white px-3 py-2 rounded-xl shadow-lg border border-gray-100 flex items-center gap-2 whitespace-nowrap"
+                    className="bg-[#272727] px-3 py-2 rounded-xl shadow-2xl border border-[#CED600]/30 flex items-center gap-2 whitespace-nowrap"
                     animate={{ y: [0, -8, 0] }}
                     transition={{
                         duration: 3,
@@ -61,15 +61,15 @@ const VisualBI: React.FC = () => {
                         ease: "easeInOut"
                     }}
                  >
-                    <div className="bg-green-50 p-1 rounded-full">
-                        <TrendingUp size={14} className="text-green-600" />
+                    <div className="bg-[#CED600]/10 p-1 rounded-full">
+                        <TrendingUp size={14} className="text-[#CED600]" />
                     </div>
-                    <span className="font-display font-bold text-ink text-sm">+124%</span>
+                    <span className="font-manrope font-bold text-white text-sm">+124%</span>
                  </motion.div>
                  
                  {/* Little connector triangle */}
                  <motion.div 
-                    className="w-3 h-3 bg-white rotate-45 absolute left-1/2 -translate-x-1/2 -bottom-1 shadow-sm"
+                    className="w-2 h-2 bg-[#272727] border-r border-b border-[#CED600]/30 rotate-45 absolute left-1/2 -translate-x-1/2 -bottom-1"
                     animate={{ y: [0, -8, 0] }}
                     transition={{
                         duration: 3,
@@ -81,6 +81,11 @@ const VisualBI: React.FC = () => {
             )}
           </div>
         ))}
+      </div>
+      
+      {/* Label */}
+      <div className="absolute bottom-6 left-0 w-full text-center">
+        <span className="font-mono text-[10px] text-[#CED600] uppercase tracking-widest">Resultados Medibles</span>
       </div>
     </div>
   );

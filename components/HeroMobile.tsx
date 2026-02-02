@@ -159,8 +159,8 @@ const HeroMobile: React.FC = () => {
         {/* Headline Group */}
         <div className="relative z-10 w-full flex flex-col items-center justify-center text-center mt-[-10vh]">
             <h1 ref={titleRef} className="font-manrope font-semibold text-[14vw] leading-[1.1] tracking-tighter text-[#272727] w-full">
-              <div className="overflow-hidden flex justify-center"><div className="line-inner">IA Trabajando</div></div>
-              <div className="overflow-hidden flex justify-center">
+              <div className="overflow-hidden flex justify-center pb-2 -mb-2"><div className="line-inner">IA Trabajando</div></div>
+              <div className="overflow-hidden flex justify-center pb-2 -mb-2">
                   <div className="line-inner text-neutral-400">
                       para vos.
                   </div>

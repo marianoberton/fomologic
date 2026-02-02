@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { ArrowUpRight, Zap, Phone, MessageSquare, FileText, Layers, Cpu } from 'lucide-react';
+import { WORKFORCE_CARDS } from '../constants/workforce';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,63 +24,6 @@ const getBrandLogo = (name: string) => {
   // Text/Icon fallbacks for missing SVGs
   return <span className="font-mono text-[11px] font-bold text-white uppercase tracking-wider">{name}</span>;
 };
-
-const CARDS = [
-  {
-    id: "01",
-    tag: "Comercial",
-    title: "Motor de ventas",
-    desc: "Contacta, califica y hace seguimiento automático de leads para que ninguna oportunidad se pierda.",
-    hook: "Tu mejor vendedor, activo 24/7.",
-    stack: ["HubSpot", "LinkedIn", "n8n"],
-    icon: Zap
-  },
-  {
-    id: "02",
-    tag: "Atención",
-    title: "Atención telefónica con IA",
-    desc: "Atiende llamadas, gestiona turnos y responde consultas con voz natural, sin esperas ni saturación.",
-    hook: "Contesta todas las llamadas, siempre.",
-    stack: ["Vapi", "OpenAI", "Twilio"],
-    icon: Phone
-  },
-  {
-    id: "03",
-    tag: "Operaciones",
-    title: "Atención al cliente",
-    desc: "Centraliza WhatsApp, mail y web. Responde al instante y escala solo cuando hace falta.",
-    hook: "Siempre responde. Sabe cuándo escalar.",
-    stack: ["Chatwoot", "Zendesk", "n8n"],
-    icon: MessageSquare
-  },
-  {
-    id: "04",
-    tag: "Dirección",
-    title: "Copiloto del dueño",
-    desc: "Accede a toda la información de tu negocio (CRM, ERP, reportes) y te devuelve claridad para decidir mejor.",
-    hook: "Toda tu empresa, en tu cabeza.",
-    stack: ["LangChain", "Python", "G.Sheets"],
-    icon: Layers
-  },
-  {
-    id: "05",
-    tag: "Legales / Compras",
-    title: "Experto en licitaciones",
-    desc: "Lee pliegos, detecta oportunidades en tiempo real y analiza riesgos antes de presentar una oferta.",
-    hook: "Llegá antes, con más información.",
-    stack: ["RAG", "Vector DB", "OpenAI"],
-    icon: FileText
-  },
-  {
-    id: "06",
-    tag: "Gestión Interna",
-    title: "Arquitecto de procesos por voz",
-    desc: "Escucha cómo trabaja tu equipo y transforma conversaciones en procesos y manuales operativos.",
-    hook: "Mapeá toda tu empresa hablando.",
-    stack: ["Whisper", "Mermaid", "Lucid"],
-    icon: Cpu
-  }
-];
 
 const Workforce: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -208,9 +152,24 @@ const Workforce: React.FC = () => {
             </p>
         </div>
 
+        {/* Global Metrics */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 border-b border-neutral-800 pb-12">
+            {[
+                { value: "300+", label: "Agentes Activos" },
+                { value: "1M+", label: "Tareas/mes" },
+                { value: "24/7", label: "Operación Continua" },
+                { value: "-60%", label: "Costos Operativos" }
+            ].map((m, i) => (
+                <div key={i} className="flex flex-col">
+                    <span className="font-manrope text-4xl md:text-5xl font-bold text-white mb-2">{m.value}</span>
+                    <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">{m.label}</span>
+                </div>
+            ))}
+        </div>
+
         {/* The Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {CARDS.map((card, index) => (
+            {WORKFORCE_CARDS.slice(0, 6).map((card, index) => (
                 <div 
                     key={index}
                     className="workforce-card group relative bg-[#1A1A1A] border border-neutral-800 hover:border-[#CED600] rounded-[2.5rem] p-6 md:p-8 transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] hover:-translate-y-2 flex flex-col justify-between min-h-[480px] h-full overflow-hidden"
@@ -260,7 +219,7 @@ const Workforce: React.FC = () => {
                             </p>
 
                             {/* Hook - Tech Style */}
-                            <div className="pl-4 border-l-2 border-[#CED600]/30 group-hover:border-[#CED600] transition-colors">
+                            <div className="pl-4 border-l-2 border-[#CED600]/30 group-hover:border-[#CED600] transition-colors mb-6">
                                 <p className="font-mono text-xs md:text-sm text-[#CED600] italic">
                                     // {card.hook}
                                 </p>
