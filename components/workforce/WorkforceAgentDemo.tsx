@@ -208,16 +208,16 @@ const WorkforceAgentDemo: React.FC = () => {
     }, [messages, isTyping]);
 
     return (
-        <section className="w-full py-24 bg-[#111] flex flex-col items-center justify-center border-t border-white/5">
-            <div className="container mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-start gap-16">
+        <section className="w-full py-16 md:py-24 bg-[#111] flex flex-col items-center justify-center border-t border-white/5">
+            <div className="container mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
                 
                 {/* Left Content - Explanation */}
-                <div className="lg:w-1/3 sticky top-24">
+                <div className="lg:w-1/3 relative md:sticky md:top-24">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-1.5 h-1.5 bg-[#CED600] rounded-full animate-pulse"></div>
                         <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">Agent Reasoning</span>
                     </div>
-                    <h2 className="font-manrope text-4xl font-bold text-white mb-6 leading-tight">
+                    <h2 className="font-manrope text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
                         Piensa, actúa y <br/>
                         <span className="text-neutral-500">ejecuta por vos.</span>
                     </h2>
@@ -250,7 +250,7 @@ const WorkforceAgentDemo: React.FC = () => {
 
                 {/* Right Content - Interface Demo */}
                 <div className="lg:w-2/3 w-full">
-                    <div className="w-full bg-[#1A1A1A] rounded-xl border border-white/10 overflow-hidden shadow-2xl flex flex-col h-[700px]">
+                    <div className="w-full bg-[#1A1A1A] rounded-xl border border-white/10 overflow-hidden shadow-2xl flex flex-col h-[500px] md:h-[700px]">
                         
                         {/* Browser Header (Windows Style) */}
                         <div className="h-12 bg-[#272727] border-b border-white/5 flex items-center justify-between px-4 gap-4 select-none">

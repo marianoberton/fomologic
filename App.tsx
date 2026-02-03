@@ -16,11 +16,14 @@ import Logos from './pages/Logos';
 import TestContact from './pages/TestContact';
 import SmoothScroll from './components/SmoothScroll';
 import ContactModal from './components/ContactModal';
+import WhatsAppWidget from './components/WhatsAppWidget';
+import GlobalNoise from './components/GlobalNoise';
 import { ContactProvider } from './context/ContactContext';
 
 const App: React.FC = () => {
   return (
     <ContactProvider>
+      <GlobalNoise />
       <SmoothScroll>
       <div className="w-full min-h-screen bg-canvas font-body mx-auto box-border relative">
         
@@ -48,6 +51,7 @@ const App: React.FC = () => {
           </main>
         </div>
         <ContactModal />
+        <WhatsAppWidget />
       </div>
       </SmoothScroll>
     </ContactProvider>

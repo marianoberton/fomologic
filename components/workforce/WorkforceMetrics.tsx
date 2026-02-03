@@ -44,10 +44,10 @@ const WorkforceMetrics: React.FC = () => {
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {METRICS.map((metric, index) => (
-            <div key={index} className="metric-item flex flex-col gap-2 border-l border-[#CED600]/30 pl-6">
-              <span className="font-mono text-xs text-[#CED600] uppercase tracking-widest">{metric.label}</span>
-              <span className="font-manrope text-5xl md:text-7xl font-bold tracking-tighter">{metric.value}</span>
-              <p className="font-karla text-sm text-white/60 max-w-[150px]">{metric.desc}</p>
+            <div key={index} className="metric-item flex flex-col gap-2 border-l border-[#CED600]/30 pl-4 md:pl-6">
+              <span className="font-mono text-[10px] md:text-xs text-[#CED600] uppercase tracking-widest">{metric.label}</span>
+              <span className="font-manrope text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter">{metric.value}</span>
+              <p className="font-karla text-xs md:text-sm text-white/60 max-w-[150px]">{metric.desc}</p>
             </div>
           ))}
         </div>

@@ -138,8 +138,8 @@ const WorkforceChatDemo: React.FC = () => {
   }, [messages, isTyping]);
 
   return (
-    <section className="w-full py-24 bg-canvas flex flex-col items-center justify-center overflow-hidden">
-      <div className="container mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center gap-16">
+    <section className="w-full py-16 md:py-24 bg-canvas flex flex-col items-center justify-center overflow-hidden">
+      <div className="container mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
         
         {/* Left Content */}
         <div className="lg:w-1/2">
@@ -147,7 +147,7 @@ const WorkforceChatDemo: React.FC = () => {
                 <div className="w-1.5 h-1.5 bg-[#CED600] rounded-full animate-pulse"></div>
                 <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">Demo en Tiempo Real</span>
             </div>
-            <h2 className="font-manrope text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 className="font-manrope text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
                 Tu mejor vendedor <br/>
                 <span className="text-neutral-500">vive en WhatsApp.</span>
             </h2>
@@ -178,8 +178,8 @@ const WorkforceChatDemo: React.FC = () => {
         </div>
 
         {/* Right Content - Phone Mockup */}
-        <div className="lg:w-1/2 flex justify-center scale-90 md:scale-100">
-            <div className="relative w-[375px] h-[812px] bg-black rounded-[2rem] border-8 border-[#1a1a1a] shadow-2xl overflow-hidden flex flex-col font-sans">
+        <div className="lg:w-1/2 flex justify-center w-full">
+            <div className="relative w-full max-w-[340px] md:max-w-[375px] h-[650px] md:h-[812px] bg-black rounded-[2rem] border-8 border-[#1a1a1a] shadow-2xl overflow-hidden flex flex-col font-sans">
                 {/* Status Bar (Android Style) */}
                 <div className="h-8 bg-[#1f2c34] flex justify-between items-center px-4 z-30 text-white/90">
                     <span className="text-xs font-medium tracking-wide">10:00</span>

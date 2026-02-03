@@ -9,6 +9,7 @@ import Showcase from '../components/Showcase';
 import QuoteSeparator from '../components/QuoteSeparator';
 import Workforce from '../components/Workforce';
 import StickyStatement from '../components/StickyStatement';
+import DigitalMaturityDiagnosis from '../components/DigitalMaturityDiagnosis';
 import BrandMarquee from '../components/BrandMarquee';
 import Insights from '../components/Insights';
 import Closing from '../components/Closing';
@@ -89,6 +90,8 @@ const Home: React.FC = () => {
         </div>
 
         <StickyStatement />
+
+        <DigitalMaturityDiagnosis />
 
         <div ref={showcaseRef}>
             <Showcase />

@@ -32,7 +32,7 @@ const WorkforceHowItWorks: React.FC = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full py-24 bg-canvas relative z-10 border-t border-neutral-200/5">
+    <section ref={containerRef} className="w-full py-16 md:py-24 bg-canvas relative z-10 border-t border-neutral-200/5">
         <div className="container mx-auto px-6 md:px-12">
             
             {/* Header - More Compact */}
